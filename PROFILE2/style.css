@@ -1,0 +1,315 @@
+:root{
+    --clr1-tomato: tomato;
+    --clr2-black: black;
+    --clr3-white: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--clr3-white);
+    height: 100vh;
+    width: 100%;
+}
+
+.main_container{
+    overflow-x: hidden;
+    border: solid 10px red;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    width: 1800px;
+    height: 100vh;
+}
+
+/* --------------------------------CONTAINER 1----------------------- */
+.container1{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+/* ----------------------------------ABOUT ME---------------------- */
+
+.Me{
+    position: relative;
+    border: 1px solid purple;
+    width: 700px;
+    height: 500px;
+}
+
+.Me > h1{
+    display: flex;
+    align-items: center;
+    margin-bottom: 12rem;
+    font-size: 5.5rem;
+    font-weight: bolder;
+    border: solid 1px black;
+    width: 100%;
+    height: 200px;
+} .Me > h1 span{
+    font-size: 5.3rem;
+    color: var(--clr1-tomato);
+    margin-left: 15px;
+}
+
+.shape1{
+    position: absolute;
+    bottom: 4rem;
+    left: -10rem;
+    border: solid 5px black;
+    text-align: justify;
+    padding-left: 10rem;
+    padding-top: 1rem;
+    padding-right: 2rem;
+    width: 750px;
+    height: 200px;
+}
+
+.shape1 p{
+    font-size: 1.4rem;
+}
+
+/* ---------------------------- PROFILE PIC ------------------- */
+
+.picture_content{
+    position: relative;
+    display: flex;
+    border: 1px solid purple;
+    width: 700px;
+    height: 500px;
+}
+
+.profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: solid 5px black;
+}
+
+.img1{
+    background-size: cover;
+    width: 200px;
+    height: 300px;
+    border: solid 5px tomato;
+}
+
+.img2{
+    background-size: cover;
+    width: 200px;
+    height: 300px;
+    border: solid 5px tomato;
+}
+
+/* --------------------------------CONTAINER 2----------------------- */
+.container2{
+    display: flex;
+    justify-content: start;
+    margin-top: 10rem;
+    border: solid 1px black;
+    width: 100%;
+    height: 800px;
+}
+
+.tools{
+    position: relative;
+    font-size: 2rem;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid purple;
+    width: 600px;
+} .tools h1:nth-child(1){
+    display: flex;
+    justify-content: start;
+    color: tomato;
+    border: solid 5px black;
+} .tools p:nth-child(2){
+    display: flex;
+    justify-content: center;
+} .tools h1:nth-child(3){
+    display: flex;
+    justify-content: end;
+    color: tomato;
+    border: solid 5px black;
+} .tools p:nth-child(4){
+    display: flex;
+    justify-content: center;
+} .tools h1:nth-child(5){
+    color: tomato;
+    border: solid 5px black;
+}
+
+.the_tools{
+    margin-left: 5rem;
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    height: 100%;
+    border: solid 2px black;
+}
+
+.tools_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    background-color: tomato;
+    border-radius: 10rem;
+
+    clip-path: polygon(
+    0% 10%, 
+    10% 12%, 
+    20% 0%, 
+    30% 10%, 
+    40% 5%, 
+    50% 15%, 
+    60% 0%, 
+    70% 12%, 
+    80% 7%, 
+    90% 15%, 
+    100% 0%, 
+    100% 100%, 
+    0% 100%
+  );
+}
+
+.grid_tools{
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: repeat(4, 80px);
+    margin-top: 2rem;
+    width: 380px;
+    height: 350px;
+    border: solid 1px black;
+    gap: 10px;
+} .grid_tools svg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    filter: url(#svg-shadow);
+}
+/* --------------------------------CONTAINER 3----------------------- */
+
+.container3{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10rem;
+    border: solid 1px black;
+    width: 100%;
+    height: 800px;
+}
+
+.project_lists{
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    overflow: hidden;
+    border: solid 1px purple;
+    width: 100%;
+    height: 600px;
+}
+
+.project1{
+    display: flex;
+    padding: 0.5rem;
+    width: 100%;
+    height: 200px;
+    border: solid 1px black;
+} project1 img{
+    width: 200px;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.project_des{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    gap: 10px;
+    width: 50%;
+} .project_des span{
+    font-weight: bolder;
+}
+
+.project_tools{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+}
+
+/* --------------------------------CONTAINER 4----------------------- */
+
+.container4{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10rem;
+    
+    border: solid 1px black;
+    width: 100%;
+    height: 800px;
+}
+
+.contact_info{
+    display: flex;
+    height: 600px;
+}
+
+.email_details{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    padding: 5rem;
+    padding-bottom: 10rem;
+    width: 50%;
+    height: 100%;
+} .email_details h1{
+    font-size: 4rem;
+}.email_details p{
+    margin-top: 0.5rem;
+    width: 450px;
+} .email_details h4{
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.fill_up_message{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 5rem;
+    width: 50%;
+    height: 100%;
+}
+
+#input_name, #input_address, #input_message{
+    width: 100%;
+    height: 40px;
+    border-radius: 1rem;
+    padding: 1rem;
+} #input_message{
+    width: 100%;
+    height: 100px;
+} .send_message{
+    width: 150px;
+    border-radius: 1rem;
+    height: 40px;
+    cursor: pointer;
+}
