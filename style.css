@@ -185,21 +185,21 @@ body{
 
 .grid_tools{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: repeat(4, 80px);
     margin-top: 2rem;
     width: 380px;
     height: 350px;
     border: solid 1px black;
     gap: 10px;
-} .grid_tools i{
+} .grid_tools svg{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-} .grid_tools i::before{
-    font-size: 4rem;
+
+    filter: url(#svg-shadow);
 }
 /* --------------------------------CONTAINER 3----------------------- */
 
