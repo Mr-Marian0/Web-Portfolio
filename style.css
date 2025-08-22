@@ -57,6 +57,7 @@ body{
 } .Me > h1 span{
     font-size: 5.3rem;
     color: var(--clr1-tomato);
+    margin-left: 15px;
 }
 
 .shape1{
@@ -191,8 +192,15 @@ body{
     height: 350px;
     border: solid 1px black;
     gap: 10px;
+} .grid_tools i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+} .grid_tools i::before{
+    font-size: 4rem;
 }
-
 /* --------------------------------CONTAINER 3----------------------- */
 
 .container3{
@@ -206,8 +214,6 @@ body{
 
 .project_lists{
     display: flex;
-    /* grid-template-columns: repeat(3, 900px);
-    grid-template-rows: 1fr; */
     gap: 10px;
     padding: 10px;
     overflow: hidden;
@@ -216,25 +222,94 @@ body{
     height: 600px;
 }
 
-.img_lists{
+.project1{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    padding: 0.5rem;
     width: 100%;
-    height: 450px;
-} .img_lists img{
-    object-fit: contain;
-    width: 600px;
+    height: 200px;
+    border: solid 1px black;
+} project1 img{
+    width: 200px;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.project_des{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    gap: 10px;
+    width: 50%;
+} .project_des span{
+    font-weight: bolder;
+}
+
+.project_tools{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+}
+
+/* --------------------------------CONTAINER 4----------------------- */
+
+.container4{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10rem;
+    
+    border: solid 1px black;
+    width: 100%;
+    height: 800px;
+}
+
+.contact_info{
+    display: flex;
     height: 600px;
 }
 
-.project1{
+.email_details{
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
-    width: 900px;
+    align-items: start;
+    justify-content: center;
+    padding: 5rem;
+    padding-bottom: 10rem;
+    width: 50%;
     height: 100%;
-    background-color: maroon;
+} .email_details h1{
+    font-size: 4rem;
+}.email_details p{
+    margin-top: 0.5rem;
+    width: 450px;
+} .email_details h4{
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.fill_up_message{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 5rem;
+    width: 50%;
+    height: 100%;
+}
+
+#input_name, #input_address, #input_message{
+    width: 100%;
+    height: 40px;
+    border-radius: 1rem;
+    padding: 1rem;
+} #input_message{
+    width: 100%;
+    height: 100px;
+} .send_message{
+    width: 150px;
+    border-radius: 1rem;
+    height: 40px;
+    cursor: pointer;
 }
