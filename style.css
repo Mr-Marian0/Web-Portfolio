@@ -214,6 +214,7 @@ body{
 
 .project_lists{
     display: flex;
+    flex-direction: column;
     gap: 10px;
     padding: 10px;
     overflow: hidden;
@@ -222,17 +223,12 @@ body{
     height: 600px;
 }
 
-.project1{
+.project1, .project2{
     display: flex;
     padding: 0.5rem;
     width: 100%;
     height: 200px;
     border: solid 1px black;
-} project1 img{
-    width: 200px;
-    height: 100%;
-    background-size: contain;
-    background-repeat: no-repeat;
 }
 
 .project_des{
@@ -251,6 +247,12 @@ body{
     align-items: center;
     width: 100%;
     height: 80px;
+}
+
+.tools_used{
+    display: flex;
+    width: auto;
+    height: 100%;
 }
 
 /* --------------------------------CONTAINER 4----------------------- */
