@@ -2,6 +2,7 @@ import {tools} from "./image/svg/svg_objects.js";
 
 const grid_Tools = document.querySelector('.grid_tools');
 const tools_used = document.querySelector('.tools_used');
+const images = document.querySelectorAll(".profile img"); //used to put profile on TOP
 
 const project_lists = document.querySelector('.project_lists');
 
@@ -18,6 +19,7 @@ const Main_Projects = [
 
 renderAllTools();
 renderProjects();
+selectProfile();
 
 function renderAllTools(){
     for (const [key, value] of Object.entries(tools)){
@@ -42,5 +44,14 @@ function renderProjects(){
                 </div>`
 
         project_lists.insertAdjacentHTML("beforeend", HTMLcontent);
+    });
+}
+
+function selectProfile(){
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            images.forEach(i => i.classList.remove("active"));
+            img.classList.add("active");
+        });
     });
 }

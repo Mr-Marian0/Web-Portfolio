@@ -25,6 +25,7 @@ body{
     border: solid 10px red;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 5rem;
     width: 1800px;
     height: 100vh;
@@ -35,20 +36,21 @@ body{
     display: flex;
     justify-content: start;
     align-items: center;
+    width: 100%;
+    height: 500px;
 }
 /* ----------------------------------ABOUT ME---------------------- */
 
 .Me{
     position: relative;
     border: 1px solid purple;
-    width: 700px;
-    height: 500px;
+    width: 60%;
+    height: 100%;
 }
 
 .Me > h1{
     display: flex;
     align-items: center;
-    margin-bottom: 12rem;
     font-size: 5.5rem;
     font-weight: bolder;
     border: solid 1px black;
@@ -61,15 +63,10 @@ body{
 }
 
 .shape1{
-    position: absolute;
-    bottom: 4rem;
-    left: -10rem;
     border: solid 5px black;
     text-align: justify;
-    padding-left: 10rem;
-    padding-top: 1rem;
-    padding-right: 2rem;
-    width: 750px;
+    padding: 1rem;
+    width: 100%;
     height: 200px;
 }
 
@@ -83,31 +80,47 @@ body{
     position: relative;
     display: flex;
     border: 1px solid purple;
-    width: 700px;
+    width: 40%;
     height: 500px;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile{
+    position: relative;
+    width: 80%;
+    height: 100%;
+    border: solid 5px black;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    border: solid 5px black;
 }
 
-.img1{
-    background-size: cover;
+.profile img{
+    position: absolute;
     width: 200px;
     height: 300px;
-    border: solid 5px tomato;
+    border: 5px solid tomato;
+    border-radius: 20px;
+    cursor: pointer;
+    object-fit: cover;
+
+    transition: all 0.4s ease;
 }
 
-.img2{
-    background-size: cover;
-    width: 200px;
-    height: 300px;
-    border: solid 5px tomato;
+.img1 {
+    top: 25%;
+    left: 30%;
+}
+
+.img2 {
+    top: 20%;
+    left: 25%;
+}
+
+.profile img.active {
+  z-index: 2;
+  transform: scale(1.05);
 }
 
 /* --------------------------------CONTAINER 2----------------------- */
@@ -323,3 +336,79 @@ body{
     height: 40px;
     cursor: pointer;
 }
+
+@media(max-width: 1400px){
+    
+    /* CONTAINER 1 */
+
+    .Me h1{
+        flex: 1 1 100%;
+        flex-wrap: wrap;
+    }
+
+    .picture_content{
+        flex: 1 1 40%;
+    }
+
+    .profile{
+        flex: 1 1 80%;
+    }
+
+    /* CONTAINER 2 */
+
+    .the_tools{
+        flex: 1 1 auto;
+        max-width: 100%;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+    .tools_container{
+        flex: 1 1 auto;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .grid_tools{
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        margin: 1rem;
+    }
+
+    /* CONTAINER3 */
+
+    .project1, .project2{
+        flex: 1 1 45%;
+        min-width: 300px;
+    } 
+
+    .project_lists img{
+        flex: 1 1 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .project_des{
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .project_des h3,
+    .project_des p,
+    .project_tools,
+    .tools_used {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        white-space: normal;
+    } 
+    
+    .project_tools p{
+        width: auto;
+    }
+    
+    .tools_used{
+        grid-template-columns: repeat(9, auto);
+        grid-template-rows: auto;
+    }
+    }
