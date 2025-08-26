@@ -12,6 +12,8 @@
 }
 
 body{
+    background-color: #FFFFFF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='439' height='439' viewBox='0 0 200 200'%3E%3Cg %3E%3Cpolygon fill='%23462712' points='100 57.1 64 93.1 71.5 100.6 100 72.1'/%3E%3Cpolygon fill='%2351301a' points='100 57.1 100 72.1 128.6 100.6 136.1 93.1'/%3E%3Cpolygon fill='%23462712' points='100 163.2 100 178.2 170.7 107.5 170.8 92.4'/%3E%3Cpolygon fill='%2351301a' points='100 163.2 29.2 92.5 29.2 107.5 100 178.2'/%3E%3Cpath fill='%235B3923' d='M100 21.8L29.2 92.5l70.7 70.7l70.7-70.7L100 21.8z M100 127.9L64.6 92.5L100 57.1l35.4 35.4L100 127.9z'/%3E%3Cpolygon fill='%23c23a1e' points='0 157.1 0 172.1 28.6 200.6 36.1 193.1'/%3E%3Cpolygon fill='%23e05535' points='70.7 200 70.8 192.4 63.2 200'/%3E%3Cpolygon fill='%23FF6F4C' points='27.8 200 63.2 200 70.7 192.5 0 121.8 0 157.2 35.3 192.5'/%3E%3Cpolygon fill='%23e05535' points='200 157.1 164 193.1 171.5 200.6 200 172.1'/%3E%3Cpolygon fill='%23c23a1e' points='136.7 200 129.2 192.5 129.2 200'/%3E%3Cpolygon fill='%23FF6F4C' points='172.1 200 164.6 192.5 200 157.1 200 157.2 200 121.8 200 121.8 129.2 192.5 136.7 200'/%3E%3Cpolygon fill='%23c23a1e' points='129.2 0 129.2 7.5 200 78.2 200 63.2 136.7 0'/%3E%3Cpolygon fill='%23FF6F4C' points='200 27.8 200 27.9 172.1 0 136.7 0 200 63.2 200 63.2'/%3E%3Cpolygon fill='%23e05535' points='63.2 0 0 63.2 0 78.2 70.7 7.5 70.7 0'/%3E%3Cpolygon fill='%23FF6F4C' points='0 63.2 63.2 0 27.8 0 0 27.8'/%3E%3C/g%3E%3C/svg%3E");
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,9 +45,12 @@ body{
 
 .Me{
     position: relative;
-    border: 1px solid purple;
     width: 60%;
     height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    border-radius: 1rem;
+    padding: 2rem;
 }
 
 .Me > h1{
@@ -53,7 +58,6 @@ body{
     align-items: center;
     font-size: 5.5rem;
     font-weight: bolder;
-    border: solid 1px black;
     width: 100%;
     height: 200px;
 } .Me > h1 span{
@@ -63,11 +67,11 @@ body{
 }
 
 .shape1{
-    border: solid 5px black;
     text-align: justify;
     padding: 1rem;
     width: 100%;
     height: 200px;
+    
 }
 
 .shape1 p{
@@ -79,7 +83,6 @@ body{
 .picture_content{
     position: relative;
     display: flex;
-    border: 1px solid purple;
     width: 40%;
     height: 500px;
     justify-content: center;
@@ -90,7 +93,6 @@ body{
     position: relative;
     width: 80%;
     height: 100%;
-    border: solid 5px black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,8 +100,8 @@ body{
 
 .profile img{
     position: absolute;
-    width: 200px;
-    height: 300px;
+    width: 250px;
+    height: 350px;
     border: 5px solid tomato;
     border-radius: 20px;
     cursor: pointer;
@@ -109,13 +111,13 @@ body{
 }
 
 .img1 {
-    top: 25%;
-    left: 30%;
+    top: 15%;
+    left: 20%;
 }
 
 .img2 {
-    top: 20%;
-    left: 25%;
+    top: 10%;
+    left: 15%;
 }
 
 .profile img.active {
@@ -123,12 +125,16 @@ body{
   transform: scale(1.05);
 }
 
+.img1:hover{
+    z-index: 2;
+    transform: scale(1.05);
+}
+
 /* --------------------------------CONTAINER 2----------------------- */
 .container2{
     display: flex;
     justify-content: start;
     margin-top: 10rem;
-    border: solid 1px black;
     width: 100%;
     height: 800px;
 }
@@ -138,27 +144,30 @@ body{
     font-size: 2rem;
     height: 100%;
     padding: 1rem;
-    border: 1px solid purple;
     width: 600px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    border-radius: 1rem;
 } .tools h1:nth-child(1){
     display: flex;
-    justify-content: start;
+    justify-content: center;
     color: tomato;
-    border: solid 5px black;
+    
 } .tools p:nth-child(2){
     display: flex;
     justify-content: center;
 } .tools h1:nth-child(3){
     display: flex;
-    justify-content: end;
+    justify-content: center;
     color: tomato;
-    border: solid 5px black;
+    
 } .tools p:nth-child(4){
     display: flex;
     justify-content: center;
 } .tools h1:nth-child(5){
+    display: flex;
     color: tomato;
-    border: solid 5px black;
+    justify-content: center;
 }
 
 .the_tools{
@@ -167,7 +176,6 @@ body{
     justify-content: center;
     width: 600px;
     height: 100%;
-    border: solid 2px black;
 }
 
 .tools_container{
@@ -203,7 +211,6 @@ body{
     margin-top: 2rem;
     width: 380px;
     height: 350px;
-    border: solid 1px black;
     gap: 10px;
 } .grid_tools svg{
     display: flex;
@@ -220,9 +227,12 @@ body{
     display: flex;
     flex-direction: column;
     margin-top: 10rem;
-    border: solid 1px black;
     width: 100%;
     height: 800px;
+
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    border-radius: 1rem;
 }
 
 .project_lists{
@@ -231,7 +241,6 @@ body{
     gap: 10px;
     padding: 10px;
     overflow: hidden;
-    border: solid 1px purple;
     width: 100%;
     height: 600px;
 }
@@ -282,10 +291,12 @@ body{
     display: flex;
     flex-direction: column;
     margin-top: 10rem;
-    
-    border: solid 1px black;
     width: 100%;
     height: 800px;
+
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+    border-radius: 1rem;
 }
 
 .contact_info{
@@ -412,3 +423,475 @@ body{
         grid-template-rows: auto;
     }
     }
+
+@media (max-width: 1200px) {
+    .main_container {
+        width: 100%;
+        padding: 2rem;
+    }
+    
+    .container1 {
+        flex-direction: column;
+        height: auto;
+        gap: 2rem;
+    }
+    
+    .Me {
+        width: 100%;
+        height: auto;
+    }
+    
+    .Me > h1 {
+        font-size: 3.5rem;
+        height: auto;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .Me > h1 span {
+        font-size: 3.3rem;
+    }
+    
+    .picture_content {
+        width: 100%;
+        height: 400px;
+    }
+    
+    .container2 {
+        flex-direction: column;
+        height: auto;
+        gap: 2rem;
+    }
+    
+    .tools {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .the_tools {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .tools_container {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .grid_tools {
+        grid-template-columns: repeat(4, 70px);
+        grid-template-rows: repeat(4, 70px);
+        width: 320px;
+        height: 300px;
+    }
+}
+
+/* Medium screens (768px to 991px) */
+@media (max-width: 992px) {
+    .main_container {
+        padding: 1.5rem;
+    }
+    
+    .Me > h1 {
+        font-size: 2.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .Me > h1 span {
+        font-size: 2.6rem;
+        margin-left: 0;
+    }
+    
+    .shape1 {
+        height: auto;
+        padding: 1.5rem;
+    }
+    
+    .shape1 p {
+        font-size: 1.2rem;
+    }
+    
+    .profile {
+        height: 350px;
+    }
+    
+    .profile img {
+        width: 150px;
+        height: 220px;
+    }
+    
+    .tools {
+        font-size: 1.5rem;
+    }
+    
+    .tools_container {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .grid_tools {
+        grid-template-columns: repeat(3, 70px);
+        grid-template-rows: repeat(5, 60px);
+        width: 250px;
+        height: 320px;
+    }
+    
+    .container3 h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    
+    .project_lists {
+        height: auto;
+    }
+    
+    .project1, .project2 {
+        flex-direction: column;
+        height: auto;
+        gap: 1rem;
+    }
+    
+    .project1 img, .project2 img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    
+    .project_des {
+        margin-left: 0;
+    }
+    
+    .tools_used {
+        grid-template-columns: repeat(6, 50px);
+        width: 100%;
+    }
+    
+    .contact_info {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .email_details {
+        width: 100%;
+        padding: 2rem;
+        text-align: center;
+    }
+    
+    .email_details h1 {
+        font-size: 3rem;
+    }
+    
+    .email_details p {
+        width: 100%;
+    }
+    
+    .fill_up_message {
+        width: 100%;
+        padding: 2rem;
+    }
+}
+
+/* Small screens (576px to 767px) */
+@media (max-width: 768px) {
+    .main_container {
+        padding: 1rem;
+    }
+    
+    .Me > h1 {
+        font-size: 2.2rem;
+    }
+    
+    .Me > h1 span {
+        font-size: 2rem;
+    }
+    
+    .shape1 {
+        padding: 1rem;
+    }
+    
+    .shape1 p {
+        font-size: 1rem;
+    }
+    
+    .picture_content {
+        height: 300px;
+    }
+    
+    .profile {
+        height: 280px;
+    }
+    
+    .profile img {
+        width: 120px;
+        height: 180px;
+    }
+    
+    .img1 {
+        top: 20%;
+        left: 35%;
+    }
+    
+    .img2 {
+        top: 15%;
+        left: 30%;
+    }
+    
+    .container2 {
+        margin-top: 5rem;
+    }
+    
+    .tools {
+        font-size: 1.2rem;
+    }
+    
+    .tools_container {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .grid_tools {
+        grid-template-columns: repeat(3, 60px);
+        grid-template-rows: repeat(5, 50px);
+        width: 200px;
+        height: 270px;
+        gap: 8px;
+    }
+    
+    .container3 {
+        margin-top: 5rem;
+    }
+    
+    .container3 h1 {
+        font-size: 2rem;
+    }
+    
+    .project_des h3 {
+        font-size: 1.1rem;
+    }
+    
+    .project_des p {
+        font-size: 0.9rem;
+    }
+    
+    .tools_used {
+        grid-template-columns: repeat(4, 45px);
+    }
+    
+    .container4 {
+        margin-top: 5rem;
+    }
+    
+    .email_details h1 {
+        font-size: 2.5rem;
+    }
+    
+    .email_details h4 {
+        font-size: 0.9rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .email_details h4 svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Extra small screens (up to 575px) */
+@media (max-width: 576px) {
+    body {
+        height: auto;
+    }
+    
+    .main_container {
+        padding: 0.5rem;
+        height: auto;
+        border-width: 5px;
+    }
+    
+    .Me > h1 {
+        font-size: 1.8rem;
+        padding: 1rem;
+    }
+    
+    .Me > h1 span {
+        font-size: 1.6rem;
+    }
+    
+    .shape1 {
+        padding: 0.8rem;
+    }
+    
+    .shape1 h1 {
+        font-size: 1.5rem;
+    }
+    
+    .shape1 p {
+        font-size: 0.9rem;
+    }
+    
+    .picture_content {
+        height: 250px;
+    }
+    
+    .profile {
+        height: 230px;
+    }
+    
+    .profile img {
+        width: 100px;
+        height: 150px;
+    }
+    
+    .img1 {
+        top: 15%;
+        left: 40%;
+    }
+    
+    .img2 {
+        top: 10%;
+        left: 35%;
+    }
+    
+    .tools {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+    
+    .tools_container {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .grid_tools {
+        grid-template-columns: repeat(3, 50px);
+        grid-template-rows: repeat(5, 40px);
+        width: 170px;
+        height: 220px;
+        gap: 5px;
+    }
+    
+    .container3 h1 {
+        font-size: 1.8rem;
+        padding: 1rem;
+    }
+    
+    .project1, .project2 {
+        padding: 1rem;
+    }
+    
+    .project1 img, .project2 img {
+        height: 150px;
+    }
+    
+    .project_des h3 {
+        font-size: 1rem;
+    }
+    
+    .project_des p {
+        font-size: 0.8rem;
+    }
+    
+    .tools_used {
+        grid-template-columns: repeat(3, 40px);
+        gap: 5px;
+    }
+    
+    .email_details {
+        padding: 1rem;
+    }
+    
+    .email_details h1 {
+        font-size: 2rem;
+    }
+    
+    .email_details p {
+        font-size: 0.9rem;
+    }
+    
+    .email_details h4 {
+        font-size: 0.8rem;
+    }
+    
+    .fill_up_message {
+        padding: 1rem;
+    }
+    
+    .fill_up_message h3 {
+        font-size: 1rem;
+    }
+    
+    #input_name, #input_address {
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    #input_message {
+        height: 80px;
+        font-size: 0.9rem;
+    }
+    
+    .send_message {
+        width: 120px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Ultra small screens (up to 360px) */
+@media (max-width: 360px) {
+    .Me > h1 {
+        font-size: 1.5rem;
+    }
+    
+    .Me > h1 span {
+        font-size: 1.3rem;
+    }
+    
+    .shape1 h1 {
+        font-size: 1.3rem;
+    }
+    
+    .shape1 p {
+        font-size: 0.8rem;
+    }
+    
+    .profile img {
+        width: 80px;
+        height: 120px;
+    }
+    
+    .tools_container {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .grid_tools {
+        grid-template-columns: repeat(2, 45px);
+        grid-template-rows: repeat(8, 35px);
+        width: 100px;
+        height: 300px;
+    }
+    
+    .container3 h1 {
+        font-size: 1.5rem;
+    }
+    
+    .project_des h3 {
+        font-size: 0.9rem;
+    }
+    
+    .project_des p {
+        font-size: 0.7rem;
+    }
+    
+    .tools_used {
+        grid-template-columns: repeat(2, 35px);
+    }
+    
+    .email_details h1 {
+        font-size: 1.8rem;
+    }
+}
