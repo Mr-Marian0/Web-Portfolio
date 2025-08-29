@@ -89,16 +89,25 @@ body{
     align-items: center;
 }
 
-.profile{
+/* .profile{
     position: relative;
     width: 80%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+.profile{
+    position: relative;
+    width: 80%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(26, 1fr);
+    grid-template-rows: repeat(26, 1fr);
 }
 
-.profile img{
+/* .profile img{
     position: absolute;
     width: 250px;
     height: 350px;
@@ -108,15 +117,26 @@ body{
     object-fit: cover;
 
     transition: transform 0.6s ease;
+} */
+
+.profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 5px solid tomato;
+    border-radius: 20px;
+    transition: transform 0.6s ease;
 }
 
 .img1 {
+    grid-area: 4/ 6 /24 / 24;
     top: 15%;
     left: 20%;
     animation: swap1 4s infinite
 }
 
 .img2 {
+    grid-area: 3/ 5 /23 / 23;
     top: 10%;
     left: 15%;
     animation: swap2 4s infinite
@@ -637,16 +657,6 @@ body{
         width: 180px;
         height: 260px;
     }
-    
-    .img1 {
-        top: 15%;
-        left: 15%;
-    }
-    
-    .img2 {
-        top: 10%;
-        left: 10%;
-    }
 
     .container1{
         gap: 0;
@@ -764,16 +774,6 @@ body{
         height: 270px;
     }
     
-    .img1 {
-        top: 17%;
-        left: 15%;
-    }
-    
-    .img2 {
-        top: 10%;
-        left: 5%;
-    }
-    
     .tools {
         font-size: 1rem;
         padding: 0.5rem;
@@ -863,12 +863,6 @@ body{
     .profile img{
         width: 150px;
     }
-    .img1{
-        left: 5%;
-    }
-    .img2{
-        top: 10%;
-    }
 }
 
 /* Ultra small screens (up to 360px) */
@@ -910,18 +904,15 @@ body{
     }
 
     .profile img {
-        width: 200px;
+        width: 190px;
         height: 300px;
     }
-    
-    .img1{
-        top: 10%;
-        left: 20%;
-    }
 
+    .img1{
+        grid-area: 5/ 10 /25 / 21;
+    }
     .img2{
-        top: 0%;
-        left: 10%;
+        grid-area: 3/ 8/ 23/ 19;
     }
     
     .tools_container {
@@ -956,3 +947,5 @@ body{
         font-size: 1.8rem;
     }
 }
+
+/* @media(max-width: 4) */
