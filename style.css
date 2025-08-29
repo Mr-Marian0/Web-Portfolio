@@ -877,7 +877,7 @@ body{
     .container1{
         flex-direction: column;
         align-items: center;
-        height: 600px;
+        height: 550px;
     }
 
     .Me{
@@ -910,18 +910,18 @@ body{
     }
 
     .profile img {
-        width: 150px;
-        height: 250px;
+        width: 200px;
+        height: 300px;
     }
     
     .img1{
         top: 10%;
-        left: 30%;
+        left: 20%;
     }
 
     .img2{
         top: 0%;
-        left: 20%;
+        left: 10%;
     }
     
     .tools_container {
