@@ -13,24 +13,23 @@
 
 body{
     background-color: #FFFFFF;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='439' height='439' viewBox='0 0 200 200'%3E%3Cg %3E%3Cpolygon fill='%23462712' points='100 57.1 64 93.1 71.5 100.6 100 72.1'/%3E%3Cpolygon fill='%2351301a' points='100 57.1 100 72.1 128.6 100.6 136.1 93.1'/%3E%3Cpolygon fill='%23462712' points='100 163.2 100 178.2 170.7 107.5 170.8 92.4'/%3E%3Cpolygon fill='%2351301a' points='100 163.2 29.2 92.5 29.2 107.5 100 178.2'/%3E%3Cpath fill='%235B3923' d='M100 21.8L29.2 92.5l70.7 70.7l70.7-70.7L100 21.8z M100 127.9L64.6 92.5L100 57.1l35.4 35.4L100 127.9z'/%3E%3Cpolygon fill='%23c23a1e' points='0 157.1 0 172.1 28.6 200.6 36.1 193.1'/%3E%3Cpolygon fill='%23e05535' points='70.7 200 70.8 192.4 63.2 200'/%3E%3Cpolygon fill='%23FF6F4C' points='27.8 200 63.2 200 70.7 192.5 0 121.8 0 157.2 35.3 192.5'/%3E%3Cpolygon fill='%23e05535' points='200 157.1 164 193.1 171.5 200.6 200 172.1'/%3E%3Cpolygon fill='%23c23a1e' points='136.7 200 129.2 192.5 129.2 200'/%3E%3Cpolygon fill='%23FF6F4C' points='172.1 200 164.6 192.5 200 157.1 200 157.2 200 121.8 200 121.8 129.2 192.5 136.7 200'/%3E%3Cpolygon fill='%23c23a1e' points='129.2 0 129.2 7.5 200 78.2 200 63.2 136.7 0'/%3E%3Cpolygon fill='%23FF6F4C' points='200 27.8 200 27.9 172.1 0 136.7 0 200 63.2 200 63.2'/%3E%3Cpolygon fill='%23e05535' points='63.2 0 0 63.2 0 78.2 70.7 7.5 70.7 0'/%3E%3Cpolygon fill='%23FF6F4C' points='0 63.2 63.2 0 27.8 0 0 27.8'/%3E%3C/g%3E%3C/svg%3E");
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--clr3-white);
+    background-color: var(--clr1-tomato);
     height: 100vh;
     width: 100%;
 }
 
 .main_container{
     overflow-x: hidden;
-    border: solid 10px red;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 5rem;
     width: 1800px;
-    height: 100vh;
+    height: 100dvh;
+    min-height: 100dvh;
 }
 
 /* --------------------------------CONTAINER 1----------------------- */
@@ -173,9 +172,11 @@ body{
 }
 
 .tools{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
     font-size: 2rem;
-    height: 100%;
     padding: 1rem;
     width: 600px;
     background: rgba(255, 255, 255, 0.3);
@@ -184,22 +185,24 @@ body{
 } .tools h1:nth-child(1){
     display: flex;
     justify-content: center;
-    color: tomato;
+    color: var(--clr2-black);
     
 } .tools p:nth-child(2){
     display: flex;
     justify-content: center;
+    color: var(--clr1-tomato);
 } .tools h1:nth-child(3){
     display: flex;
     justify-content: center;
-    color: tomato;
+    color: var(--clr2-black);
     
 } .tools p:nth-child(4){
     display: flex;
     justify-content: center;
+    color: var(--clr1-tomato);
 } .tools h1:nth-child(5){
     display: flex;
-    color: tomato;
+    color: var(--clr2-black);
     justify-content: center;
 }
 
@@ -217,31 +220,15 @@ body{
     align-items: center;
     width: 500px;
     height: 500px;
-    background-color: tomato;
-    border-radius: 10rem;
-
-    clip-path: polygon(
-    0% 10%, 
-    10% 12%, 
-    20% 0%, 
-    30% 10%, 
-    40% 5%, 
-    50% 15%, 
-    60% 0%, 
-    70% 12%, 
-    80% 7%, 
-    90% 15%, 
-    100% 0%, 
-    100% 100%, 
-    0% 100%
-  );
+    background-color: var(--clr3-white);
+    border-radius: 5rem;
 }
 
 .grid_tools{
     display: grid;
     grid-template-columns: repeat(4, 80px);
     grid-template-rows: repeat(4, 80px);
-    margin-top: 2rem;
+    justify-content: center;
     width: 380px;
     height: 350px;
     gap: 10px;
@@ -317,6 +304,8 @@ body{
     width: 100%;
     height: 100%;
 }
+
+
 
 /* --------------------------------CONTAINER 4----------------------- */
 
@@ -402,9 +391,9 @@ body{
 
     .the_tools{
         flex: 1 1 auto;
-        max-width: 100%;
+        max-width: 40%;
         min-width: 0;
-        margin-left: 0;
+        margin-left: 6rem;
     }
 
     .tools_container{
@@ -490,6 +479,7 @@ body{
     
     .container2 {
         flex-direction: column;
+        align-items: center;
         height: auto;
         gap: 2rem;
     }
@@ -555,17 +545,24 @@ body{
     .tools {
         font-size: 1.5rem;
     }
+
+    .the_tools{
+        flex: 1;
+        max-width: 60%;
+    }
     
     .tools_container {
-        width: 350px;
-        height: 350px;
+        width: 450px;
+        height: 450px;
     }
     
     .grid_tools {
-        grid-template-columns: repeat(3, 70px);
-        grid-template-rows: repeat(5, 60px);
-        width: 250px;
-        height: 320px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        width: 450px;
+        height: 400px;
+        gap: 0;
+        margin: 2rem;
     }
     
     .container3 h1 {
@@ -625,8 +622,14 @@ body{
 
 /* Small screens (576px to 767px) */
 @media (max-width: 768px) {
+    body {
+        height: auto;
+    }
+    
     .main_container {
-        padding: 1rem;
+        padding: 0.5rem;
+        height: auto;
+        border-width: 5px;
     }
     
     .Me > h1 {
@@ -664,6 +667,11 @@ body{
     
     .container2 {
         margin-top: 5rem;
+        height: 550px;
+    }
+    
+    .the_tools{
+        height: 300px;
     }
     
     .tools {
@@ -672,13 +680,13 @@ body{
     
     .tools_container {
         width: 280px;
-        height: 280px;
+        height: 320px;
     }
     
     .grid_tools {
-        grid-template-columns: repeat(3, 60px);
-        grid-template-rows: repeat(5, 50px);
-        width: 200px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        width: 300px;
         height: 270px;
         gap: 8px;
     }
@@ -781,7 +789,7 @@ body{
     
     .tools_container {
         width: 250px;
-        height: 250px;
+        height: 350px;
     }
     
     .grid_tools {
@@ -914,16 +922,21 @@ body{
     .img2{
         grid-area: 3/ 8/ 23/ 19;
     }
+
+    .the_tools{
+        max-width: 100%;
+    }
     
     .tools_container {
-        width: 200px;
-        height: 200px;
+        width: 100%;
+        height: 320px;
+        border-radius: 1rem;
     }
     
     .grid_tools {
-        grid-template-columns: repeat(2, 45px);
-        grid-template-rows: repeat(8, 35px);
-        width: 100px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        width: 100%;
         height: 300px;
     }
     
@@ -948,4 +961,9 @@ body{
     }
 }
 
-/* @media(max-width: 4) */
+@media screen and (max-width: 420px) {
+  body {
+    font-size: 0.9rem;
+    padding-bottom: 3rem;
+  }
+}
