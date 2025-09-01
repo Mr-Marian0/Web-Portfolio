@@ -32,10 +32,10 @@ function renderProjects(){
         const HTMLcontent = `<div class=${element.projectClass}>
                     <img src=${element.image}>
                     <div class="project_des">
-                            <h3><span>Type of Job: </span>${element.jobType}</h3>
-                            <p><span>Job Description:</span> ${element.description}</p>
+                            <h3><span>Title: </span>${element.jobType}</h3>
+                            <p><span>Description:</span> ${element.description}</p>
                             <div class="project_tools">
-                                <p><span>Tools:</span></p>
+                                <p><span>Tools used:</span></p>
                                 <div class="tools_used">
                                     ${element.toolsUsed.map(Tool => tools[`${Tool}`]).join("")}
                                 </div>
