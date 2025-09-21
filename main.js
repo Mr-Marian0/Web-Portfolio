@@ -20,6 +20,7 @@ const Main_Projects = [
 renderAllTools();
 renderProjects();
 selectProfile();
+listenToScrollArea();
 
 function renderAllTools(){
     for (const [key, value] of Object.entries(tools)){
@@ -54,4 +55,34 @@ function selectProfile(){
             img.classList.add("active");
         });
     });
+}
+
+function listenToScrollArea() {
+    const targets = [
+        { id: 'hd_home', min: 0, max: 399 },
+        { id: 'hd_skill', min: 400, max: 1199 },
+        { id: 'hd_projects', min: 1200, max: 2099 },
+        { id: 'hd_contancts', min: 2100, max: Infinity }
+    ];
+
+    const container = document.querySelector(".main_container");
+
+    function updateActiveState() {
+        const scrollY = container.scrollTop;
+        console.log("ScrollY: " + scrollY);
+
+        targets.forEach(target => {
+            const element = document.getElementById(target.id);
+            if (element) {
+                if (scrollY >= target.min && scrollY <= target.max) {
+                    element.style.backgroundColor = '#243c3c';
+                } else {
+                    element.style.backgroundColor = '';
+                }
+            }
+        });
+    }
+
+    updateActiveState();
+    container.addEventListener('scroll', updateActiveState);
 }
