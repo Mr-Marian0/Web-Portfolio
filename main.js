@@ -1,5 +1,6 @@
 import {tools} from "./image/svg/svg_objects.js";
 
+
 const grid_Tools = document.querySelector('.grid_tools');
 const tools_used = document.querySelector('.tools_used');
 const images = document.querySelectorAll(".profile img"); //used to put profile on TOP
@@ -21,6 +22,8 @@ renderAllTools();
 renderProjects();
 selectProfile();
 listenToScrollArea();
+shiftingTabArea();
+sendMail();
 
 function renderAllTools(){
     for (const [key, value] of Object.entries(tools)){
@@ -61,15 +64,14 @@ function listenToScrollArea() {
     const targets = [
         { id: 'hd_home', min: 0, max: 399 },
         { id: 'hd_skill', min: 400, max: 1199 },
-        { id: 'hd_projects', min: 1200, max: 2099 },
-        { id: 'hd_contancts', min: 2100, max: Infinity }
+        { id: 'hd_projects', min: 1200, max: 1999 },
+        { id: 'hd_contancts', min: 2000, max: Infinity }
     ];
 
     const container = document.querySelector(".main_container");
 
     function updateActiveState() {
         const scrollY = container.scrollTop;
-        console.log("ScrollY: " + scrollY);
 
         targets.forEach(target => {
             const element = document.getElementById(target.id);
@@ -85,4 +87,55 @@ function listenToScrollArea() {
 
     updateActiveState();
     container.addEventListener('scroll', updateActiveState);
+}
+
+function shiftingTabArea() {
+    const container = document.querySelector('.main_container');
+    const headBar_Home = document.getElementById('hd_home');
+    const headBar_Skill = document.getElementById('hd_skill');
+    const headBar_Project = document.getElementById('hd_projects');
+    const headBar_Contact = document.getElementById('hd_contancts');
+
+    const sectionCount = 4;
+    const sectionHeight = container.scrollHeight / sectionCount;
+
+    headBar_Home.addEventListener('click', () => {
+        container.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    headBar_Skill.addEventListener('click', () => {
+        container.scrollTo({
+            top: sectionHeight,
+            behavior: 'smooth'
+        });
+    });
+
+    headBar_Project.addEventListener('click', () => {
+        container.scrollTo({
+            top: sectionHeight * 2,
+            behavior: 'smooth'
+        });
+    });
+
+    headBar_Contact.addEventListener('click', () => {
+        container.scrollTo({
+            top: sectionHeight * 3,
+            behavior: 'smooth'
+        });
+    });
+}
+
+function sendMail(){
+
+    const sendMessage = document.querySelector('.send_message').addEventListener('click', ()=>{
+        let parms = {
+            name: document.getElementById("input_name").value,
+            email: document.getElementById("input_address").value,
+            message: document.getElementById("input_message").value,
+        }
+        emailjs.send("service_zcz47oc", "template_bf4vakb", parms).then(alert("Email has been sent"));
+    })
 }
