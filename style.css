@@ -239,52 +239,145 @@ body{
 /* --------------------------------CONTAINER 2----------------------- */
 .container2{
     display: flex;
+    flex-direction: column;
     justify-content: start;
+    gap: 1rem;
     margin-top: 10rem;
     width: 100%;
-    height: 800px;
+    height: auto;
 }
 
-.tools{
+.tools_heading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    background-color: var(--clr-secondary);
+    border-radius: 1rem;
+}
+
+.tools_heading h2{
+    font-size: 2rem;
+    color: var(--clr-base);
+}
+
+.Skillcard_container{
+    perspective: 1000px;
+    width: 100%;
+    height: 500px;
+}
+
+.Skillcard{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.container2_wrap{
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: var(--clr-secondary1);
+    border-radius: 1rem;
+    backface-visibility: hidden;
+    transform: rotateX(0deg);
+}
+
+.container2_wrap1{ /*BACK OF THE CARD*/
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    background-color: var(--clr3-white);
+    transform: rotateX(180deg);
+}
+
+.tool-desc{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    position: relative;
-    font-size: 2rem;
-    padding: 1rem;
-    width: 800px;
-    background: var(--clr-secondary1);
-    backdrop-filter: blur(2px);
-    border-radius: 1rem;
-} .tools h1:nth-child(1){
+    align-items: center;
+    gap: 1rem;
+    height: clamp(100px, 40vh, 800px);
+    width: clamp(500px, 10vh, 600px)
+}
+
+.tool-desc p{
+    text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progress {
+  height: 100%;
+  background: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.flipSkillCard{
+    transform: rotateX(180deg);
+}
+
+.softskills{
     display: flex;
     justify-content: center;
-    color: var(--clr-base);
-    
-} .tools p:nth-child(2){
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-color: var(--clr3-white);
+}
+
+.grid_softskills{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: auto;
+    height: auto;
+}
+
+#softskill-item{
+    cursor: pointer;
     display: flex;
     justify-content: center;
-    color: var(--clr3-white);
-} .tools h1:nth-child(3){
-    display: flex;
-    justify-content: center;
-    color: var(--clr-base);
-    
-} .tools p:nth-child(4){
-    display: flex;
-    justify-content: center;
-    color: var(--clr3-white);
-} .tools h1:nth-child(5){
-    display: flex;
-    color: var(--clr-base);
-    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid black;
+    gap: 5px;
+    padding: 0.5rem;
+    font-size: clamp(0.5rem, 1vw, 0.8rem);
+
+    transition: transform 0.5s ease;
+}
+
+#softskill-item:hover{
+    transform: translateY(-3px);
+} #softskill-item:active{
+    background-color: grey;
 }
 
 .the_tools{
-    margin-left: 5rem;
     display: flex;
     justify-content: center;
-    width: 600px;
+    width: 50%;
     height: 100%;
 }
 
@@ -294,8 +387,26 @@ body{
     align-items: center;
     width: 500px;
     height: 500px;
-    background-color: var(--clr-secondary);
     border-radius: 5rem;
+}
+
+.skill_label{
+    background-color: var(--clr3-white);
+    padding: 0.7rem;
+    border-radius: 0.8rem;
+    top: 2%;
+    left: 0.7%;
+    position: absolute;
+}
+
+.softskill_label{
+    background-color: var(--clr-secondary1);
+    padding: 0.7rem;
+    border-radius: 0.8rem;
+    top: 2%;
+    left: 93.2%;
+    position: absolute;
+    color: var(--clr3-white);
 }
 
 .grid_tools{
@@ -312,8 +423,13 @@ body{
     align-items: center;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 
     filter: url(#svg-shadow);
+    transition: transform 0.2s ease;
+}
+.grid_tools svg:hover{
+    transform: translateY(-2px);
 }
 /* --------------------------------CONTAINER 3----------------------- */
 
@@ -423,6 +539,7 @@ body{
     width: 450px;
 } .email_details h4{
     display: flex;
+    align-items: center;
     width: 100%;
     display: flex;
     margin-top: 2rem;
@@ -582,11 +699,6 @@ body{
         gap: 2rem;
     }
     
-    .tools {
-        width: 100%;
-        text-align: center;
-    }
-    
     .the_tools {
         width: 100%;
         margin-left: 0;
@@ -638,10 +750,6 @@ body{
     .profile img {
         width: 200px;
         height: 320px;
-    }
-    
-    .tools {
-        font-size: 1.5rem;
     }
 
     .the_tools{
@@ -807,10 +915,6 @@ body{
         height: 300px;
     }
     
-    .tools {
-        font-size: 1.2rem;
-    }
-    
     .tools_container {
         width: 280px;
         height: 320px;
@@ -943,11 +1047,6 @@ body{
         height: 270px;
     }
     
-    .tools {
-        font-size: 1rem;
-        padding: 0.5rem;
-    }
-    
     .tools_container {
         width: 250px;
         height: 350px;
@@ -1055,6 +1154,9 @@ body{
         height: 100%;
         width: 70%;
     }
+    .author_name h3{
+        display: none;
+    }
 
     .author_name{
         margin-right: 0.5rem;
@@ -1068,7 +1170,9 @@ body{
     }
 
     #hd_home, #hd_skill, #hd_projects, #hd_contancts{
-        font-size: clamp(0.5rem, 3vw, 1rem);
+        font-size: clamp(0.2rem, 3vw, 0.6rem);
+    } #hd_home span, #hd_skill span, #hd_projects span, #hd_contancts span{
+        font-size: clamp(1rem, 6vw, 2rem);
     }
 
     .container1{

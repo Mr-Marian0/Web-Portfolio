@@ -1,9 +1,12 @@
-import {tools} from "./image/svg/svg_objects.js";
+import {tools, softSkills, toolsDescriptions} from "./image/svg/svg_objects.js";
 
 
 const grid_Tools = document.querySelector('.grid_tools');
 const tools_used = document.querySelector('.tools_used');
+const grid_softSkills = document.querySelector('.grid_softskills');
 const images = document.querySelectorAll(".profile img"); //used to put profile on TOP
+const flipSkillCard = document.querySelector(".Skillcard"); //used to flip skill
+const BackCard = document.querySelector(".container2_wrap1"); //back of the card
 
 const project_lists = document.querySelector('.project_lists');
 
@@ -24,11 +27,103 @@ selectProfile();
 listenToScrollArea();
 shiftingTabArea();
 sendMail();
+listenToFlipCard();
+renderSoftSkills();
+listenToContainer2Clicks();
 
 function renderAllTools(){
     for (const [key, value] of Object.entries(tools)){
         grid_Tools.insertAdjacentHTML("beforeend", value)
     }
+}
+
+function listenToContainer2Clicks(){
+    // collect all svg elements that match any class in toolsDescriptions
+    const classNames = toolsDescriptions.flatMap(obj => Object.keys(obj).filter(k => k !== "description" && k !== "image" && k !== "level"));
+    const selector = classNames.map(c => `svg.${c}`).join(", ");
+    const svgs = document.querySelectorAll(selector);
+    
+    softSkills.forEach(ss => {
+        let skill = document.querySelector(`.${ss.name}`)
+
+        skill.addEventListener('click', () => {
+            BackCard.innerHTML = "";
+
+            const cloneSvg2 = ss.svg.replace(/width="20px"/g, 'width="100px"').replace(/height="20px"/g, 'height="100px"');
+
+            BackCard.innerHTML = `
+                    <div class="tool-desc">
+                    <h2>${ss.name.toUpperCase()}</h2>
+                    ${cloneSvg2}
+                    <p>${ss.description}</p>
+                    ${
+                        ss.level
+                        ? `<div class="progress-bar">
+                            <div class="progress" style="width: ${ss.level}%;"></div>
+                            </div>
+                            <small>${ss.level}%</small>`
+                        : ""
+                    }
+                    </div>
+                `;
+
+            flipSkillCard.classList.toggle('flipSkillCard');
+        })
+    })
+
+    svgs.forEach(svg => {
+        svg.addEventListener('click', () => {
+            BackCard.innerHTML = "";
+
+            const matchedClass = toolsDescriptions.find(obj => Object.keys(obj).includes(svg.classList[0]));
+            let getClass = svg.classList[0];
+
+            if(matchedClass){
+                const tool = toolsDescriptions.find(t => t[getClass] !== undefined);
+                console.log(tool);
+                const clonedSvg = svg.cloneNode(true);
+                clonedSvg.setAttribute("width", 100);
+                clonedSvg.setAttribute("height", 100);
+
+                BackCard.innerHTML = `
+                    <div class="tool-desc">
+                    <h2>${matchedClass[getClass].toUpperCase()}</h2>
+                    ${clonedSvg.outerHTML}
+                    <p>${tool.description}</p>
+                    ${
+                        tool.level
+                        ? `<div class="progress-bar">
+                            <div class="progress" style="width: ${tool.level}%;"></div>
+                            </div>
+                            <small>${tool.level}%</small>`
+                        : ""
+                    }
+                    </div>
+                `;
+            }
+
+            flipSkillCard.classList.toggle('flipSkillCard');
+        })
+    })
+
+
+}
+
+function renderSoftSkills(){
+    softSkills.forEach(skill => {
+        const item = document.createElement("div");
+        item.className = `${skill.name}`;
+        item.id = "softskill-item";
+        item.setAttribute("role", "listitem");
+        item.setAttribute("arial-label", skill.name);
+
+        item.innerHTML = `
+            <span class="softskill-icon" aria-hidden="true">${skill.svg}</span>
+            <span class="softskill-text">${skill.name}</span>
+            `;
+
+            grid_softSkills.appendChild(item);
+    })
 }
 
 function renderProjects(){
@@ -137,5 +232,11 @@ function sendMail(){
             message: document.getElementById("input_message").value,
         }
         emailjs.send("service_zcz47oc", "template_bf4vakb", parms).then(alert("Email has been sent"));
+    })
+}
+
+function listenToFlipCard(){
+    BackCard.addEventListener('click', ()=>{
+        flipSkillCard.classList.toggle('flipSkillCard');
     })
 }
