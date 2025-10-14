@@ -18,10 +18,21 @@
         })();
     </script>
 
+    <!-- SCRIPT FOR TRACKING VISITORS, Google tag (gtag.js)-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7J5306WD1F');
+    </script>
+
     <script type="module" src="main.js"></script>
+    
 </head>
 <body>
-
+    
     <div class="head_bar">
         <ul class="barHead_container">
             <li id="hd_home"><span>H</span>ome</li>
@@ -37,6 +48,8 @@
     </div>
 
     <div class="main_container">
+
+        <img class="visitor_counter" src="https://visitor-badge.laobi.icu/badge?page_id=yourusername.yourrepo" alt="Visitor count">
 
         <div class="container1">
 

@@ -33,6 +33,12 @@ body{
     height: 100dvh;
     min-height: 100dvh;
 }
+
+.visitor_counter{
+    position: absolute;
+    left: 93%;
+    top: 1%;
+}
 /* --------------------------------HEAD BAR------------------------- */
 
 .head_bar{
