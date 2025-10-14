@@ -282,7 +282,7 @@ body{
     display: flex;
     width: 100%;
     height: 100%;
-    background-color: var(--clr-secondary1);
+    background:linear-gradient(to right, var(--clr-secondary) 50%, var(--clr3-white) 50%);
     border-radius: 1rem;
     backface-visibility: hidden;
     transform: rotateX(0deg);
@@ -340,7 +340,7 @@ body{
     align-items: center;
     width: 50%;
     height: 100%;
-    background-color: var(--clr3-white);
+    
 }
 
 .grid_softskills{
@@ -348,7 +348,7 @@ body{
     grid-template-columns: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    width: auto;
+    width: min(90%, 581px);
     height: auto;
 }
 
@@ -382,6 +382,7 @@ body{
 }
 
 .tools_container{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -404,8 +405,10 @@ body{
     padding: 0.7rem;
     border-radius: 0.8rem;
     top: 2%;
-    left: 93.2%;
+    left: 87.7%;
+    width: clamp(85px, 10vw, 172px);
     position: absolute;
+    text-align: center;
     color: var(--clr3-white);
 }
 
@@ -431,6 +434,22 @@ body{
 .grid_tools svg:hover{
     transform: translateY(-2px);
 }
+
+#gridTool2{
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: repeat(4, 80px);
+    justify-content: center;
+    width: 380px;
+    height: 360px;
+    gap: 10px;
+    z-index: -1;
+    opacity: 0;
+    background-color: var(--clr-secondary);
+
+    transition: opacity 0.3s ease;
+}
 /* --------------------------------CONTAINER 3----------------------- */
 
 .container3{
@@ -438,70 +457,213 @@ body{
     flex-direction: column;
     margin-top: 10rem;
     width: 100%;
-    height: 800px;
-
+    min-height: 800px;
     background: var(--clr-secondary1);
     backdrop-filter: blur(2px);
     border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .container3 h1{
-    margin: 1%;
+    margin: 0 0 2rem 0;
     color: var(--clr-base);
+    font-size: 2.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 3px solid var(--clr-accent);
+    padding-bottom: 1rem;
 }
 
 .project_lists{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+    overflow-y: auto;
     width: 100%;
-    height: 600px;
+    max-height: 700px;
 }
 
-.project1, .project2{
-    display: flex;
-    padding: 0.5rem;
+.project_lists::-webkit-scrollbar {
+    width: 8px;
+}
+
+.project_lists::-webkit-scrollbar-track {
+    background: rgba(47, 79, 79, 0.3);
+    border-radius: 10px;
+}
+
+.project_lists::-webkit-scrollbar-thumb {
+    background: var(--clr-accent);
+    border-radius: 10px;
+}
+
+.project_lists::-webkit-scrollbar-thumb:hover {
+    background: var(--clr-base);
+}
+
+/* Project Card Styles */
+.project_lists > div {
+    background: rgba(47, 79, 79, 0.6);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.project_lists > div:hover {
+    transform: translateY(-5px);
+    border-color: var(--clr-accent);
+    box-shadow: 0 8px 25px rgba(64, 224, 208, 0.3);
+}
+
+/* Project Image Container */
+.project_lists > div > img {
     width: 100%;
-    height: 200px;
-    border: solid 1px black;
+    height: 250px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid var(--clr-base);
+}
+
+.project_lists > div > img:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
 }
 
 .project_des{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 1rem;
-    gap: 10px;
+    padding: 1.5rem;
+    gap: 1rem;
     width: 100%;
-} .project_des span{
+    background: rgba(47, 79, 79, 0.4);
+}
+
+.project_des h3 {
+    font-size: 1.3rem;
+    color: var(--clr-accent);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.project_des span{
     font-weight: bolder;
     color: var(--clr-base);
 }
 
-.project_tools{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    width: auto;
-    height: 80px;
+.project_des p {
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.95rem;
 }
 
-.tools_used{
-    display: grid;
-    grid-template-columns: repeat(9, 80px);
-    grid-template-rows: 80px;
-    gap: 10px;
-    width: 800px;
-    height: 100%;
-} .tools_used svg{
+.project_tools {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.project_tools > p {
+    margin: 0;
+    color: #e0e0e0;
+}
+
+.tools_used {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    width: 100%;
+}
+.tools_used svg {
+    width: 45px;
+    height: 45px;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.tools_used svg:hover {
+    transform: translateY(-3px) rotate(5deg);
+    background: rgba(64, 224, 208, 0.2);
+    border-color: var(--clr-accent);
+}
+
+/* Image Modal Styles */
+.image_modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s ease;
 }
 
-.project_des h3, .project_des p{
-    color: var(--clr3-white);
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal_content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    animation: zoomIn 0.3s ease;
+    border: 3px solid var(--clr-accent);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 50px rgba(64, 224, 208, 0.5);
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.7); }
+    to { transform: scale(1); }
+}
+
+.modal_close {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    color: var(--clr-base);
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.modal_close:hover,
+.modal_close:focus {
+    color: var(--clr-accent);
+    transform: rotate(90deg);
+}
+
+.modal_caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: var(--clr-accent);
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 /* --------------------------------CONTAINER 4----------------------- */
@@ -595,9 +757,8 @@ body{
 
     .the_tools{
         flex: 1 1 auto;
-        max-width: 40%;
+        
         min-width: 0;
-        margin-left: 6rem;
     }
 
     .tools_container{
@@ -613,11 +774,6 @@ body{
     }
 
     /* CONTAINER3 */
-
-    .project1, .project2{
-        flex: 1 1 45%;
-        min-width: 300px;
-    } 
 
     .project_lists img{
         flex: 1 1 100%;
@@ -700,13 +856,14 @@ body{
     }
     
     .the_tools {
-        width: 100%;
+        width: 50%;
         margin-left: 0;
     }
     
     .tools_container {
-        width: 400px;
-        height: 400px;
+        flex: 1 1 auto;
+        max-width: 50%;
+        min-width: 0;
     }
     
     .grid_tools {
@@ -752,23 +909,63 @@ body{
         height: 320px;
     }
 
+    /* CONTAINER2 */
+
+    .container2_wrap{
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(to bottom, var(--clr-secondary) 50%, var(--clr3-white) 50%);
+    }
+
+    .Skillcard_container {
+        height: 1000px;
+    }
+
+    #gridTool2 {
+        width: 350px;
+        height: 406px;
+    }
+
+    .softskills {
+        width: 100%;
+    }
+
+    .softskill_label {
+        top: 51%;
+        left: 1%;
+    }
+
+    .skill_label {
+        top: 1%;
+        left: 1%;
+    }
+
     .the_tools{
         flex: 1;
-        max-width: 60%;
+        width: 100%;
     }
     
     .tools_container {
+        margin-top: 3rem;
         width: 450px;
         height: 450px;
+        max-width: 100%;
     }
     
     .grid_tools {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-        width: 450px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        width: 85%;
         height: 400px;
-        gap: 0;
-        margin: 2rem;
+        gap: 10px;
+    }
+
+    #gridTool2{
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+         width: 85%;
+        height: 408px;
+        gap: 10px;
     }
     
     .container3 h1 {
@@ -778,12 +975,6 @@ body{
     
     .project_lists {
         height: auto;
-    }
-    
-    .project1, .project2 {
-        flex-direction: column;
-        height: auto;
-        gap: 1rem;
     }
     
     .project1 img, .project2 img {
@@ -905,35 +1096,45 @@ body{
     .container1{
         gap: 0;
     }
+
+    /* CONTAINER2 */
     
     .container2 {
         margin-top: 5rem;
-        height: 550px;
+        height: 850px;
     }
     
     .the_tools{
-        height: 300px;
+        height: 50%;
     }
     
     .tools_container {
-        width: 280px;
+        width: 100%;
         height: 320px;
+        max-width: 100%;
     }
     
     .grid_tools {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-        width: 300px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 85%;
         height: 270px;
-        gap: 8px;
+        gap: 10px;
+        margin: 0;
     }
-    
-    .container3 {
-        margin-top: 5rem;
+
+    #gridTool2{
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 85%;
+        height: 278px;
+        gap: 10px;
     }
-    
-    .container3 h1 {
-        font-size: 2rem;
+
+    .grid_softskills {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
     }
     
     .project_des h3 {
@@ -964,6 +1165,34 @@ body{
     .email_details h4 svg {
         width: 30px;
         height: 30px;
+    }
+    .container3 {
+        padding: 1rem;
+        margin-top: 5rem;
+    }
+    
+    .container3 h1 {
+        font-size: 1.8rem;
+    }
+    
+    .project_lists {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .project_lists > div > img {
+        height: 200px;
+    }
+    
+    .modal_close {
+        top: 15px;
+        right: 25px;
+        font-size: 40px;
+    }
+    
+    .tools_used svg {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -1046,6 +1275,8 @@ body{
         width: 170px;
         height: 270px;
     }
+
+    /* CONTAINER2 */
     
     .tools_container {
         width: 250px;
@@ -1053,11 +1284,20 @@ body{
     }
     
     .grid_tools {
-        grid-template-columns: repeat(3, 50px);
-        grid-template-rows: repeat(5, 40px);
-        width: 170px;
-        height: 220px;
-        gap: 5px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 85%;
+        height: 270px;
+        gap: 10px;
+        margin: 0;
+    }
+
+    #gridTool2{
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 85%;
+        height: 278px;
+        gap: 10px;
     }
     
     .container3 h1 {
@@ -1065,9 +1305,6 @@ body{
         padding: 1rem;
     }
     
-    .project1, .project2 {
-        padding: 1rem;
-    }
     
     .project1 img, .project2 img {
         height: 150px;
@@ -1226,6 +1463,8 @@ body{
         grid-area: 3/ 8/ 23/ 19;
     }
 
+    /* CONTAINER2 */
+
     .the_tools{
         max-width: 100%;
     }
@@ -1237,10 +1476,28 @@ body{
     }
     
     .grid_tools {
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-        width: 100%;
-        height: 300px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 85%;
+        height: 270px;
+        gap: 10px;
+        margin: 0;
+    }
+
+    #gridTool2{
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 85%;
+        height: 278px;
+        gap: 10px;
+    }
+
+    .tool-desc {
+        justify-content: center;
+        gap: 1rem;
+        height: 90%;
+        width: clamp(500px, 10vh, 600px);
+        margin: 1rem;
     }
     
     .container3 h1 {

@@ -2,6 +2,9 @@ import {tools, softSkills, toolsDescriptions} from "./image/svg/svg_objects.js";
 
 
 const grid_Tools = document.querySelector('.grid_tools');
+const gridToolId1 = document.getElementById("gridTool1");
+const gridToolId2 = document.getElementById("gridTool2");
+
 const tools_used = document.querySelector('.tools_used');
 const grid_softSkills = document.querySelector('.grid_softskills');
 const images = document.querySelectorAll(".profile img"); //used to put profile on TOP
@@ -9,16 +12,28 @@ const flipSkillCard = document.querySelector(".Skillcard"); //used to flip skill
 const BackCard = document.querySelector(".container2_wrap1"); //back of the card
 
 const project_lists = document.querySelector('.project_lists');
+const imageModal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const modalCaption = document.getElementById('modalCaption');
+const modalClose = document.querySelector('.modal_close');
 
 const Main_Projects = [
 
-    {projectClass: "project1", jobType: "Mapping, Field Work and Web Development", image: "image/projects/mamuric2.png",
-    description: "Created a map for Mamuric7 internet provider highlighting the locations of Network Access Points from different locations. We also developed a local server website using XAMPP that allows the users/admins to perform CRUD operations.",
-    toolsUsed: ["html","css", "javascript", "php", "xampp"] },
+    {
+        projectClass: "project1", 
+        jobType: "Mapping, Field Work and Web Development", 
+        image: "image/projects/mamuric2.png",
+        description: "Created a map for Mamuric7 internet provider highlighting the locations of Network Access Points from different locations. We also developed a local server website using XAMPP that allows the users/admins to perform CRUD operations.",
+        toolsUsed: ["html","css", "javascript", "php", "xampp"]
+    },
 
-    {projectClass: "project2", jobType: "Thesis / Capstone", image: "image/projects/thesis1.png",
-    description: "We developed a local server website for laboratory assistant",
-    toolsUsed: ["html","css", "javascript", "nodeJs", "git", "github", "MYSQL"] },
+    {
+        projectClass: "project2", 
+        jobType: "Thesis / Capstone", 
+        image: "image/projects/thesis1.png",
+        description: "We developed a local server website for laboratory assistant",
+        toolsUsed: ["html","css", "javascript", "nodeJs", "git", "github", "MYSQL"]
+    },
 ]
 
 renderAllTools();
@@ -31,10 +46,25 @@ listenToFlipCard();
 renderSoftSkills();
 listenToContainer2Clicks();
 
+
 function renderAllTools(){
-    for (const [key, value] of Object.entries(tools)){
-        grid_Tools.insertAdjacentHTML("beforeend", value)
+    let count = 0;
+    for (const [key, value] of Object.entries(tools)) {
+        const targetGrid = count < 16 ? grid_Tools : gridToolId2;
+        targetGrid.insertAdjacentHTML("beforeend", value);
+        count++;
     }
+
+    setInterval(()=>{
+        if(gridToolId2.style.zIndex === "-1"){
+            gridToolId2.style.zIndex = 1;
+            gridToolId2.style.opacity = 1;
+        } else {
+            gridToolId2.style.zIndex = -1;
+            gridToolId2.style.opacity = 0;
+        }
+        
+    }, 4000);
 }
 
 function listenToContainer2Clicks(){
@@ -126,24 +156,70 @@ function renderSoftSkills(){
     })
 }
 
-function renderProjects(){
+function renderProjects() {
     Main_Projects.forEach(element => {
-        const HTMLcontent = `<div class=${element.projectClass}>
-                    <img src=${element.image}>
+        const toolsHTML = element.toolsUsed.length > 0 
+            ? element.toolsUsed.map(Tool => tools[`${Tool}`]).join("") 
+            : '<p style="color: #40e0d0; font-style: italic;">No tools specified yet</p>';
+        
+        const HTMLcontent = `<div class="${element.projectClass}">
+                    <img src="${element.image}" alt="${element.jobType}" class="project_thumbnail">
                     <div class="project_des">
-                            <h3><span>Title: </span>${element.jobType}</h3>
-                            <p><span>Description:</span> ${element.description}</p>
-                            <div class="project_tools">
-                                <p><span>Tools used:</span></p>
-                                <div class="tools_used">
-                                    ${element.toolsUsed.map(Tool => tools[`${Tool}`]).join("")}
-                                </div>
+                        <h3><span>Title: </span>${element.jobType}</h3>
+                        <p><span>Description: </span>${element.description}</p>
+                        <div class="project_tools">
+                            <p><span>Tools used:</span></p>
+                            <div class="tools_used">
+                                ${toolsHTML}
                             </div>
+                        </div>
                     </div>
-                </div>`
+                </div>`;
 
         project_lists.insertAdjacentHTML("beforeend", HTMLcontent);
     });
+    
+    // Add click event listeners to all project thumbnails
+    initializeImagePopup();
+}
+
+function initializeImagePopup() {
+    const thumbnails = document.querySelectorAll('.project_thumbnail');
+    
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener('click', function() {
+            openModal(this.src, Main_Projects[index].jobType);
+        });
+    });
+    
+    // Close modal when clicking the close button
+    modalClose.addEventListener('click', closeModal);
+    
+    // Close modal when clicking outside the image
+    imageModal.addEventListener('click', function(e) {
+        if (e.target === imageModal) {
+            closeModal();
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && imageModal.style.display === 'block') {
+            closeModal();
+        }
+    });
+}
+
+function openModal(imageSrc, caption) {
+    imageModal.style.display = 'block';
+    modalImage.src = imageSrc;
+    modalCaption.textContent = caption;
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeModal() {
+    imageModal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
 }
 
 function selectProfile(){
