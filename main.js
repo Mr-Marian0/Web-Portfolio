@@ -223,6 +223,16 @@ function closeModal() {
 }
 
 function selectProfile(){
+
+    let rand1 = Math.floor(Math.random() * 16) + 1;
+    let rand2;
+    do {
+    rand2 = Math.floor(Math.random() * 16) + 1;
+    } while (rand2 === rand1);
+
+    document.querySelector('.img1').src = `image/me${rand1}.jpg`;
+    document.querySelector('.img2').src = `image/me${rand2}.jpg`;
+
     images.forEach(img => {
         img.addEventListener("click", () => {
             images.forEach(i => i.classList.remove("active"));
@@ -266,6 +276,7 @@ function shiftingTabArea() {
     const headBar_Skill = document.getElementById('hd_skill');
     const headBar_Project = document.getElementById('hd_projects');
     const headBar_Contact = document.getElementById('hd_contancts');
+    const contact_Button = document.querySelector('.contact_btn');
 
     const sectionCount = 4;
     const sectionHeight = container.scrollHeight / sectionCount;
@@ -292,6 +303,13 @@ function shiftingTabArea() {
     });
 
     headBar_Contact.addEventListener('click', () => {
+        container.scrollTo({
+            top: sectionHeight * 3,
+            behavior: 'smooth'
+        });
+    });
+
+    contact_Button.addEventListener('click', () => {
         container.scrollTo({
             top: sectionHeight * 3,
             behavior: 'smooth'

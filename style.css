@@ -196,7 +196,7 @@ body{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border: 5px solid tomato;
+    border: 5px solid whitesmoke;
     border-radius: 20px;
     transition: transform 0.6s ease;
 }
@@ -726,6 +726,7 @@ body{
 } #input_message{
     width: 100%;
     height: 100px;
+    resize: none;
     background-color: var(--clr-accent);
 } .send_message{
     background-color: var(--clr-accent);
@@ -1490,6 +1491,15 @@ body{
         width: 85%;
         height: 278px;
         gap: 10px;
+    }
+
+    .grid_softskills {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        width: auto;
+        height: auto;
+        margin: 1rem;
+        gap: 5px;
     }
 
     .tool-desc {
