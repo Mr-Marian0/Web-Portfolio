@@ -627,6 +627,7 @@ body{
 .modal_content {
     margin: auto;
     display: block;
+    margin-top: 1rem;
     max-width: 90%;
     max-height: 85vh;
     object-fit: contain;

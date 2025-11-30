@@ -23,6 +23,7 @@ const Main_Projects = [
         projectClass: "project1", 
         jobType: "Mapping, Field Work and Web Development", 
         image: "image/projects/mamuric2.png",
+        additionalImage: ["image/projects/mamuric1.png", "image/projects/mamuric3.png"],
         description: "Created a map for Mamuric7 internet provider highlighting the locations of Network Access Points from different locations. We also developed a local server website using XAMPP that allows the users/admins to perform CRUD operations.",
         toolsUsed: ["html","css", "javascript", "php", "xampp"]
     },
@@ -31,6 +32,7 @@ const Main_Projects = [
         projectClass: "project2", 
         jobType: "Thesis / Capstone", 
         image: "image/projects/thesis1.png",
+        additionalImage: ["image/projects/thesis2.png","image/projects/thesis3.png","image/projects/thesis4.png"],
         description: "We developed a local server website for laboratory assistant",
         toolsUsed: ["html","css", "javascript", "nodeJs", "git", "github", "MYSQL"]
     },
@@ -162,7 +164,8 @@ function renderProjects() {
             ? element.toolsUsed.map(Tool => tools[`${Tool}`]).join("") 
             : '<p style="color: #40e0d0; font-style: italic;">No tools specified yet</p>';
         
-        const HTMLcontent = `<div class="${element.projectClass}">
+        const HTMLcontent = `
+            <div class="${element.projectClass}">
                     <img src="${element.image}" alt="${element.jobType}" class="project_thumbnail">
                     <div class="project_des">
                         <h3><span>Title: </span>${element.jobType}</h3>
@@ -178,7 +181,6 @@ function renderProjects() {
 
         project_lists.insertAdjacentHTML("beforeend", HTMLcontent);
     });
-    
     // Add click event listeners to all project thumbnails
     initializeImagePopup();
 }
@@ -188,7 +190,7 @@ function initializeImagePopup() {
     
     thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function() {
-            openModal(this.src, Main_Projects[index].jobType);
+            openModal(this.src, Main_Projects[index].jobType, index);
         });
     });
     
@@ -210,14 +212,33 @@ function initializeImagePopup() {
     });
 }
 
-function openModal(imageSrc, caption) {
+function openModal(imageSrc, caption, projectIndex) {
+    const modalPlace = document.querySelector('.image_modal');
+    const targetPlace = document.querySelector('.modal_content');
+
     imageModal.style.display = 'block';
     modalImage.src = imageSrc;
     modalCaption.textContent = caption;
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+    Main_Projects[projectIndex].additionalImage.forEach(image => {
+        const samp = document.createElement("img");
+        samp.className = "modal_content";
+        samp.src = `${image}`
+        targetPlace.insertAdjacentElement('afterend',samp)
+    })
 }
 
 function closeModal() {
+    
+    const allModalContent = document.querySelectorAll('.modal_content');
+    
+    for(let i=1; i < allModalContent.length; i++){
+        allModalContent[i].remove();
+        console.log('all modal size: ', allModalContent.length);
+        console.log("removed", i)
+    }
+
     imageModal.style.display = 'none';
     document.body.style.overflow = 'auto'; // Restore scrolling
 }
