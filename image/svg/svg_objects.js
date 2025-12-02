@@ -128,7 +128,20 @@ export const tools = {
         </g>
     </g>
     </svg>`,
-    
+    unity: `<svg class="unity" fill="#000000" width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>unity</title>
+    <path d="M25.94 25.061l-5.382-9.060 5.382-9.064 2.598 9.062-2.599 9.060zM13.946 24.191l-6.768-6.717h10.759l5.38 9.061-9.372-2.342zM13.946 7.809l9.371-2.342-5.379 9.061h-10.761zM30.996 12.917l-3.282-11.913-12.251 3.193-1.812 3.112-3.68-0.027-8.966 8.719 8.967 8.72 3.678-0.029 1.817 3.112 12.246 3.192 3.283-11.908-1.864-3.087z"></path>
+    </svg>`,
+    android_Studio: `<svg class="androidStudio" width="24px" height="24px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"><title>Android Studio icon</title><path d="M12 0C6.0697 0 1.254 4.8158 1.254 10.746c0 3.29 1.4819 6.237 3.8144 8.209l4.5097-7.7987-.3926-.3907c-.115-.1151-.173-.2124-.1757-.3027a.2386.2386 0 010-.0293H9V7.875c0-.6155.5095-1.123 1.125-1.123h.6348V4.7383H13.25V6.752h.625c.6253 0 1.125.5075 1.1348 1.1328v2.539H15v.0098h-.002c-.0032.0868-.0511.1996-.1738.3223l-.0097.0097-.3907.3907 1.9336 3.3417c.8695-1.016 1.3965-2.3255 1.3965-3.752h2.004c0 2.1788-.9096 4.1538-2.3556 5.5606l1.5293 2.6504c2.333-1.9721 3.8145-4.9207 3.8145-8.211C22.7559 4.806 17.94 0 12 0zm6.9316 18.957a10.7911 10.7911 0 01-1.6523 1.1504l1.5195 2.627a.5687.5687 0 00.1973.205L20.5 23.9649c.0586.0391.127.0391.1855.0098.0587-.039.088-.0976.088-.166l-.1563-1.8066c-.0098-.0977-.039-.1856-.0879-.2735l-1.5977-2.7715zm-1.6523 1.1504l-1.498-2.5898a7.6932 7.6932 0 01-3.7715.9863 7.6932 7.6932 0 01-3.7715-.9863l-1.5 2.5976c1.556.8767 3.3504 1.379 5.2617 1.379 1.9182 0 3.7195-.5042 5.2793-1.3868zm-10.541.0078a10.788 10.788 0 01-1.67-1.1601l-1.5976 2.7636c-.0488.088-.0781.1758-.0879.2735l-.1367 1.8164c-.0098.0684.0293.127.0879.166.0586.039.127.0293.1855-.0098l1.504-1.0156c.0781-.0586.1464-.1269.1952-.205l1.5196-2.629zM12 7.7285v.0195c-.8288 0-1.4915.6622-1.4941 1.5.0026.8283.675 1.498 1.4941 1.498h.0098c.819-.0097 1.4914-.6699 1.4941-1.498-.0026-.8281-.675-1.4902-1.4941-1.5L12 7.7285zm-.9473 4.9043l-1.8183 3.1465A5.7067 5.7067 0 0012 16.4922c1.0063 0 1.9547-.2537 2.7559-.7031l-1.8145-3.1504-.375.375c-.1465.1563-.3515.2343-.5566.2343h-.0196c-.1954 0-.4003-.078-.5566-.2343l-.3809-.3809Z"/></svg>`,
+    microsoft_Office_Applications: `<svg class="microsoftOffice" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 291.346 291.346" style="enable-background:new 0 0 291.346 291.346;" xml:space="preserve">
+    <g>
+        <path style="fill:#26A6D1;" d="M117.547,266.156L0,249.141v-94.296h117.547V266.156z"/>
+        <path style="fill:#3DB39E;" d="M291.346,136.51H136.31l0.055-114.06L291.346,0.009V136.51z"/>
+        <path style="fill:#F4B459;" d="M291.346,291.337l-155.091-22.459l0.182-114.015h154.909V291.337z"/>
+        <path style="fill:#E2574C;" d="M117.547,136.51H0V42.205l117.547-17.024V136.51z"/>
+    </g>
+    </svg>`,
 }
 
 export const softSkills = [
@@ -293,6 +306,9 @@ export const toolsDescriptions = [
     {NodeJs:"nodeJs", description:"I used Node.js extensively during my thesis project. It helped us set up servers, handle static files, detect RFID scanners, and manage backend tasks efficiently. I worked with various libraries to streamline development.", level: 90},
     {photoShop:"photoShop", description:"I learned Photoshop in high school, where we were taught basic tools, shortcuts, and creative techniques. I completed several projects involving photo editing and digital art, which sparked my interest in design.", level: 90},
     {xampp:"xampp", description:"I’ve used XAMPP to run local servers for projects involving MySQL and Apache. It was especially useful during my on-the-job training and thesis work, allowing me to test and debug websites locally.", level: 90},
+    {unity:"unity", description:"I used the Unity game engine to create my first game called 'I'm Not Insane.' It was a fun experience using it, especially getting familiar with C# code.", level: 80},
+    {androidStudio:"android_Studio", description:"We used this back when I was in college. Making projects with it like login pages, responsive design transitions, and more.", level: 70},
+    {microsoftOffice:"microsoft_Office_Applications", description:"I'm familiar with Microsoft Word, Excel, Powerpoint and Copilot.", level: 80},
 ]
 
 export const Tools_Used = [

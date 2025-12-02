@@ -36,6 +36,15 @@ const Main_Projects = [
         description: "We developed a local server website for laboratory assistant",
         toolsUsed: ["html","css", "javascript", "nodeJs", "git", "github", "MYSQL"]
     },
+
+    {
+        projectClass: "project3",
+        jobType: "Identification Reviewer",
+        image: "image/projects/revWeb1.png",
+        additionalImage: ["image/projects/revWeb4.png", "image/projects/revWeb3.png", "image/projects/revWeb2.png"],
+        description: "It was a project idea for me to be able to review while waiting for my Civil Service Exam. Where users can put sentences and select a word to be blanked. In which the data will be saved to their localStorage.",
+        toolsUsed: ["html","css","javascript"]
+    }
 ]
 
 renderAllTools();
@@ -74,7 +83,8 @@ function listenToContainer2Clicks(){
     const classNames = toolsDescriptions.flatMap(obj => Object.keys(obj).filter(k => k !== "description" && k !== "image" && k !== "level"));
     const selector = classNames.map(c => `svg.${c}`).join(", ");
     const svgs = document.querySelectorAll(selector);
-    
+    console.log(selector)
+
     softSkills.forEach(ss => {
         let skill = document.querySelector(`.${ss.name}`)
 
@@ -119,7 +129,7 @@ function listenToContainer2Clicks(){
 
                 BackCard.innerHTML = `
                     <div class="tool-desc">
-                    <h2>${matchedClass[getClass].toUpperCase()}</h2>
+                    <h2>${matchedClass[getClass].toUpperCase().replaceAll("_"," ")}</h2>
                     ${clonedSvg.outerHTML}
                     <p>${tool.description}</p>
                     ${
