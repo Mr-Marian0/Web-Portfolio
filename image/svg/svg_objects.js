@@ -142,6 +142,8 @@ export const tools = {
         <path style="fill:#E2574C;" d="M117.547,136.51H0V42.205l117.547-17.024V136.51z"/>
     </g>
     </svg>`,
+    visualStudioCode: `<svg class="VsCode" width="800px" height="800px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title>file_type_vscode</title><path d="M29.01,5.03,23.244,2.254a1.742,1.742,0,0,0-1.989.338L2.38,19.8A1.166,1.166,0,0,0,2.3,21.447c.025.027.05.053.077.077l1.541,1.4a1.165,1.165,0,0,0,1.489.066L28.142,5.75A1.158,1.158,0,0,1,30,6.672V6.605A1.748,1.748,0,0,0,29.01,5.03Z" style="fill:#0065a9"/><path d="M29.01,26.97l-5.766,2.777a1.745,1.745,0,0,1-1.989-.338L2.38,12.2A1.166,1.166,0,0,1,2.3,10.553c.025-.027.05-.053.077-.077l1.541-1.4A1.165,1.165,0,0,1,5.41,9.01L28.142,26.25A1.158,1.158,0,0,0,30,25.328V25.4A1.749,1.749,0,0,1,29.01,26.97Z" style="fill:#007acc"/><path d="M23.244,29.747a1.745,1.745,0,0,1-1.989-.338A1.025,1.025,0,0,0,23,28.684V3.316a1.024,1.024,0,0,0-1.749-.724,1.744,1.744,0,0,1,1.989-.339l5.765,2.772A1.748,1.748,0,0,1,30,6.6V25.4a1.748,1.748,0,0,1-.991,1.576Z" style="fill:#1f9cf0"/></svg>`,
+    krita: `<svg class="Krita" width="24px" height="24px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"><title>Krita icon</title><path d="M.652.76a.625.625 0 00-.5.246c-.352.448-.035.898.362 1.262.206.189 1.77 1.794 3.428 3.527a11.054 11.054 0 011.815-1.983C3.667 2.515 1.694 1.266 1.461 1.1 1.201.914.917.762.652.76zm5.105 3.052c1.848 1.148 3.786 2.332 4.693 2.84 1.469.821 3.758 2.684 4.092 4.434.535.466 2.182 1.916 2.596 2.413.698-.211 1.518.133 2.06 1.12.866 1.583.227 3.747-1.968 4.988a5.42 5.42 0 01-.296.267l.296-.267c1.14-1.468-.714-2.44-1.175-3.864a2.06 2.06 0 01-.11-.78c-.533-.282-2.11-1.452-2.795-1.965-1.801.16-4.207-1.773-5.35-3.08-.7-.802-2.32-2.517-3.858-4.123a11.052 11.052 0 00-2.046 6.393A11.052 11.052 0 1012.948 1.136c-2.64.004-5.19.954-7.19 2.676zm8.71 7.552c-.515.126-.968.831-1.118 1.306-.038.115-.04.303.066.342.802.592 1.556 1.168 2.4 1.7.162-.393.746-.963 1.096-1.2zm-11.53 1.639c.812 1.898 5.798 7.17 12.06 2.695a2.07 2.07 0 00.114.715c.46 1.42 2.36 2.427 1.238 3.89-2.135 1.364-5 1.201-6.989.528-3.558-1.204-5.914-4.332-6.424-7.828zm13.782.7a.771.771 0 00-.065.049c-.004.003-.008.008-.011.008.003-.003.007-.008.01-.008.024-.015.044-.034.066-.048z"/></svg>`
 }
 
 export const softSkills = [
@@ -288,7 +290,7 @@ export const softSkills = [
             </svg>`,
         description: "When I make mistakes, I reflect deeply to understand their root causes—often tied to skill gaps or areas for growth. I work on improving those traits while also strengthening my existing abilities to build confidence and resilience.",
         level: "100"
-    }
+    },
 ]
 
 export const toolsDescriptions = [
@@ -309,6 +311,8 @@ export const toolsDescriptions = [
     {unity:"unity", description:"I used the Unity game engine to create my first game called 'I'm Not Insane.' It was a fun experience using it, especially getting familiar with C# code.", level: 80},
     {androidStudio:"android_Studio", description:"We used this back when I was in college. Making projects with it like login pages, responsive design transitions, and more.", level: 70},
     {microsoftOffice:"microsoft_Office_Applications", description:"I'm familiar with Microsoft Word, Excel, Powerpoint and Copilot.", level: 80},
+    {VsCode:"visualStudioCode", description:"I use Visual Studio Code as my primary code editor for all my programming projects. Its versatility and extensive library of extensions make it an essential tool for writing, debugging, and managing my code efficiently.", level: 90},
+    {Krita:"krita", description:"This was the tool that I used when doing things involve with arts. I sometimes use this to edit images and create character and textures from my game", level: 90},
 ]
 
 export const Tools_Used = [

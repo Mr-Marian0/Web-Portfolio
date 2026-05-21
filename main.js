@@ -43,7 +43,16 @@ const Main_Projects = [
         image: "image/projects/revWeb1.png",
         additionalImage: ["image/projects/revWeb4.png", "image/projects/revWeb3.png", "image/projects/revWeb2.png"],
         description: "It was a project idea for me to be able to review while waiting for my Civil Service Exam. Where users can put sentences and select a word to be blanked. In which the data will be saved to their localStorage.",
-        toolsUsed: ["html","css","javascript"]
+        toolsUsed: ["html","css","javascript", "Visual studio", "git", "github"]
+    },
+
+    {
+        projectClass: "project4",
+        jobType: "Game Development",
+        image: "image/projects/gameDev1.png",
+        additionalImage: ["image/projects/gameDev2.png", "image/projects/gameDev3.png", "image/projects/gameDev4.png", "image/projects/gameDev5.png"],
+        description: "Developed a simple 2D platformer game using HTML5 Canvas and JavaScript.",
+        toolsUsed: ["unity", "cSharp", "visualStudioCode", "krita", "git", "github"]
     }
 ]
 
