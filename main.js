@@ -51,7 +51,7 @@ const Main_Projects = [
         jobType: "Game Development",
         image: "image/projects/gameDev1.png",
         additionalImage: ["image/projects/gameDev2.png", "image/projects/gameDev3.png", "image/projects/gameDev4.png", "image/projects/gameDev5.png"],
-        description: "Developed a simple 2D platformer game using HTML5 Canvas and JavaScript.",
+        description: "This was a game project that I made. It was a 2D top down game where you play as a character solving puzzle and escaping the asylum. Characters, textures and button designs were made by me with the help of Krita.",
         toolsUsed: ["unity", "cSharp", "visualStudioCode", "krita", "git", "github"]
     }
 ]
