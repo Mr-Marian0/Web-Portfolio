@@ -56,6 +56,12 @@ const Main_Projects = [
     }
 ]
 
+window.addEventListener("load", ()=>{
+
+    introAnimation();
+
+});
+
 renderAllTools();
 renderProjects();
 selectProfile();
@@ -66,6 +72,107 @@ listenToFlipCard();
 renderSoftSkills();
 listenToContainer2Clicks();
 
+function setRandomBimoImage(){
+
+    const image = document.getElementById("bimoImage");
+
+    const random = Math.floor(Math.random()*16)+1;
+
+    image.src = `image/me${random}.jpg`;
+}
+
+function introAnimation() {
+
+    const tl = gsap.timeline({
+
+        onComplete() {
+
+            const intro = document.querySelector(".bimo_intro");
+
+            if (intro) {
+                intro.remove();
+            }
+
+        }
+
+    });
+
+    tl.to(".bimo_start span, .bimo_end span", {
+
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out"
+
+    });
+
+    tl.to(".bimo_loader", {
+
+        width: "220px",
+        duration: 1,
+        ease: "power3.inOut"
+
+    }, "<");
+
+    tl.to(".bimo_start", {
+
+        x: -40,
+        duration: 1,
+        ease: "power3.inOut"
+
+    }, "<");
+
+    tl.to(".bimo_end", {
+
+        x: 40,
+        duration: 1,
+        ease: "power3.inOut"
+
+    }, "<");
+
+    tl.to(".bimo_loader", {
+
+        width: "250vw",
+        height: "250vh",
+
+        borderRadius: 0,
+
+        duration: 1.8,
+
+        ease: "power4.inOut"
+
+    });
+
+    tl.to(".bimo_intro", {
+
+        opacity: 0,
+
+        duration: 0.4,
+
+        onComplete() {
+
+            document.querySelector(".bimo_intro")?.remove();
+
+        }
+
+    });
+
+    tl.to(".picture_content, .Me", {
+
+        opacity: 1,
+
+        duration: 1,
+
+        stagger: 0.2
+
+    }, "-=0.5");
+
+    tl.to("body", {
+        backgroundColor: "tomato",
+        duration: 0.2
+    }, "<");
+
+}
 
 function renderAllTools(){
     let count = 0;
