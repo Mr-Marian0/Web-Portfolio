@@ -634,12 +634,11 @@ body{
     flex-direction: column;
     margin-top: 10rem;
     width: 100%;
-    min-height: 800px;
+    min-height: auto; /* Changed from 800px to auto */
     background: var(--clr-secondary1);
     backdrop-filter: blur(2px);
     border-radius: 1rem;
     padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .container3 h1{
@@ -658,31 +657,7 @@ body{
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 2rem;
     padding: 1rem;
-    overflow-y: auto;
     width: 100%;
-    max-height: 700px;
-}
-
-/* ==================================================
-   PROJECT SCROLLBAR
-================================================== */
-
-.project_lists::-webkit-scrollbar {
-    width: 8px;
-}
-
-.project_lists::-webkit-scrollbar-track {
-    background: rgba(47, 79, 79, 0.3);
-    border-radius: 10px;
-}
-
-.project_lists::-webkit-scrollbar-thumb {
-    background: var(--clr-accent);
-    border-radius: 10px;
-}
-
-.project_lists::-webkit-scrollbar-thumb:hover {
-    background: var(--clr-base);
 }
 
 /* ==================================================
@@ -702,8 +677,7 @@ body{
 
 .project_lists > div:hover {
     transform: translateY(-5px);
-    border-color: var(--clr-accent);
-    box-shadow: 0 8px 25px rgba(64, 224, 208, 0.3);
+    /* border-color and box-shadow glow removed */
 }
 
 /* ==================================================
@@ -935,6 +909,242 @@ body{
     height: 100px;
     resize: none;
     background-color: var(--clr-accent);
+}
+
+/* ==================================================
+   PROJECT FLIP CARD STYLES
+================================================== */
+
+.project-card {
+    background-color: transparent;
+    width: 100%;
+    height: 400px;
+    perspective: 1000px;
+    cursor: pointer;
+    scrollbar-width: none;
+}
+
+.project-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 1rem;
+}
+
+.project-card.flipped .project-card-inner {
+    transform: rotateY(180deg);
+}
+
+.project-card-front, .project-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: rgba(47, 79, 79, 0.95);
+}
+
+.project-card-front {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-front img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    border-bottom: 3px solid var(--clr-base);
+}
+
+.project-card-front h3 {
+    padding: 1rem;
+    color: var(--clr-accent);
+    font-size: 1.3rem;
+    margin: auto 0;
+}
+
+.project-card-back {
+    background: var(--clr-secondary1);
+    backdrop-filter: blur(5px);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    text-align: left;
+    gap: 1rem;
+    overflow-y: visible;
+}
+
+.project-card-back p {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.project-card-back .tools_used {
+    justify-content: flex-start;
+    margin: 0.5rem 0;
+}
+
+.read-more-btn {
+    background: var(--clr-base);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: fit-content;
+    align-self: center;
+}
+
+.read-more-btn:hover {
+    background: var(--clr-accent);
+    color: black;
+}
+
+/* ==================================================
+   NEW MODAL STYLES (matches image.png)
+================================================== */
+
+.image_modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-dialog {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content-new {
+    background: var(--clr-secondary1);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--clr-secondary);
+    border-bottom: 2px solid var(--clr-base);
+}
+
+.modal-header h2 {
+    color: var(--clr-accent);
+    margin: 0;
+}
+
+.modal_close {
+    color: var(--clr-base);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    line-height: 1;
+}
+
+.modal_close:hover {
+    color: var(--clr-accent);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.modal-gallery {
+    flex: 1.5;
+    min-width: 250px;
+}
+
+.modal_main_image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 2px solid var(--clr-accent);
+}
+
+.modal-thumbnails {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.modal-thumb {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+}
+
+.modal-thumb:hover, .modal-thumb.active {
+    opacity: 1;
+    border-color: var(--clr-base);
+    transform: scale(1.05);
+}
+
+.modal-info {
+    flex: 1;
+    min-width: 250px;
+    color: var(--clr3-white);
+}
+
+.modal-info p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.modal-tools {
+    margin-top: 1rem;
+}
+
+.modal-tools .tools_used {
+    margin-top: 0.5rem;
+    justify-content: flex-start;
 }
 
 /* ==================================================
@@ -1381,8 +1591,13 @@ body{
     }
     
     .project_lists {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Already there, but ensure it's 1fr for mobile */
         gap: 1.5rem;
+    }
+    
+    /* Add this new rule to control flip card height on mobile */
+    .project-card {
+        height: 350px;
     }
     
     .project_lists > div > img {
@@ -1561,11 +1776,19 @@ body{
         height: 80px;
         font-size: 0.9rem;
     }
+
+        .project-card {
+        height: 300px;
+    }
     
-    .send_message {
-        width: 100%;
-        height: 35px;
-        font-size: clamp(0.5rem, 5vw, 0.9rem);
+    .modal-body {
+        padding: 1rem;
+        flex-direction: column;
+    }
+    
+    .modal-thumb {
+        width: 60px;
+        height: 45px;
     }
 }
 

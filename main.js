@@ -18,7 +18,6 @@ const modalCaption = document.getElementById('modalCaption');
 const modalClose = document.querySelector('.modal_close');
 
 const Main_Projects = [
-
     {
         projectClass: "project1", 
         jobType: "Mapping, Field Work and Web Development", 
@@ -27,25 +26,22 @@ const Main_Projects = [
         description: "Created a map for Mamuric7 internet provider highlighting the locations of Network Access Points from different locations. We also developed a local server website using XAMPP that allows the users/admins to perform CRUD operations.",
         toolsUsed: ["html","css", "javascript", "php", "xampp"]
     },
-
     {
         projectClass: "project2", 
         jobType: "Thesis / Capstone", 
         image: "image/projects/thesis1.png",
         additionalImage: ["image/projects/thesis2.png","image/projects/thesis3.png","image/projects/thesis4.png"],
-        description: "We developed a local server website for laboratory assistant",
+        description: "We developed a local server website for laboratory assistant. The system manages equipment borrowing, user logs, and generates reports. It also integrates RFID for quick user identification.",
         toolsUsed: ["html","css", "javascript", "nodeJs", "git", "github", "MYSQL"]
     },
-
     {
         projectClass: "project3",
         jobType: "Identification Reviewer",
         image: "image/projects/revWeb1.png",
         additionalImage: ["image/projects/revWeb4.png", "image/projects/revWeb3.png", "image/projects/revWeb2.png"],
         description: "It was a project idea for me to be able to review while waiting for my Civil Service Exam. Where users can put sentences and select a word to be blanked. In which the data will be saved to their localStorage.",
-        toolsUsed: ["html","css","javascript", "Visual studio", "git", "github"]
+        toolsUsed: ["html","css","javascript", "visualStudioCode", "git", "github"]
     },
-
     {
         projectClass: "project4",
         jobType: "Game Development",
@@ -62,15 +58,37 @@ window.addEventListener("load", ()=>{
 
 });
 
-renderAllTools();
-renderProjects();
-selectProfile();
-listenToScrollArea();
-shiftingTabArea();
-sendMail();
-listenToFlipCard();
-renderSoftSkills();
-listenToContainer2Clicks();
+window.addEventListener("load", ()=>{
+    introAnimation();
+    renderAllTools();
+    renderProjects();      // This now includes all project event listeners
+    selectProfile();
+    listenToScrollArea();
+    shiftingTabArea();
+    sendMail();
+    listenToFlipCard();
+    renderSoftSkills();
+    listenToContainer2Clicks();
+    
+    // Bind modal close events
+    const modalCloseBtn = document.querySelector('.modal_close');
+    const modal = document.getElementById('imageModal');
+    if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', closeModal);
+    }
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+            closeModal();
+        }
+    });
+});
 
 function setRandomBimoImage(){
 
@@ -285,88 +303,117 @@ function renderSoftSkills(){
 }
 
 function renderProjects() {
-    Main_Projects.forEach(element => {
-        const toolsHTML = element.toolsUsed.length > 0 
-            ? element.toolsUsed.map(Tool => tools[`${Tool}`]).join("") 
-            : '<p style="color: #40e0d0; font-style: italic;">No tools specified yet</p>';
+    project_lists.innerHTML = ''; // Clear existing content
+    
+    Main_Projects.forEach((project, index) => {
+        // Generate tools HTML for the back of the card
+        const toolsHTML = project.toolsUsed.length > 0 
+            ? project.toolsUsed.map(tool => tools[tool.toLowerCase()] || '').join('') 
+            : '<p>No tools specified</p>';
+            
+        // Short description for the card back (first 100 chars)
+        const shortDesc = project.description.length > 100 
+            ? project.description.substring(0, 100) + '...' 
+            : project.description;
         
-        const HTMLcontent = `
-            <div class="${element.projectClass}">
-                    <img src="${element.image}" alt="${element.jobType}" class="project_thumbnail">
-                    <div class="project_des">
-                        <h3><span>Title: </span>${element.jobType}</h3>
-                        <p><span>Description: </span>${element.description}</p>
-                        <div class="project_tools">
-                            <p><span>Tools used:</span></p>
-                            <div class="tools_used">
-                                ${toolsHTML}
-                            </div>
-                        </div>
+        // Get a random image from additionalImage or use the main image
+        const allImages = [project.image, ...project.additionalImage];
+        const randomImage = allImages[Math.floor(Math.random() * allImages.length)];
+        
+        const cardHTML = `
+            <div class="project-card" data-index="${index}">
+                <div class="project-card-inner">
+                    <div class="project-card-front">
+                        <img src="${project.image}" alt="${project.jobType}">
+                        <h3>${project.jobType}</h3>
                     </div>
-                </div>`;
-
-        project_lists.insertAdjacentHTML("beforeend", HTMLcontent);
+                    <div class="project-card-back">
+                        <img src="${randomImage}" alt="${project.jobType}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 0.5rem;">
+                        <p>${shortDesc}</p>
+                        <div class="tools_used">
+                            ${toolsHTML}
+                        </div>
+                        <button class="read-more-btn" data-index="${index}">Read More</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        project_lists.insertAdjacentHTML("beforeend", cardHTML);
     });
-    // Add click event listeners to all project thumbnails
-    initializeImagePopup();
+    
+    // Add click listeners for flip cards and read more buttons
+    attachProjectEventListeners();
 }
 
-function initializeImagePopup() {
-    const thumbnails = document.querySelectorAll('.project_thumbnail');
-    
-    thumbnails.forEach((thumbnail, index) => {
-        thumbnail.addEventListener('click', function() {
-            openModal(this.src, Main_Projects[index].jobType, index);
+function attachProjectEventListeners() {
+    // Flip card on click (but not when clicking the read more button)
+    const cards = document.querySelectorAll('.project-card');
+    cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Don't flip if clicking on the read more button
+            if (e.target.classList.contains('read-more-btn')) {
+                return;
+            }
+            this.classList.toggle('flipped');
         });
     });
     
-    // Close modal when clicking the close button
-    modalClose.addEventListener('click', closeModal);
-    
-    // Close modal when clicking outside the image
-    imageModal.addEventListener('click', function(e) {
-        if (e.target === imageModal) {
-            closeModal();
-        }
-    });
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && imageModal.style.display === 'block') {
-            closeModal();
-        }
+    // Read More button listeners
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    readMoreBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent card flip
+            const index = parseInt(this.getAttribute('data-index'));
+            openModal(index);
+        });
     });
 }
 
-function openModal(imageSrc, caption, projectIndex) {
-    const modalPlace = document.querySelector('.image_modal');
-    const targetPlace = document.querySelector('.modal_content');
-
-    imageModal.style.display = 'block';
-    modalImage.src = imageSrc;
-    modalCaption.textContent = caption;
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-
-    Main_Projects[projectIndex].additionalImage.forEach(image => {
-        const samp = document.createElement("img");
-        samp.className = "modal_content";
-        samp.src = `${image}`
-        targetPlace.insertAdjacentElement('afterend',samp)
-    })
+function openModal(projectIndex) {
+    const project = Main_Projects[projectIndex];
+    const modal = document.getElementById('imageModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalImage = document.getElementById('modalImage');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalToolsList = document.getElementById('modalToolsList');
+    const modalThumbnails = document.getElementById('modalThumbnails');
+    
+    // Set main content
+    modalTitle.textContent = project.jobType;
+    modalImage.src = project.image;
+    modalDescription.textContent = project.description;
+    
+    // Generate tools HTML for modal
+    const toolsHTML = project.toolsUsed.length > 0 
+        ? project.toolsUsed.map(tool => tools[tool.toLowerCase()] || '').join('') 
+        : '<p>No tools specified</p>';
+    modalToolsList.innerHTML = toolsHTML;
+    
+    // Generate thumbnails (first image is the main one, add the rest)
+    modalThumbnails.innerHTML = '';
+    const allImages = [project.image, ...project.additionalImage];
+    allImages.forEach((imgSrc, idx) => {
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.classList.add('modal-thumb');
+        if (idx === 0) thumb.classList.add('active');
+        thumb.addEventListener('click', () => {
+            modalImage.src = imgSrc;
+            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        });
+        modalThumbnails.appendChild(thumb);
+    });
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-    
-    const allModalContent = document.querySelectorAll('.modal_content');
-    
-    for(let i=1; i < allModalContent.length; i++){
-        allModalContent[i].remove();
-        console.log('all modal size: ', allModalContent.length);
-        console.log("removed", i)
-    }
-
-    imageModal.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restore scrolling
+    const modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 }
 
 function selectProfile(){

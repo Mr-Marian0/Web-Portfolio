@@ -137,11 +137,29 @@
             </div>
         </div>
 
-        <!-- Image Popup Modal -->
+        <!-- Image Popup Modal for Read More -->
         <div class="image_modal" id="imageModal">
-            <span class="modal_close">&times;</span>
-            <img class="modal_content" id="modalImage">
-            <div class="modal_caption" id="modalCaption"></div>
+            <div class="modal-dialog">
+                <div class="modal-content-new">
+                    <div class="modal-header">
+                        <h2 id="modalTitle"></h2>
+                        <span class="modal_close">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-gallery">
+                            <img class="modal_main_image" id="modalImage">
+                            <div class="modal-thumbnails" id="modalThumbnails"></div>
+                        </div>
+                        <div class="modal-info">
+                            <p id="modalDescription"></p>
+                            <div class="modal-tools">
+                                <p><strong>Tools Used:</strong></p>
+                                <div id="modalToolsList" class="tools_used"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- CONTAINER 4 -->
