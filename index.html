@@ -1,196 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bimbo — Computer Engineer & Web Developer</title>
+<meta name="description" content="Portfolio of Bimbo, a Computer Engineering graduate building web, hardware-integrated, and game projects.">
 
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init({
-                publicKey: "qMmFA-PMpPds00e_P",
-            });
-        })();
-    </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- SCRIPT FOR TRACKING VISITORS, Google tag (gtag.js)-->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7J5306WD1F"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+<link rel="stylesheet" href="style.css">
 
-    gtag('config', 'G-7J5306WD1F');
-    </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function () {
+    emailjs.init({ publicKey: "qMmFA-PMpPds00e_P" });
+  })();
+</script>
 
-    <script type="module" src="main.js"></script>
-    
+<!-- Visitor tracking, Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7J5306WD1F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-7J5306WD1F');
+</script>
+
+<script type="module" src="main.js"></script>
 </head>
 <body>
-    
-    <div class="head_bar">
-        <ul class="barHead_container">
-            <li id="hd_home"><span>H</span>ome</li>
-            <li id="hd_skill"><span>S</span>kills</li>
-            <li id="hd_projects"><span>P</span>rojects</li>
-            <li id="hd_contancts"><span>C</span>ontacts</li>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<div class="intro-loader" id="introLoader" aria-hidden="true">
+  <div class="intro-loader__mark">
+    <span class="intro-loader__side">BI</span>
+    <span class="intro-loader__bar"></span>
+    <span class="intro-loader__side">MO</span>
+  </div>
+</div>
+
+<header class="site-nav">
+  <a class="mark" href="#home" aria-label="Bimbo — home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="5"/>
+    </svg>
+    BIMBO
+  </a>
+
+  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList" aria-label="Toggle navigation menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+
+  <nav aria-label="Primary">
+    <ul class="nav-list" id="navList">
+      <li><a href="#home" data-nav="home">Home</a></li>
+      <li><a href="#about" data-nav="about">Skills</a></li>
+      <li><a href="#projects" data-nav="projects">Projects</a></li>
+      <li><a href="#contact" data-nav="contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section id="home" class="hero" aria-labelledby="heroHeading">
+    <div class="wrap">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">B.S. Computer Engineering</p>
+        <h1 id="heroHeading">Hello, I'm<span>Bimbo</span></h1>
+        <p class="hero-lede">I build web, hardware-integrated, and game projects — combining a Computer Engineering background with a working knowledge of design and digital art.</p>
+        <a class="btn btn--primary" href="#contact">Contact me</a>
+      </div>
+
+      <div class="hero-figure">
+        <div class="schematic-frame">
+          <img id="heroPhoto" src="image/me2.jpg" alt="Portrait of Bimbo">
+          <svg class="frame-tick frame-tick--tl" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
+          <svg class="frame-tick frame-tick--tr" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
+          <svg class="frame-tick frame-tick--bl" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
+          <svg class="frame-tick frame-tick--br" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
+        </div>
+        <ul class="callouts" aria-hidden="true">
+          <li>Web Development</li>
+          <li>Game Development</li>
+          <li>Computer Engineering</li>
         </ul>
-
-        <div class="author_name">
-            <svg width="30px" height="30px" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--noto" preserveAspectRatio="xMidYMid meet"><path d="M116 4H12c-4.42 0-8 3.58-8 8v104c0 4.42 3.58 8 8 8h104c4.42 0 8-3.58 8-8V12c0-4.42-3.58-8-8-8z" fill="#c33"></path><path d="M109.7 4H11.5A7.555 7.555 0 0 0 4 11.5v97.9c-.01 4.14 3.34 7.49 7.48 7.5H109.6c4.14.01 7.49-3.34 7.5-7.48V11.5c.09-4.05-3.13-7.41-7.18-7.5h-.22z" fill="#f44336"></path><path d="M39.7 12.9c0-2.3-1.6-3-10.8-2.7c-7.7.3-11.5 1.2-13.8 4s-2.9 8.5-3 15.3c0 4.8 0 9.3 2.5 9.3c3.4 0 3.4-7.9 6.2-12.3c5.4-8.7 18.9-10.6 18.9-13.6z" fill="#ff8a80"></path><path d="M33.2 106V22c0-1.1.9-2 2-2h28.2c9.9 0 17.5 2 22.7 6s7.8 9.9 7.8 17.8c.08 6.69-3.38 12.92-9.1 16.4c-.94.59-1.22 1.82-.63 2.76c.2.32.49.58.83.74c2.77 1.33 5.18 3.32 7 5.8c2.74 3.69 4.15 8.2 4 12.8c0 8.3-2.7 14.6-7.9 19S75.2 108 65.3 108H35.2c-1.1 0-2-.9-2-2zm15.3-51c0 1.1.9 2 2 2h13c4.8 0 8.5-1.1 11.2-3.2s4-5.2 4-9.2c0-4.3-1.2-7.5-3.7-9.4s-6.3-2.9-11.6-2.9H50.5c-1.1 0-2 .9-2 2V55zm0 15.3v23.4c0 1.1.9 2 2 2h15c4.8 0 8.5-1.2 11.2-3.6a12.62 12.62 0 0 0 4.1-9.9c0-9.1-4.7-13.8-14-14H50.5c-1.11.08-1.97.99-2 2.1z" fill="#fafafa"></path></svg>
-            <h3>Bimbo</h3>
-        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="bimo_intro">
+  <div class="dimension-divider" aria-hidden="true">
+    <span class="dimension-divider__line"></span>
+    <span class="dimension-divider__label">Sheet 01</span>
+    <span class="dimension-divider__line"></span>
+  </div>
 
-        <div class="bimo_start">
-            <span>B</span>
-            <span>I</span>
-        </div>
+  <!-- ABOUT / TECH STACK -->
+  <section id="about" class="panel-section" aria-labelledby="aboutHeading">
+    <div class="wrap">
+      <div class="section-heading" data-reveal>
+        <h2 id="aboutHeading">Tools & technologies</h2>
+        <p>Select a tile for the notes behind each one.</p>
+      </div>
 
-        <div class="bimo_loader"></div>
+      <div class="spec-grid" id="toolGrid" role="list"></div>
+      <div class="tool-readout" id="toolReadout" aria-live="polite">
+        <p class="tool-readout__title" id="toolReadoutTitle"></p>
+        <p id="toolReadoutBody"></p>
+      </div>
 
-        <div class="bimo_end">
-            <span>M</span>
-            <span>O</span>
-        </div>
-
+      <h3 class="subheading">Soft skills</h3>
+      <div class="spec-grid spec-grid--soft" id="softSkillGrid" role="list"></div>
     </div>
+  </section>
 
-    <div class="main_container">
+  <div class="dimension-divider" aria-hidden="true">
+    <span class="dimension-divider__line"></span>
+    <span class="dimension-divider__label">Sheet 02</span>
+    <span class="dimension-divider__line"></span>
+  </div>
 
-        <img class="visitor_counter" src="https://visitor-badge.laobi.icu/badge?page_id=yourusername.yourrepo" alt="Visitor count">
-
-        <div class="container1">
-
-            <div class="picture_content">
-                <div class="profile">
-                    <img class="img1" src="image/me2.jpg" alt="">
-                    <img class="img2" src="image/me1.jpg" alt="">
-                </div>
-            </div>
-
-            <div class="Me">
-                <h1>Hello<span>I'm Bimbo</span></h1>
-                <div class="shape1">
-                    <h1>ABOUT ME</h1>
-                    <p>I am a college graduate eager to explore new career opportunities. With a strong passion for web and software development, I combine my BS in Computer Engineering with a creative eye for arts and design. My background allows me to bridge technical expertise with artistic talent, bringing innovative and well-crafted solutions to every project I take on.</p>
-                <button class="contact_btn">
-                    <span>Email</span>
-                    <span>Contact Me</span>
-                </button>
-                </div>
-            </div>
-        </div>
-        <!-- CONTAINER 2 -->
-        <div class="container2">
-
-            <div class="tools_heading">
-                <h2>My Skills</h2>
-            </div>
-
-            <div class="Skillcard_container">
-                <div class="Skillcard">
-                    <div class="container2_wrap">
-                        <h5 class="skill_label">Tools and Technologies</h5>
-                        <h5 class="softskill_label"> Soft skills</h5>
-                        <div class="the_tools">
-                            <div class="tools_container">
-                                <div class="grid_tools" id="gridTool1">
-                                    
-                                </div>
-
-                                <div class="grid_tools" id="gridTool2">
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="softskills">
-                            <div class="grid_softskills">
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container2_wrap1">
-                        
-                    </div>
-                </div>
-            </div>
-            
-            
-        </div>
-        <!-- CONTAINER 3 -->
-        <div class="container3">
-            <h1>Projects</h1>
-            <div class="project_lists">
-                <!-- ALL PROJECTS WILL BE RENDERED HERE -->
-            </div>
-        </div>
-
-        <!-- Image Popup Modal for Read More -->
-        <div class="image_modal" id="imageModal">
-            <div class="modal-dialog">
-                <div class="modal-content-new">
-                    <div class="modal-header">
-                        <h2 id="modalTitle"></h2>
-                        <span class="modal_close">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <div class="modal-gallery">
-                            <img class="modal_main_image" id="modalImage">
-                            <div class="modal-thumbnails" id="modalThumbnails"></div>
-                        </div>
-                        <div class="modal-info">
-                            <p id="modalDescription"></p>
-                            <div class="modal-tools">
-                                <p><strong>Tools Used:</strong></p>
-                                <div id="modalToolsList" class="tools_used"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CONTAINER 4 -->
-
-        <div class="container4">
-            <div class="contact_info">
-                <div class="email_details">
-                    <h1>Contact</h1>
-                    <p>Get in touch with me with my emails or directly message me by filling in this form to start Conversation</p>
-                    <h4><svg fill="#000000" width="40px" height="40px" viewBox="0 0 24 24" id="at" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><path id="primary" d="M16,12a4,4,0,1,1-4-4A4,4,0,0,1,16,12Zm0-3v5.5A2.5,2.5,0,0,0,18.5,17h0A2.5,2.5,0,0,0,21,14.5V12.31A9.2,9.2,0,0,0,12.6,3,9,9,0,1,0,12,21a8.8,8.8,0,0,0,3-.52" style="fill: none; stroke: white; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>ponchopnanbimbo@gmail.com</h4>
-                </div>
-
-                <div class="fill_up_message">
-                    <h3>Full name</h3>
-                    <input id="input_name" type="text" placeholder="Your Full Name">
-
-                    <h3>Email address</h3>
-                    <input id="input_address" type="email" placeholder="Your Email">
-
-                    <h3>Message</h3>
-                    <textarea id="input_message" placeholder="Your Message"></textarea>
-
-                <button class="send_message">
-                    <span>Send</span>
-                    <span>Send Message</span>
-                </button>
-                </div>
-
-            </div>
-        </div>
-
+  <!-- PROJECTS -->
+  <section id="projects" class="panel-section" aria-labelledby="projectsHeading">
+    <div class="wrap">
+      <div class="section-heading" data-reveal>
+        <h2 id="projectsHeading">Projects</h2>
+        <p>A handful of things I've built end to end — mapping, hardware, review tools, and a small game.</p>
+      </div>
+      <div class="project-grid" id="projectGrid"></div>
     </div>
+  </section>
+
+  <div class="dimension-divider" aria-hidden="true">
+    <span class="dimension-divider__line"></span>
+    <span class="dimension-divider__label">Sheet 03</span>
+    <span class="dimension-divider__line"></span>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="panel-section" aria-labelledby="contactHeading">
+    <div class="wrap contact-grid">
+      <div class="contact-info" data-reveal>
+        <h2 id="contactHeading">Contact</h2>
+        <p>Reach out by email, or send a message directly with the form.</p>
+        <a class="contact-email" href="mailto:ponchopnanbimbo@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.6 7.2"/></svg>
+          ponchopnanbimbo@gmail.com
+        </a>
+      </div>
+
+      <form class="contact-form" id="contactForm" data-reveal novalidate>
+        <div class="field">
+          <label for="inputName">Full name</label>
+          <input id="inputName" name="name" type="text" placeholder="Your full name" autocomplete="name" required>
+          <span class="field-error" id="nameError"></span>
+        </div>
+
+        <div class="field">
+          <label for="inputEmail">Email address</label>
+          <input id="inputEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+          <span class="field-error" id="emailError"></span>
+        </div>
+
+        <div class="field">
+          <label for="inputMessage">Message</label>
+          <textarea id="inputMessage" name="message" placeholder="Your message" required></textarea>
+          <span class="field-error" id="messageError"></span>
+        </div>
+
+        <button class="btn btn--primary" type="submit">Send message</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Built without Wordpress, Canva, or any site builder — HTML, CSS &amp; JS.</p>
+    <a href="https://github.com/Mr-Marian0/Web-Portfolio" target="_blank" rel="noopener">Source on GitHub</a>
+  </div>
+</footer>
+
+<!-- Project detail modal -->
+<div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 id="modalTitle"></h2>
+      <button class="modal-close" id="modalClose" aria-label="Close project details">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-gallery">
+        <img class="modal-main-image" id="modalImage" alt="">
+        <div class="modal-thumbnails" id="modalThumbnails"></div>
+      </div>
+      <div class="modal-info">
+        <p id="modalDescription"></p>
+        <span class="modal-tools-label">Tools used</span>
+        <div id="modalToolsList" class="modal-tools-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

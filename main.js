@@ -1,530 +1,457 @@
-import {tools, softSkills, toolsDescriptions} from "./image/svg/svg_objects.js";
+import { tools, toolsMeta, softSkills } from "./image/svg/icons.js";
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const grid_Tools = document.querySelector('.grid_tools');
-const gridToolId1 = document.getElementById("gridTool1");
-const gridToolId2 = document.getElementById("gridTool2");
-
-const tools_used = document.querySelector('.tools_used');
-const grid_softSkills = document.querySelector('.grid_softskills');
-const images = document.querySelectorAll(".profile img"); //used to put profile on TOP
-const flipSkillCard = document.querySelector(".Skillcard"); //used to flip skill
-const BackCard = document.querySelector(".container2_wrap1"); //back of the card
-
-const project_lists = document.querySelector('.project_lists');
-const imageModal = document.getElementById('imageModal');
-const modalImage = document.getElementById('modalImage');
-const modalCaption = document.getElementById('modalCaption');
-const modalClose = document.querySelector('.modal_close');
-
+/* ==========================================================================
+   Project data
+   ========================================================================== */
 const Main_Projects = [
-    {
-        projectClass: "project1", 
-        jobType: "Mapping, Field Work and Web Development", 
-        image: "image/projects/mamuric2.png",
-        additionalImage: ["image/projects/mamuric1.png", "image/projects/mamuric3.png"],
-        description: "Created a map for Mamuric7 internet provider highlighting the locations of Network Access Points from different locations. We also developed a local server website using XAMPP that allows the users/admins to perform CRUD operations.",
-        toolsUsed: ["html","css", "javascript", "php", "xampp"]
-    },
-    {
-        projectClass: "project2", 
-        jobType: "Thesis / Capstone", 
-        image: "image/projects/thesis1.png",
-        additionalImage: ["image/projects/thesis2.png","image/projects/thesis3.png","image/projects/thesis4.png"],
-        description: "We developed a local server website for laboratory assistant. The system manages equipment borrowing, user logs, and generates reports. It also integrates RFID for quick user identification.",
-        toolsUsed: ["html","css", "javascript", "nodeJs", "git", "github", "MYSQL"]
-    },
-    {
-        projectClass: "project3",
-        jobType: "Identification Reviewer",
-        image: "image/projects/revWeb1.png",
-        additionalImage: ["image/projects/revWeb4.png", "image/projects/revWeb3.png", "image/projects/revWeb2.png"],
-        description: "It was a project idea for me to be able to review while waiting for my Civil Service Exam. Where users can put sentences and select a word to be blanked. In which the data will be saved to their localStorage.",
-        toolsUsed: ["html","css","javascript", "visualStudioCode", "git", "github"]
-    },
-    {
-        projectClass: "project4",
-        jobType: "Game Development",
-        image: "image/projects/gameDev1.png",
-        additionalImage: ["image/projects/gameDev2.png", "image/projects/gameDev3.png", "image/projects/gameDev4.png", "image/projects/gameDev5.png"],
-        description: "This was a game project that I made. It was a 2D top down game where you play as a character solving puzzle and escaping the asylum. Characters, textures and button designs were made by me with the help of Krita.",
-        toolsUsed: ["unity", "cSharp", "visualStudioCode", "krita", "git", "github"]
-    }
-]
+  {
+    jobType: "Mapping, Field Work & Web Development",
+    sheet: "01",
+    image: "image/projects/mamuric2.png",
+    additionalImage: ["image/projects/mamuric1.png", "image/projects/mamuric3.png"],
+    description: "Mapped Network Access Point locations for Mamuric7, an internet provider, then built a local server website with XAMPP so admins could manage that data through CRUD operations.",
+    toolsUsed: ["html", "css", "javascript", "php", "xampp"],
+  },
+  {
+    jobType: "Thesis / Capstone — Lab Assistant System",
+    sheet: "02",
+    image: "image/projects/thesis1.png",
+    additionalImage: ["image/projects/thesis2.png", "image/projects/thesis3.png", "image/projects/thesis4.png"],
+    description: "A local-server system for managing lab equipment borrowing and user logs, with RFID integration for fast user identification and automatic report generation.",
+    toolsUsed: ["html", "css", "javascript", "nodejs", "git", "github", "mysql"],
+  },
+  {
+    jobType: "Identification Reviewer",
+    sheet: "03",
+    image: "image/projects/revWeb1.png",
+    additionalImage: ["image/projects/revWeb4.png", "image/projects/revWeb3.png", "image/projects/revWeb2.png"],
+    description: "A study tool I built while prepping for the Civil Service Exam — users enter sentences, pick a word to blank out, and review against answers saved to localStorage.",
+    toolsUsed: ["html", "css", "javascript", "vscode", "git", "github"],
+  },
+  {
+    jobType: "Game Development — I'm Not Insane",
+    sheet: "04",
+    image: "image/projects/gameDev1.png",
+    additionalImage: ["image/projects/gameDev2.png", "image/projects/gameDev3.png", "image/projects/gameDev4.png", "image/projects/gameDev5.png"],
+    description: "A 2D top-down puzzle game where you solve rooms to escape an asylum. Characters, textures, and UI were drawn in Krita.",
+    toolsUsed: ["unity", "csharp", "vscode", "krita", "git", "github"],
+  },
+];
 
-window.addEventListener("load", ()=>{
-
-    introAnimation();
-
+/* ==========================================================================
+   Boot
+   ========================================================================== */
+window.addEventListener("DOMContentLoaded", () => {
+  runIntro();
+  renderTools();
+  renderSoftSkills();
+  renderProjects();
+  setupModal();
+  setupNav();
+  setupReveal();
+  setupContactForm();
+  setupHeroParallax();
+  pickHeroPhoto();
 });
 
-window.addEventListener("load", ()=>{
-    introAnimation();
-    renderAllTools();
-    renderProjects();      // This now includes all project event listeners
-    selectProfile();
-    listenToScrollArea();
-    shiftingTabArea();
-    sendMail();
-    listenToFlipCard();
-    renderSoftSkills();
-    listenToContainer2Clicks();
-    
-    // Bind modal close events
-    const modalCloseBtn = document.querySelector('.modal_close');
-    const modal = document.getElementById('imageModal');
-    if (modalCloseBtn) {
-        modalCloseBtn.addEventListener('click', closeModal);
+/* ==========================================================================
+   Intro loader
+   ========================================================================== */
+function runIntro() {
+  const loader = document.getElementById("introLoader");
+  if (!loader) return;
+
+  if (prefersReducedMotion) {
+    loader.remove();
+    return;
+  }
+
+  const sides = loader.querySelectorAll(".intro-loader__side");
+  const bar = loader.querySelector(".intro-loader__bar");
+
+  requestAnimationFrame(() => {
+    sides.forEach((el) => (el.style.transition = "opacity .5s ease"));
+    sides.forEach((el) => (el.style.opacity = "1"));
+    if (bar) {
+      bar.style.transition = "width .7s cubic-bezier(.16,.84,.44,1)";
+      bar.style.width = "160px";
     }
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-    }
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal && modal.style.display === 'block') {
-            closeModal();
-        }
-    });
-});
+  });
 
-function setRandomBimoImage(){
-
-    const image = document.getElementById("bimoImage");
-
-    const random = Math.floor(Math.random()*16)+1;
-
-    image.src = `image/me${random}.jpg`;
+  setTimeout(() => {
+    loader.style.transition = "opacity .4s ease";
+    loader.style.opacity = "0";
+    setTimeout(() => loader.remove(), 420);
+  }, 1000);
 }
 
-function introAnimation() {
-
-    const tl = gsap.timeline({
-
-        onComplete() {
-
-            const intro = document.querySelector(".bimo_intro");
-
-            if (intro) {
-                intro.remove();
-            }
-
-        }
-
-    });
-
-    tl.to(".bimo_start span, .bimo_end span", {
-
-        y: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out"
-
-    });
-
-    tl.to(".bimo_loader", {
-
-        width: "220px",
-        duration: 1,
-        ease: "power3.inOut"
-
-    }, "<");
-
-    tl.to(".bimo_start", {
-
-        x: -40,
-        duration: 1,
-        ease: "power3.inOut"
-
-    }, "<");
-
-    tl.to(".bimo_end", {
-
-        x: 40,
-        duration: 1,
-        ease: "power3.inOut"
-
-    }, "<");
-
-    tl.to(".bimo_loader", {
-
-        width: "250vw",
-        height: "250vh",
-
-        borderRadius: 0,
-
-        duration: 1.8,
-
-        ease: "power4.inOut"
-
-    });
-
-    tl.to(".bimo_intro", {
-
-        opacity: 0,
-
-        duration: 0.4,
-
-        onComplete() {
-
-            document.querySelector(".bimo_intro")?.remove();
-
-        }
-
-    });
-
-    tl.to(".picture_content, .Me", {
-
-        opacity: 1,
-
-        duration: 1,
-
-        stagger: 0.2
-
-    }, "-=0.5");
-
-    tl.to("body", {
-        backgroundColor: "tomato",
-        duration: 0.2
-    }, "<");
-
+/* ==========================================================================
+   Hero photo
+   ========================================================================== */
+function pickHeroPhoto() {
+  const img = document.getElementById("heroPhoto");
+  if (!img) return;
+  const n = Math.floor(Math.random() * 16) + 1;
+  img.src = `image/me${n}.jpg`;
 }
 
-function renderAllTools(){
-    let count = 0;
-    for (const [key, value] of Object.entries(tools)) {
-        const targetGrid = count < 16 ? grid_Tools : gridToolId2;
-        targetGrid.insertAdjacentHTML("beforeend", value);
-        count++;
-    }
+function setupHeroParallax() {
+  if (prefersReducedMotion) return;
+  const frame = document.querySelector(".schematic-frame");
+  const overlay = document.querySelector(".grid-overlay");
+  if (!frame) return;
 
-    setInterval(()=>{
-        if(gridToolId2.style.zIndex === "-1"){
-            gridToolId2.style.zIndex = 1;
-            gridToolId2.style.opacity = 1;
-        } else {
-            gridToolId2.style.zIndex = -1;
-            gridToolId2.style.opacity = 0;
-        }
-        
-    }, 4000);
+  const hero = document.getElementById("home");
+  hero.addEventListener("pointermove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    frame.style.transform = `translate(${x * 6}px, ${y * 6}px)`;
+    if (overlay) overlay.style.backgroundPosition = `${x * 12}px ${y * 12}px`;
+  });
+
+  hero.addEventListener("pointerleave", () => {
+    frame.style.transform = "translate(0,0)";
+  });
 }
 
-function listenToContainer2Clicks(){
-    // collect all svg elements that match any class in toolsDescriptions
-    const classNames = toolsDescriptions.flatMap(obj => Object.keys(obj).filter(k => k !== "description" && k !== "image" && k !== "level"));
-    const selector = classNames.map(c => `svg.${c}`).join(", ");
-    const svgs = document.querySelectorAll(selector);
-    console.log(selector)
+/* ==========================================================================
+   Tools grid
+   ========================================================================== */
+function renderTools() {
+  const grid = document.getElementById("toolGrid");
+  const readout = document.getElementById("toolReadout");
+  const readoutTitle = document.getElementById("toolReadoutTitle");
+  const readoutBody = document.getElementById("toolReadoutBody");
+  if (!grid) return;
 
-    softSkills.forEach(ss => {
-        let skill = document.querySelector(`.${ss.name}`)
+  toolsMeta.forEach((meta) => {
+    const tile = document.createElement("button");
+    tile.type = "button";
+    tile.className = "spec-tile";
+    tile.setAttribute("role", "listitem");
+    tile.setAttribute("aria-label", `${meta.label} — show details`);
+    tile.style.setProperty("--level", `${meta.level}%`);
+    tile.innerHTML = `
+      <span class="spec-tile__glyph">${tools[meta.key] || ""}</span>
+      <span class="spec-tile__label">${meta.label}</span>
+      <span class="spec-tile__bar"><span></span></span>
+      <span class="spec-tile__corner" aria-hidden="true"></span>
+    `;
 
-        skill.addEventListener('click', () => {
-            BackCard.innerHTML = "";
+    tile.addEventListener("click", () => {
+      const alreadyOpen = tile.classList.contains("is-active");
+      grid.querySelectorAll(".spec-tile").forEach((t) => t.classList.remove("is-active"));
 
-            const cloneSvg2 = ss.svg.replace(/width="20px"/g, 'width="100px"').replace(/height="20px"/g, 'height="100px"');
+      if (alreadyOpen) {
+        readout.classList.remove("is-active");
+        return;
+      }
 
-            BackCard.innerHTML = `
-                    <div class="tool-desc">
-                    <h2>${ss.name.toUpperCase()}</h2>
-                    ${cloneSvg2}
-                    <p>${ss.description}</p>
-                    ${
-                        ss.level
-                        ? `<div class="progress-bar">
-                            <div class="progress" style="width: ${ss.level}%;"></div>
-                            </div>
-                            <small>${ss.level}%</small>`
-                        : ""
-                    }
-                    </div>
-                `;
+      tile.classList.add("is-active");
+      readoutTitle.textContent = `${meta.label} — proficiency ${meta.level}%`;
+      readoutBody.textContent = meta.description;
+      readout.classList.add("is-active");
+    });
 
-            flipSkillCard.classList.toggle('flipSkillCard');
-        })
-    })
-
-    svgs.forEach(svg => {
-        svg.addEventListener('click', () => {
-            BackCard.innerHTML = "";
-
-            const matchedClass = toolsDescriptions.find(obj => Object.keys(obj).includes(svg.classList[0]));
-            let getClass = svg.classList[0];
-
-            if(matchedClass){
-                const tool = toolsDescriptions.find(t => t[getClass] !== undefined);
-                console.log(tool);
-                const clonedSvg = svg.cloneNode(true);
-                clonedSvg.setAttribute("width", 100);
-                clonedSvg.setAttribute("height", 100);
-
-                BackCard.innerHTML = `
-                    <div class="tool-desc">
-                    <h2>${matchedClass[getClass].toUpperCase().replaceAll("_"," ")}</h2>
-                    ${clonedSvg.outerHTML}
-                    <p>${tool.description}</p>
-                    ${
-                        tool.level
-                        ? `<div class="progress-bar">
-                            <div class="progress" style="width: ${tool.level}%;"></div>
-                            </div>
-                            <small>${tool.level}%</small>`
-                        : ""
-                    }
-                    </div>
-                `;
-            }
-
-            flipSkillCard.classList.toggle('flipSkillCard');
-        })
-    })
-
-
+    grid.appendChild(tile);
+  });
 }
 
-function renderSoftSkills(){
-    softSkills.forEach(skill => {
-        const item = document.createElement("div");
-        item.className = `${skill.name}`;
-        item.id = "softskill-item";
-        item.setAttribute("role", "listitem");
-        item.setAttribute("arial-label", skill.name);
+/* ==========================================================================
+   Soft skills grid
+   ========================================================================== */
+function renderSoftSkills() {
+  const grid = document.getElementById("softSkillGrid");
+  if (!grid) return;
 
-        item.innerHTML = `
-            <span class="softskill-icon" aria-hidden="true">${skill.svg}</span>
-            <span class="softskill-text">${skill.name}</span>
-            `;
-
-            grid_softSkills.appendChild(item);
-    })
+  softSkills.forEach((skill) => {
+    const tile = document.createElement("div");
+    tile.className = "spec-tile spec-tile--soft";
+    tile.setAttribute("role", "listitem");
+    tile.style.setProperty("--level", `${skill.level}%`);
+    tile.innerHTML = `
+      <span class="spec-tile__glyph">${skill.svg}</span>
+      <span class="spec-tile__label">${skill.name}</span>
+      <p>${skill.description}</p>
+      <span class="spec-tile__bar"><span></span></span>
+    `;
+    grid.appendChild(tile);
+  });
 }
 
+/* ==========================================================================
+   Projects grid
+   ========================================================================== */
 function renderProjects() {
-    project_lists.innerHTML = ''; // Clear existing content
-    
-    Main_Projects.forEach((project, index) => {
-        // Generate tools HTML for the back of the card
-        const toolsHTML = project.toolsUsed.length > 0 
-            ? project.toolsUsed.map(tool => tools[tool.toLowerCase()] || '').join('') 
-            : '<p>No tools specified</p>';
-            
-        // Short description for the card back (first 100 chars)
-        const shortDesc = project.description.length > 100 
-            ? project.description.substring(0, 100) + '...' 
-            : project.description;
-        
-        // Get a random image from additionalImage or use the main image
-        const allImages = [project.image, ...project.additionalImage];
-        const randomImage = allImages[Math.floor(Math.random() * allImages.length)];
-        
-        const cardHTML = `
-            <div class="project-card" data-index="${index}">
-                <div class="project-card-inner">
-                    <div class="project-card-front">
-                        <img src="${project.image}" alt="${project.jobType}">
-                        <h3>${project.jobType}</h3>
-                    </div>
-                    <div class="project-card-back">
-                        <img src="${randomImage}" alt="${project.jobType}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 0.5rem; margin-bottom: 0.5rem;">
-                        <p>${shortDesc}</p>
-                        <div class="tools_used">
-                            ${toolsHTML}
-                        </div>
-                        <button class="read-more-btn" data-index="${index}">Read More</button>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        project_lists.insertAdjacentHTML("beforeend", cardHTML);
-    });
-    
-    // Add click listeners for flip cards and read more buttons
-    attachProjectEventListeners();
+  const grid = document.getElementById("projectGrid");
+  if (!grid) return;
+
+  Main_Projects.forEach((project, index) => {
+    const toolIcons = project.toolsUsed.map((key) => tools[key] || "").join("");
+
+    const card = document.createElement("article");
+    card.className = "project-card";
+    card.innerHTML = `
+      <div class="project-card__media">
+        <span class="project-card__sheet">Sheet ${project.sheet}/04</span>
+        <img src="${project.image}" alt="Screenshot from ${project.jobType}" loading="lazy">
+      </div>
+      <div class="project-card__body">
+        <h3>${project.jobType}</h3>
+        <p>${project.description.length > 110 ? project.description.slice(0, 110) + "…" : project.description}</p>
+        <div class="project-card__tools" aria-hidden="true">${toolIcons}</div>
+        <button class="project-card__cta" data-index="${index}" type="button">Read more →</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll(".project-card__cta").forEach((btn) => {
+    btn.addEventListener("click", () => openModal(parseInt(btn.dataset.index, 10)));
+  });
 }
 
-function attachProjectEventListeners() {
-    // Flip card on click (but not when clicking the read more button)
-    const cards = document.querySelectorAll('.project-card');
-    cards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            // Don't flip if clicking on the read more button
-            if (e.target.classList.contains('read-more-btn')) {
-                return;
-            }
-            this.classList.toggle('flipped');
-        });
-    });
-    
-    // Read More button listeners
-    const readMoreBtns = document.querySelectorAll('.read-more-btn');
-    readMoreBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent card flip
-            const index = parseInt(this.getAttribute('data-index'));
-            openModal(index);
-        });
-    });
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+let lastFocusedElement = null;
+
+function setupModal() {
+  const modal = document.getElementById("imageModal");
+  const closeBtn = document.getElementById("modalClose");
+  if (!modal) return;
+
+  closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) closeModal();
+    if (e.key === "Tab" && !modal.hidden) trapFocus(e, modal);
+  });
+}
+
+function trapFocus(e, container) {
+  const focusable = container.querySelectorAll(
+    'a[href], button:not([disabled]), input, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
 }
 
 function openModal(projectIndex) {
-    const project = Main_Projects[projectIndex];
-    const modal = document.getElementById('imageModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalImage = document.getElementById('modalImage');
-    const modalDescription = document.getElementById('modalDescription');
-    const modalToolsList = document.getElementById('modalToolsList');
-    const modalThumbnails = document.getElementById('modalThumbnails');
-    
-    // Set main content
-    modalTitle.textContent = project.jobType;
-    modalImage.src = project.image;
-    modalDescription.textContent = project.description;
-    
-    // Generate tools HTML for modal
-    const toolsHTML = project.toolsUsed.length > 0 
-        ? project.toolsUsed.map(tool => tools[tool.toLowerCase()] || '').join('') 
-        : '<p>No tools specified</p>';
-    modalToolsList.innerHTML = toolsHTML;
-    
-    // Generate thumbnails (first image is the main one, add the rest)
-    modalThumbnails.innerHTML = '';
-    const allImages = [project.image, ...project.additionalImage];
-    allImages.forEach((imgSrc, idx) => {
-        const thumb = document.createElement('img');
-        thumb.src = imgSrc;
-        thumb.classList.add('modal-thumb');
-        if (idx === 0) thumb.classList.add('active');
-        thumb.addEventListener('click', () => {
-            modalImage.src = imgSrc;
-            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
-        });
-        modalThumbnails.appendChild(thumb);
+  const project = Main_Projects[projectIndex];
+  const modal = document.getElementById("imageModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalImage = document.getElementById("modalImage");
+  const modalDescription = document.getElementById("modalDescription");
+  const modalToolsList = document.getElementById("modalToolsList");
+  const modalThumbnails = document.getElementById("modalThumbnails");
+
+  lastFocusedElement = document.activeElement;
+
+  modalTitle.textContent = project.jobType;
+  modalImage.src = project.image;
+  modalImage.alt = `Screenshot from ${project.jobType}`;
+  modalDescription.textContent = project.description;
+
+  modalToolsList.innerHTML = project.toolsUsed
+    .map((key) => `<span class="tool-chip">${tools[key] || ""}${key}</span>`)
+    .join("");
+
+  modalThumbnails.innerHTML = "";
+  const allImages = [project.image, ...project.additionalImage];
+  allImages.forEach((src, idx) => {
+    const thumb = document.createElement("img");
+    thumb.src = src;
+    thumb.alt = `View ${idx + 1} of ${project.jobType}`;
+    thumb.className = "modal-thumb" + (idx === 0 ? " active" : "");
+    thumb.loading = "lazy";
+    thumb.tabIndex = 0;
+    thumb.addEventListener("click", () => selectThumb(src, thumb));
+    thumb.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        selectThumb(src, thumb);
+      }
     });
-    
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    modalThumbnails.appendChild(thumb);
+  });
+
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+  document.getElementById("modalClose").focus();
+}
+
+function selectThumb(src, thumb) {
+  document.getElementById("modalImage").src = src;
+  document.querySelectorAll(".modal-thumb").forEach((t) => t.classList.remove("active"));
+  thumb.classList.add("active");
 }
 
 function closeModal() {
-    const modal = document.getElementById('imageModal');
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+  const modal = document.getElementById("imageModal");
+  modal.hidden = true;
+  document.body.style.overflow = "";
+  if (lastFocusedElement) lastFocusedElement.focus();
 }
 
-function selectProfile(){
+/* ==========================================================================
+   Navigation — active-section tracking + mobile toggle
+   ========================================================================== */
+function setupNav() {
+  const links = document.querySelectorAll(".nav-list a");
+  const toggle = document.getElementById("navToggle");
+  const navList = document.getElementById("navList");
 
-    let rand1 = Math.floor(Math.random() * 16) + 1;
-    let rand2;
-    do {
-    rand2 = Math.floor(Math.random() * 16) + 1;
-    } while (rand2 === rand1);
-
-    document.querySelector('.img1').src = `image/me${rand1}.jpg`;
-    document.querySelector('.img2').src = `image/me${rand2}.jpg`;
-
-    images.forEach(img => {
-        img.addEventListener("click", () => {
-            images.forEach(i => i.classList.remove("active"));
-            img.classList.add("active");
-        });
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      const isOpen = navList.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
     });
+
+    navList.querySelectorAll("a").forEach((link) =>
+      link.addEventListener("click", () => {
+        navList.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+      })
+    );
+  }
+
+  const sections = ["home", "about", "projects", "contact"]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((link) => link.removeAttribute("aria-current"));
+        const active = document.querySelector(`.nav-list a[data-nav="${entry.target.id}"]`);
+        if (active) active.setAttribute("aria-current", "true");
+      });
+    },
+    { rootMargin: "-45% 0px -45% 0px" }
+  );
+
+  sections.forEach((section) => observer.observe(section));
 }
 
-function listenToScrollArea() {
-    const targets = [
-        { id: 'hd_home', min: 0, max: 399 },
-        { id: 'hd_skill', min: 400, max: 1199 },
-        { id: 'hd_projects', min: 1200, max: 1999 },
-        { id: 'hd_contancts', min: 2000, max: Infinity }
-    ];
+/* ==========================================================================
+   Scroll reveal
+   ========================================================================== */
+function setupReveal() {
+  const targets = document.querySelectorAll("[data-reveal], .project-card, .spec-tile");
 
-    const container = document.querySelector(".main_container");
+  if (prefersReducedMotion) {
+    targets.forEach((t) => t.classList.add("is-visible"));
+    return;
+  }
 
-    function updateActiveState() {
-        const scrollY = container.scrollTop;
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
 
-        targets.forEach(target => {
-            const element = document.getElementById(target.id);
-            if (element) {
-                if (scrollY >= target.min && scrollY <= target.max) {
-                    element.style.backgroundColor = '#243c3c';
-                } else {
-                    element.style.backgroundColor = '';
-                }
-            }
-        });
+  targets.forEach((t) => observer.observe(t));
+}
+
+/* ==========================================================================
+   Contact form
+   ========================================================================== */
+function setupContactForm() {
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+
+  const status = document.getElementById("formStatus");
+  const fields = {
+    name: { input: document.getElementById("inputName"), error: document.getElementById("nameError") },
+    email: { input: document.getElementById("inputEmail"), error: document.getElementById("emailError") },
+    message: { input: document.getElementById("inputMessage"), error: document.getElementById("messageError") },
+  };
+
+  function validate() {
+    let valid = true;
+
+    if (!fields.name.input.value.trim()) {
+      fields.name.error.textContent = "Please enter your name.";
+      valid = false;
+    } else {
+      fields.name.error.textContent = "";
     }
 
-    updateActiveState();
-    container.addEventListener('scroll', updateActiveState);
-}
+    const emailValue = fields.email.input.value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailValue)) {
+      fields.email.error.textContent = "Enter a valid email address.";
+      valid = false;
+    } else {
+      fields.email.error.textContent = "";
+    }
 
-function shiftingTabArea() {
-    const container = document.querySelector('.main_container');
-    const headBar_Home = document.getElementById('hd_home');
-    const headBar_Skill = document.getElementById('hd_skill');
-    const headBar_Project = document.getElementById('hd_projects');
-    const headBar_Contact = document.getElementById('hd_contancts');
-    const contact_Button = document.querySelector('.contact_btn');
+    if (!fields.message.input.value.trim()) {
+      fields.message.error.textContent = "Please add a message.";
+      valid = false;
+    } else {
+      fields.message.error.textContent = "";
+    }
 
-    const sectionCount = 4;
-    const sectionHeight = container.scrollHeight / sectionCount;
+    return valid;
+  }
 
-    headBar_Home.addEventListener('click', () => {
-        container.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!validate()) {
+      status.textContent = "Please fix the highlighted fields.";
+      status.dataset.state = "error";
+      return;
+    }
 
-    headBar_Skill.addEventListener('click', () => {
-        container.scrollTo({
-            top: sectionHeight,
-            behavior: 'smooth'
-        });
-    });
+    const submitBtn = form.querySelector("button[type='submit']");
+    submitBtn.disabled = true;
+    status.textContent = "Sending…";
+    status.dataset.state = "";
 
-    headBar_Project.addEventListener('click', () => {
-        container.scrollTo({
-            top: sectionHeight * 2,
-            behavior: 'smooth'
-        });
-    });
+    const params = {
+      name: fields.name.input.value.trim(),
+      email: fields.email.input.value.trim(),
+      message: fields.message.input.value.trim(),
+    };
 
-    headBar_Contact.addEventListener('click', () => {
-        container.scrollTo({
-            top: sectionHeight * 3,
-            behavior: 'smooth'
-        });
-    });
-
-    contact_Button.addEventListener('click', () => {
-        container.scrollTo({
-            top: sectionHeight * 3,
-            behavior: 'smooth'
-        });
-    });
-}
-
-function sendMail(){
-
-    const sendMessage = document.querySelector('.send_message').addEventListener('click', ()=>{
-        let parms = {
-            name: document.getElementById("input_name").value,
-            email: document.getElementById("input_address").value,
-            message: document.getElementById("input_message").value,
-        }
-        emailjs.send("service_zcz47oc", "template_bf4vakb", parms).then(alert("Email has been sent"));
-    })
-}
-
-function listenToFlipCard(){
-    BackCard.addEventListener('click', ()=>{
-        flipSkillCard.classList.toggle('flipSkillCard');
-    })
+    emailjs
+      .send("service_zcz47oc", "template_bf4vakb", params)
+      .then(() => {
+        status.textContent = "Message sent — thanks for reaching out.";
+        status.dataset.state = "success";
+        form.reset();
+      })
+      .catch(() => {
+        status.textContent = "Something went wrong. Please email me directly instead.";
+        status.dataset.state = "error";
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+      });
+  });
 }
