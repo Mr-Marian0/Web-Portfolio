@@ -125,6 +125,7 @@ function renderTools() {
   const readout = document.getElementById("toolReadout");
   const readoutTitle = document.getElementById("toolReadoutTitle");
   const readoutBody = document.getElementById("toolReadoutBody");
+  const readoutLevel = document.getElementById("toolReadoutLevel");
   if (!grid) return;
 
   toolsMeta.forEach((meta) => {
@@ -144,20 +145,100 @@ function renderTools() {
     tile.addEventListener("click", () => {
       const alreadyOpen = tile.classList.contains("is-active");
       grid.querySelectorAll(".spec-tile").forEach((t) => t.classList.remove("is-active"));
+      clearTimeout(parkTimer);
 
       if (alreadyOpen) {
-        readout.classList.remove("is-active");
+        readout.classList.remove("is-active", "is-plotting");
+        // once folded, move it out of the grid so its empty row adds no gap line
+        parkTimer = setTimeout(() => {
+          if (!readout.classList.contains("is-active")) grid.after(readout);
+        }, prefersReducedMotion ? 0 : 420);
         return;
       }
 
       tile.classList.add("is-active");
       readoutTitle.textContent = `${meta.label} — proficiency ${meta.level}%`;
       readoutBody.textContent = meta.description;
+      readout.style.setProperty("--level", `${meta.level}%`);
+
+      const anchor = rowEndTile(grid, tile);
+      const needsMove = readout.previousElementSibling !== anchor;
+
+      if (needsMove) {
+        // Jumping to another row: fold the old one instantly, re-anchor after the
+        // new row, then unfold there. Keep the clicked tile still on screen while
+        // the rows above it collapse.
+        const topBefore = tile.getBoundingClientRect().top;
+        readout.classList.add("no-anim");
+        readout.classList.remove("is-active", "is-plotting");
+        anchor.after(readout);
+        void readout.offsetWidth;
+        readout.classList.remove("no-anim");
+        const shift = tile.getBoundingClientRect().top - topBefore;
+        if (shift) window.scrollBy({ top: shift, behavior: "instant" });
+      }
+
+      // Opening fresh: commit the notch position before activating so it pops in
+      // under the tile; it only glides when hopping between tiles in one row.
+      positionReadoutNotch(readout, tile);
+      if (!readout.classList.contains("is-active")) void readout.offsetWidth;
       readout.classList.add("is-active");
+
+      // replay the plot pass
+      readout.classList.remove("is-plotting");
+      void readout.offsetWidth;
+      readout.classList.add("is-plotting");
+
+      countUp(readoutLevel, meta.level);
     });
 
     grid.appendChild(tile);
   });
+
+  window.addEventListener("resize", () => {
+    const active = grid.querySelector(".spec-tile.is-active");
+    if (!active) return;
+    const anchor = rowEndTile(grid, active);
+    if (readout.previousElementSibling !== anchor) anchor.after(readout);
+    positionReadoutNotch(readout, active);
+  });
+}
+
+let parkTimer = 0;
+
+/** Last tile in the same visual row as `tile` (column count read from the live grid). */
+function rowEndTile(grid, tile) {
+  const tiles = [...grid.querySelectorAll(".spec-tile")];
+  const cols = getComputedStyle(grid).gridTemplateColumns.split(" ").filter(Boolean).length || 1;
+  const idx = tiles.indexOf(tile);
+  const end = Math.min(Math.floor(idx / cols) * cols + cols - 1, tiles.length - 1);
+  return tiles[end];
+}
+
+function positionReadoutNotch(readout, tile) {
+  const readoutRect = readout.getBoundingClientRect();
+  const tileRect = tile.getBoundingClientRect();
+  const x = tileRect.left + tileRect.width / 2 - readoutRect.left;
+  readout.style.setProperty("--notch-x", `${x}px`);
+}
+
+let countUpFrame = 0;
+function countUp(el, target) {
+  cancelAnimationFrame(countUpFrame);
+  const format = (n) => `${String(n).padStart(3, "0")}%`;
+  if (prefersReducedMotion) {
+    el.textContent = format(target);
+    return;
+  }
+  const duration = 700;
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = format(Math.round(target * eased));
+    if (t < 1) countUpFrame = requestAnimationFrame(step);
+  };
+  countUpFrame = requestAnimationFrame(step);
 }
 
 /* ==========================================================================
@@ -270,7 +351,7 @@ function openModal(projectIndex) {
   modalDescription.textContent = project.description;
 
   modalToolsList.innerHTML = project.toolsUsed
-    .map((key) => `<span class="tool-chip">${tools[key] || ""}${key}</span>`)
+    .map((key, i) => `<span class="tool-chip" style="--i:${i}">${tools[key] || ""}${key}</span>`)
     .join("");
 
   modalThumbnails.innerHTML = "";
@@ -282,6 +363,7 @@ function openModal(projectIndex) {
     thumb.className = "modal-thumb" + (idx === 0 ? " active" : "");
     thumb.loading = "lazy";
     thumb.tabIndex = 0;
+    thumb.style.setProperty("--i", idx);
     thumb.addEventListener("click", () => selectThumb(src, thumb));
     thumb.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
@@ -292,22 +374,47 @@ function openModal(projectIndex) {
     modalThumbnails.appendChild(thumb);
   });
 
+  clearTimeout(modalCloseTimer);
+  modal.classList.remove("is-closing");
   modal.hidden = false;
+  modal.classList.add("is-open");
+  modal.querySelector(".modal-dialog").scrollTop = 0;
   document.body.style.overflow = "hidden";
-  document.getElementById("modalClose").focus();
+  document.getElementById("modalClose").focus({ preventScroll: true });
 }
 
 function selectThumb(src, thumb) {
-  document.getElementById("modalImage").src = src;
+  if (thumb.classList.contains("active")) return;
+  const image = document.getElementById("modalImage");
+  const frame = image.parentElement;
+  image.src = src;
+  frame.classList.remove("is-swapping");
+  void frame.offsetWidth;
+  frame.classList.add("is-swapping");
   document.querySelectorAll(".modal-thumb").forEach((t) => t.classList.remove("active"));
   thumb.classList.add("active");
 }
 
+let modalCloseTimer = 0;
 function closeModal() {
   const modal = document.getElementById("imageModal");
-  modal.hidden = true;
-  document.body.style.overflow = "";
-  if (lastFocusedElement) lastFocusedElement.focus();
+  if (modal.hidden || modal.classList.contains("is-closing")) return;
+
+  const finish = () => {
+    modal.hidden = true;
+    modal.classList.remove("is-closing");
+    document.body.style.overflow = "";
+  };
+
+  modal.classList.remove("is-open");
+  if (lastFocusedElement) lastFocusedElement.focus({ preventScroll: true });
+
+  if (prefersReducedMotion) {
+    finish();
+    return;
+  }
+  modal.classList.add("is-closing");
+  modalCloseTimer = setTimeout(finish, 580);
 }
 
 /* ==========================================================================

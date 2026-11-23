@@ -658,19 +658,93 @@ p {
   line-height: 1.5;
 }
 
-/* Tool detail readout, shown below the grid when a tile is activated */
+/* Tool detail readout. JS moves it into the grid right after the row holding
+   the clicked tile; it spans the full width so the tiles below shift down.
+   It unfolds with a grid-rows height animation, and a notch + accent rule
+   point back at the active tile. */
 .tool-readout {
-  margin-top: var(--space-5);
-  border: 1px solid var(--bp-border);
-  background: var(--bp-panel);
-  padding: var(--space-5);
-  display: none;
-  gap: var(--space-2);
-  flex-direction: column;
+  --notch-x: 50%;
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  background: var(--bp-bg-alt);
+  background-image: linear-gradient(var(--bp-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  transition: grid-template-rows var(--dur-2) var(--ease);
 }
 
 .tool-readout.is-active {
+  grid-template-rows: 1fr;
+}
+
+/* used when the readout jumps to a different row: collapse instantly */
+.tool-readout.no-anim {
+  transition: none;
+}
+
+/* accent rule drawn outward from the notch */
+.tool-readout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--bp-accent);
+  transform-origin: var(--notch-x) 50%;
+  transform: scaleX(0);
+  transition: transform var(--dur-2) var(--ease);
+  z-index: 1;
+}
+
+.tool-readout.is-active::before {
+  transform: scaleX(1);
+  transition: transform 0.6s var(--ease) 0.08s, transform-origin 0s;
+}
+
+.tool-readout__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tool-readout__content {
+  position: relative;
+  min-height: 128px;
+  padding: var(--space-5);
   display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.tool-readout__notch {
+  position: absolute;
+  left: var(--notch-x);
+  top: -7px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--bp-bg-alt);
+  border-top: 1px solid var(--bp-accent);
+  border-left: 1px solid var(--bp-accent);
+  transform: rotate(45deg) scale(0);
+  opacity: 0;
+  z-index: 1;
+}
+
+.tool-readout.is-active .tool-readout__notch {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+  transition: left var(--dur-2) var(--ease), transform var(--dur-1) var(--ease) 0.12s,
+    opacity var(--dur-1) var(--ease) 0.12s;
+}
+
+.tool-readout__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
 }
 
 .tool-readout__title {
@@ -680,9 +754,124 @@ p {
   letter-spacing: 0.04em;
 }
 
-.tool-readout p {
+.tool-readout__level {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--bp-muted-soft);
+}
+
+/* tick-marked gauge, measured out to the tool's level */
+.tool-readout__gauge {
+  position: relative;
+  height: 8px;
+  background: repeating-linear-gradient(
+      90deg,
+      var(--bp-border) 0 1px,
+      transparent 1px 10%
+    ),
+    linear-gradient(transparent 7px, var(--bp-border) 7px);
+}
+
+.tool-readout__gauge span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: var(--level, 0%);
+  background: var(--bp-accent);
+  transform-origin: left;
+}
+
+.tool-readout__gauge span::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  width: 1px;
+  height: 8px;
+  background: var(--bp-accent);
+}
+
+.tool-readout__body {
   color: var(--bp-muted);
   max-width: 62ch;
+}
+
+/* "Plot" pass — replayed every time a tile is picked. A pen-head line sweeps
+   across while the text behind it is revealed. */
+.tool-readout.is-plotting .tool-readout__title {
+  animation: plot-wipe 0.42s var(--ease) both;
+}
+
+.tool-readout.is-plotting .tool-readout__body {
+  animation: plot-wipe 0.6s var(--ease) 0.1s both;
+}
+
+.tool-readout.is-plotting .tool-readout__gauge span {
+  animation: gauge-measure 0.7s var(--ease) 0.05s both;
+}
+
+.tool-readout.is-plotting .tool-readout__content::after {
+  content: "";
+  position: absolute;
+  top: var(--space-4);
+  bottom: var(--space-4);
+  left: 0;
+  width: 2px;
+  background: var(--bp-accent);
+  box-shadow: 0 0 12px 1px rgba(255, 106, 61, 0.45);
+  pointer-events: none;
+  animation: pen-sweep 0.7s var(--ease) both;
+}
+
+@keyframes plot-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.4;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes gauge-measure {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pen-sweep {
+  0% {
+    left: var(--space-5);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - var(--space-5));
+    opacity: 0;
+  }
+}
+
+/* the active tile gets a drafted outline so the link to the readout is obvious */
+.spec-tile.is-active {
+  background: var(--bp-panel-hover);
+  box-shadow: inset 0 0 0 1px var(--bp-accent);
+}
+
+.spec-tile.is-active .spec-tile__glyph {
+  color: var(--bp-accent);
+}
+
+.spec-tile.is-active .spec-tile__corner {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
 /* ==========================================================================
@@ -804,6 +993,207 @@ p {
 
 .modal[hidden] {
   display: none;
+}
+
+/* --- Open / close choreography ------------------------------------------
+   1. backdrop fades in
+   2. a single accent plot-line is drawn across the sheet's width
+   3. the sheet unfolds vertically out of that line
+   4. contents settle in, staggered                                         */
+.modal.is-open {
+  animation: backdrop-in 0.3s ease both;
+}
+
+.modal.is-closing {
+  animation: backdrop-out 0.36s ease 0.2s both;
+}
+
+.modal-plotline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(920px, calc(100% - 2 * var(--space-5)));
+  height: 1px;
+  background: var(--bp-accent);
+  box-shadow: 0 0 14px rgba(255, 106, 61, 0.55);
+  transform: translate(-50%, -50%) scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.modal.is-open .modal-plotline {
+  animation: plotline-draw 0.78s var(--ease) both;
+}
+
+.modal.is-closing .modal-plotline {
+  animation: plotline-retract 0.56s var(--ease) both;
+}
+
+.modal.is-open .modal-dialog {
+  animation: sheet-unfold 0.62s var(--ease) 0.24s both;
+}
+
+.modal.is-closing .modal-dialog {
+  animation: sheet-fold 0.3s cubic-bezier(0.55, 0, 0.75, 0.2) both;
+}
+
+.modal.is-open .modal-header {
+  animation: settle-in 0.45s var(--ease) 0.5s both;
+}
+
+.modal.is-open .modal-image-frame {
+  animation: plot-wipe 0.7s var(--ease) 0.56s both;
+}
+
+.modal.is-open .modal-thumb {
+  animation: settle-in 0.4s var(--ease) both;
+  animation-delay: calc(0.75s + var(--i, 0) * 60ms);
+}
+
+.modal.is-open .modal-info > * {
+  animation: settle-in 0.5s var(--ease) both;
+}
+
+.modal.is-open .modal-info > :nth-child(1) {
+  animation-delay: 0.62s;
+}
+
+.modal.is-open .modal-info > :nth-child(2) {
+  animation-delay: 0.72s;
+}
+
+.modal.is-open .modal-tools-list > .tool-chip {
+  animation: chip-stamp 0.36s var(--ease) both;
+  animation-delay: calc(0.8s + var(--i, 0) * 45ms);
+}
+
+@keyframes backdrop-in {
+  from {
+    background-color: rgba(6, 9, 15, 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes backdrop-out {
+  to {
+    background-color: rgba(6, 9, 15, 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes plotline-draw {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(0);
+  }
+  38% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+}
+
+@keyframes plotline-retract {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(0);
+  }
+}
+
+@keyframes sheet-unfold {
+  from {
+    clip-path: inset(calc(50% - 1px) 0 calc(50% - 1px) 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sheet-fold {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(calc(50% - 1px) 0 calc(50% - 1px) 0);
+  }
+}
+
+@keyframes settle-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chip-stamp {
+  0% {
+    opacity: 0;
+    transform: scale(0.82);
+    border-color: var(--bp-accent);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04);
+    border-color: var(--bp-accent);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* thumbnail swap — new image is plotted in over the old one */
+.modal-image-frame {
+  position: relative;
+}
+
+.modal-image-frame.is-swapping .modal-main-image {
+  animation: plot-wipe 0.5s var(--ease) both;
+}
+
+.modal-image-frame.is-swapping::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--bp-accent);
+  box-shadow: 0 0 12px 1px rgba(255, 106, 61, 0.45);
+  pointer-events: none;
+  animation: image-pen 0.5s var(--ease) both;
+}
+
+@keyframes image-pen {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 2px);
+    opacity: 0;
+  }
 }
 
 .modal-dialog {
@@ -1092,6 +1482,15 @@ p {
   .project-card {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  /* staggered delays would otherwise leave content hidden; skip the choreography */
+  .modal,
+  .modal *,
+  .modal *::after,
+  .tool-readout *,
+  .tool-readout *::after {
+    animation: none !important;
   }
 }
 

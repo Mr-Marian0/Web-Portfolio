@@ -110,8 +110,17 @@
 
       <div class="spec-grid" id="toolGrid" role="list"></div>
       <div class="tool-readout" id="toolReadout" aria-live="polite">
-        <p class="tool-readout__title" id="toolReadoutTitle"></p>
-        <p id="toolReadoutBody"></p>
+        <span class="tool-readout__notch" aria-hidden="true"></span>
+        <div class="tool-readout__inner">
+          <div class="tool-readout__content">
+            <div class="tool-readout__head">
+              <p class="tool-readout__title" id="toolReadoutTitle"></p>
+              <span class="tool-readout__level" id="toolReadoutLevel" aria-hidden="true">000%</span>
+            </div>
+            <span class="tool-readout__gauge" aria-hidden="true"><span></span></span>
+            <p class="tool-readout__body" id="toolReadoutBody"></p>
+          </div>
+        </div>
       </div>
 
       <h3 class="subheading">Soft skills</h3>
@@ -190,6 +199,7 @@
 
 <!-- Project detail modal -->
 <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <span class="modal-plotline" aria-hidden="true"></span>
   <div class="modal-dialog">
     <div class="modal-header">
       <h2 id="modalTitle"></h2>
@@ -197,7 +207,7 @@
     </div>
     <div class="modal-body">
       <div class="modal-gallery">
-        <img class="modal-main-image" id="modalImage" alt="">
+        <div class="modal-image-frame"><img class="modal-main-image" id="modalImage" alt=""></div>
         <div class="modal-thumbnails" id="modalThumbnails"></div>
       </div>
       <div class="modal-info">
