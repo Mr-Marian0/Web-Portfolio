@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+<rect width="900" height="600" fill="#121a26"/>
+<g fill="none" stroke="#9fb4cc" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="2"><path d="M90 360H810" stroke-width="6"/>
+<circle cx="162" cy="360" r="10"/><path d="M162 350v-40"/><circle cx="261" cy="360" r="10"/><path d="M261 350v-60"/><circle cx="360" cy="360" r="10"/><path d="M360 350v-80"/><circle cx="459" cy="360" r="10"/><path d="M459 350v-40"/><circle cx="558" cy="360" r="10"/><path d="M558 350v-60"/><circle cx="657" cy="360" r="10"/><path d="M657 350v-80"/><circle cx="756" cy="360" r="10"/><path d="M756 350v-40"/>
+<path d="M630 72L468 312" stroke-width="8"/><circle cx="459" cy="324" r="8" fill="#ff6a3d" stroke="none"/></g></g>
+<g font-family="monospace" fill="#9fb4cc">
+<text x="28" y="548" font-size="22" font-weight="600" opacity=".9">Soldering work</text>
+<text x="28" y="576" font-size="14" opacity=".55">placeholder · replace with image/hardware/hw-03.jpg</text>
+</g></svg>

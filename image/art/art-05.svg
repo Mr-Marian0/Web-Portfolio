@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+<rect width="800" height="600" fill="#f4f1ea"/>
+<g fill="none" stroke="#2b2a28" stroke-linecap="round" stroke-linejoin="round"><circle cx="400" cy="252" r="192" stroke-width="1" opacity=".3" stroke-dasharray="3 7"/>
+<path d="M280 372L400 132L520 372Z" fill="#ff6a3d" stroke="none"/>
+<circle cx="400" cy="282" r="50.4" stroke-width="6"/>
+<path d="M208 252H592M400 60V444" stroke-width="1" opacity=".3"/></g>
+<g font-family="monospace" fill="#2b2a28">
+<text x="28" y="548" font-size="22" font-weight="600" opacity=".9">Logo exploration</text>
+<text x="28" y="576" font-size="14" opacity=".55">placeholder · replace with image/art/art-05.jpg</text>
+</g></svg>

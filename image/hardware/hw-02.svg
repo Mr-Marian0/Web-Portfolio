@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+<rect width="900" height="600" fill="#121a26"/>
+<g fill="none" stroke="#9fb4cc" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="2"><path d="M450 270L450 108" opacity=".6"/><path d="M450 270L180 252" opacity=".6"/><path d="M450 270L720 252" opacity=".6"/><path d="M450 270L270 396" opacity=".6"/><path d="M450 270L630 396" opacity=".6"/><rect x="422" y="90" width="56" height="36" rx="5" /><rect x="152" y="234" width="56" height="36" rx="5" /><rect x="692" y="234" width="56" height="36" rx="5" /><rect x="242" y="378" width="56" height="36" rx="5" /><rect x="602" y="378" width="56" height="36" rx="5" /><rect x="422" y="252" width="56" height="36" rx="5" fill="#ff6a3d" stroke="none"/></g></g>
+<g font-family="monospace" fill="#9fb4cc">
+<text x="28" y="548" font-size="22" font-weight="600" opacity=".9">Network setup</text>
+<text x="28" y="576" font-size="14" opacity=".55">placeholder · replace with image/hardware/hw-02.jpg</text>
+</g></svg>

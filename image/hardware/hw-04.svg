@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+<rect width="900" height="600" fill="#121a26"/>
+<g fill="none" stroke="#9fb4cc" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="2"><rect x="270" y="48" width="360" height="372" rx="8"/>
+<rect x="324" y="96" width="252.00000000000003" height="108"/><path d="M324 252H576M324 288H576"/>
+<circle cx="450" cy="360" r="16" stroke="#ff6a3d"/></g></g>
+<g font-family="monospace" fill="#9fb4cc">
+<text x="28" y="548" font-size="22" font-weight="600" opacity=".9">PC maintenance</text>
+<text x="28" y="576" font-size="14" opacity=".55">placeholder · replace with image/hardware/hw-04.jpg</text>
+</g></svg>

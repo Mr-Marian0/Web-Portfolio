@@ -1,0 +1,344 @@
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: rgba(6, 9, 15, 0.82);
+  backdrop-filter: blur(4px);
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+/* --- Open / close choreography ------------------------------------------
+   1. backdrop fades in
+   2. a single accent plot-line is drawn across the sheet's width
+   3. the sheet unfolds vertically out of that line
+   4. contents settle in, staggered                                         */
+.modal.is-open {
+  animation: backdrop-in 0.3s ease both;
+}
+
+.modal.is-closing {
+  animation: backdrop-out 0.36s ease 0.2s both;
+}
+
+.modal-plotline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(920px, calc(100% - 2 * var(--space-5)));
+  height: 1px;
+  background: var(--bp-accent);
+  box-shadow: 0 0 14px rgba(255, 106, 61, 0.55);
+  transform: translate(-50%, -50%) scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.modal.is-open .modal-plotline {
+  animation: plotline-draw 0.78s var(--ease) both;
+}
+
+.modal.is-closing .modal-plotline {
+  animation: plotline-retract 0.56s var(--ease) both;
+}
+
+.modal.is-open .modal-dialog {
+  animation: sheet-unfold 0.62s var(--ease) 0.24s both;
+}
+
+.modal.is-closing .modal-dialog {
+  animation: sheet-fold 0.3s cubic-bezier(0.55, 0, 0.75, 0.2) both;
+}
+
+.modal.is-open .modal-header {
+  animation: settle-in 0.45s var(--ease) 0.5s both;
+}
+
+.modal.is-open .modal-image-frame {
+  animation: plot-wipe 0.7s var(--ease) 0.56s both;
+}
+
+.modal.is-open .modal-thumb {
+  animation: settle-in 0.4s var(--ease) both;
+  animation-delay: calc(0.75s + var(--i, 0) * 60ms);
+}
+
+.modal.is-open .modal-info > * {
+  animation: settle-in 0.5s var(--ease) both;
+}
+
+.modal.is-open .modal-info > :nth-child(1) {
+  animation-delay: 0.62s;
+}
+
+.modal.is-open .modal-info > :nth-child(2) {
+  animation-delay: 0.72s;
+}
+
+.modal.is-open .modal-tools-list > .tool-chip {
+  animation: chip-stamp 0.36s var(--ease) both;
+  animation-delay: calc(0.8s + var(--i, 0) * 45ms);
+}
+
+@keyframes backdrop-in {
+  from {
+    background-color: rgba(6, 9, 15, 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes backdrop-out {
+  to {
+    background-color: rgba(6, 9, 15, 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes plotline-draw {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(0);
+  }
+  38% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+}
+
+@keyframes plotline-retract {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleX(0);
+  }
+}
+
+@keyframes sheet-unfold {
+  from {
+    clip-path: inset(calc(50% - 1px) 0 calc(50% - 1px) 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes sheet-fold {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(calc(50% - 1px) 0 calc(50% - 1px) 0);
+  }
+}
+
+@keyframes settle-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chip-stamp {
+  0% {
+    opacity: 0;
+    transform: scale(0.82);
+    border-color: var(--bp-accent);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04);
+    border-color: var(--bp-accent);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* thumbnail swap — new image is plotted in over the old one */
+.modal-image-frame {
+  position: relative;
+}
+
+.modal-image-frame.is-swapping .modal-main-image {
+  animation: plot-wipe 0.5s var(--ease) both;
+}
+
+.modal-image-frame.is-swapping::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--bp-accent);
+  box-shadow: 0 0 12px 1px rgba(255, 106, 61, 0.45);
+  pointer-events: none;
+  animation: image-pen 0.5s var(--ease) both;
+}
+
+@keyframes image-pen {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 2px);
+    opacity: 0;
+  }
+}
+
+.modal-dialog {
+  width: min(920px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--bp-bg-alt);
+  border: 1px solid var(--bp-border);
+  background-image: linear-gradient(var(--bp-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--bp-border);
+  position: sticky;
+  top: 0;
+  background: rgba(11, 16, 25, 0.92);
+  backdrop-filter: blur(6px);
+}
+
+.modal-header h2 {
+  font-size: 1.15rem;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--bp-border);
+  border-radius: var(--radius-sharp);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+  border-color: var(--bp-accent);
+  color: var(--bp-accent-text);
+}
+
+.modal-body {
+  padding: var(--space-5);
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-6);
+}
+
+.modal-main-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 1px solid var(--bp-border);
+}
+
+.modal-thumbnails {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.modal-thumb {
+  width: 60px;
+  height: 44px;
+  object-fit: cover;
+  border: 1px solid var(--bp-border);
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease);
+}
+
+.modal-thumb:hover,
+.modal-thumb:focus-visible {
+  opacity: 1;
+}
+
+.modal-thumb.active {
+  opacity: 1;
+  border-color: var(--bp-accent);
+}
+
+.modal-info p {
+  color: var(--bp-muted);
+  margin-bottom: var(--space-5);
+}
+
+.modal-tools-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bp-muted-soft);
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.modal-tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.modal-tools-list .tool-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--bp-muted);
+  border: 1px solid var(--bp-border);
+  padding: 0.35em 0.7em;
+  border-radius: var(--radius-pill);
+}
+
+.modal-tools-list .tool-glyph {
+  width: 16px;
+  height: 16px;
+  color: var(--bp-accent);
+}
+

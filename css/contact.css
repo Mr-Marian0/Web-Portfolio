@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-8);
+}
+
+.contact-info p {
+  color: var(--bp-muted);
+  max-width: 40ch;
+  margin: var(--space-3) 0 var(--space-5);
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--bp-border);
+  padding-bottom: var(--space-1);
+  transition: border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease);
+}
+
+.contact-email:hover,
+.contact-email:focus-visible {
+  border-color: var(--bp-accent);
+  color: var(--bp-accent-text);
+}
+
+.contact-email svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bp-muted);
+}
+
+.field input,
+.field textarea {
+  background: var(--bp-panel);
+  border: 1px solid var(--bp-border);
+  color: var(--bp-text);
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sharp);
+  transition: border-color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--bp-muted-soft);
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--bp-accent);
+  background: var(--bp-panel-hover);
+  outline: 2px solid var(--bp-focus);
+  outline-offset: 1px;
+}
+
+.field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.field-error {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--bp-accent);
+  min-height: 1em;
+}
+
+.form-status {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--bp-muted);
+}
+
+.form-status[data-state="success"] {
+  color: #7bd88f;
+}
+
+.form-status[data-state="error"] {
+  color: var(--bp-accent);
+}
+

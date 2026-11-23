@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bimbo — Computer Engineer & Web Developer</title>
-<meta name="description" content="Portfolio of Bimbo, a Computer Engineering graduate building web, hardware-integrated, and game projects.">
+<title>Bimbo | Artist, Designer & Computer Engineer</title>
+<meta name="description" content="Portfolio of Bimbo, a Computer Engineering graduate. Traditional and digital art, design, hardware, and software projects.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff6a3d' stroke-width='2'%3E%3Cpath d='M12 3v4M12 17v4M3 12h4M17 12h4'/%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.replace("no-js", "js");</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/skills.css">
+<link rel="stylesheet" href="css/carousel.css">
+<link rel="stylesheet" href="css/gallery.css">
+<link rel="stylesheet" href="css/projects.css">
+<link rel="stylesheet" href="css/modal.css">
+<link rel="stylesheet" href="css/contact.css">
+<link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/responsive.css">
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
@@ -28,14 +39,19 @@
   gtag('config', 'G-7J5306WD1F');
 </script>
 
-<script type="module" src="main.js"></script>
+<!-- Lottie player (light build, SVG only) for the animated skill icons -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
+<script type="module" src="js/main.js"></script>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="grid-overlay" aria-hidden="true"></div>
 
+<!-- Intro: mark draws in, then two shutter panels split open over the page -->
 <div class="intro-loader" id="introLoader" aria-hidden="true">
+  <span class="intro-loader__panel intro-loader__panel--top"></span>
+  <span class="intro-loader__panel intro-loader__panel--bottom"></span>
   <div class="intro-loader__mark">
     <span class="intro-loader__side">BI</span>
     <span class="intro-loader__bar"></span>
@@ -44,7 +60,7 @@
 </div>
 
 <header class="site-nav">
-  <a class="mark" href="#home" aria-label="Bimbo — home">
+  <a class="mark" href="#home" aria-label="Bimbo, go to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
       <path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="5"/>
     </svg>
@@ -58,11 +74,13 @@
   <nav aria-label="Primary">
     <ul class="nav-list" id="navList">
       <li><a href="#home" data-nav="home">Home</a></li>
-      <li><a href="#about" data-nav="about">Skills</a></li>
+      <li><a href="#skills" data-nav="skills">Skills</a></li>
+      <li><a href="#gallery" data-nav="gallery">Gallery</a></li>
       <li><a href="#projects" data-nav="projects">Projects</a></li>
       <li><a href="#contact" data-nav="contact">Contact</a></li>
     </ul>
   </nav>
+  <span class="scroll-progress" aria-hidden="true"></span>
 </header>
 
 <main id="main">
@@ -70,67 +88,85 @@
   <!-- HERO -->
   <section id="home" class="hero" aria-labelledby="heroHeading">
     <div class="wrap">
-      <div class="hero-copy" data-reveal>
-        <p class="eyebrow">B.S. Computer Engineering</p>
-        <h1 id="heroHeading">Hello, I'm<span>Bimbo</span></h1>
-        <p class="hero-lede">I build web, hardware-integrated, and game projects — combining a Computer Engineering background with a working knowledge of design and digital art.</p>
-        <a class="btn btn--primary" href="#contact">Contact me</a>
+      <div class="hero-copy">
+        <p class="eyebrow" data-intro style="--d:0">Artist · Designer · Computer Engineer</p>
+        <h1 id="heroHeading">
+          <span class="mask-line"><span data-intro style="--d:1">Hello, I'm</span></span>
+          <span class="mask-line hero-name"><span data-intro style="--d:2">Bimbo
+            <svg class="hero-scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16c40-9 86-12 132-8s98 6 160-6" pathLength="1"/></svg>
+          </span></span>
+        </h1>
+        <p class="hero-lede" data-intro style="--d:3">I draw, design, and build. My work ranges from sketches and digital illustration to websites, hardware systems, and games.</p>
+        <div class="hero-actions" data-intro style="--d:4">
+          <a class="btn btn--primary" href="#gallery">See my art</a>
+          <a class="btn btn--ghost" href="#contact">Contact me</a>
+        </div>
       </div>
 
-      <div class="hero-figure">
-        <div class="schematic-frame">
-          <img id="heroPhoto" src="image/me2.jpg" alt="Portrait of Bimbo">
-          <svg class="frame-tick frame-tick--tl" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
-          <svg class="frame-tick frame-tick--tr" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
-          <svg class="frame-tick frame-tick--bl" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
-          <svg class="frame-tick frame-tick--br" viewBox="0 0 18 18" aria-hidden="true"><path d="M1 17V1h16"/></svg>
-        </div>
-        <ul class="callouts" aria-hidden="true">
-          <li>Web Development</li>
-          <li>Game Development</li>
-          <li>Computer Engineering</li>
-        </ul>
+      <div class="hero-figure" data-parallax="0.08" data-parallax-max="60">
+        <!-- Looping reel of art and project images, filled by js/components/heroReel.js -->
+        <div class="hero-reel" id="heroReel" data-intro-mask aria-label="My art and projects"></div>
       </div>
     </div>
+    <a class="scroll-cue" href="#skills" aria-label="Scroll to skills" data-intro style="--d:8"><span></span></a>
   </section>
+
+  <!-- Scroll-linked marquee bands (move in opposite directions while scrolling) -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" data-parallax="-0.6" data-parallax-axis="x">
+      <span>Sketch ✦ Illustrate ✦ Design ✦ Animate ✦ Sketch ✦ Illustrate ✦ Design ✦ Animate ✦ Sketch ✦ Illustrate ✦ Design ✦ Animate ✦</span>
+    </div>
+    <div class="marquee__track marquee__track--outline" data-parallax="0.6" data-parallax-axis="x">
+      <span>Code ✦ Solder ✦ Network ✦ Build ✦ Code ✦ Solder ✦ Network ✦ Build ✦ Code ✦ Solder ✦ Network ✦ Build ✦</span>
+    </div>
+  </div>
 
   <div class="dimension-divider" aria-hidden="true">
     <span class="dimension-divider__line"></span>
-    <span class="dimension-divider__label">Sheet 01</span>
+    <span class="dimension-divider__label">SKILLS</span>
     <span class="dimension-divider__line"></span>
   </div>
 
-  <!-- ABOUT / TECH STACK -->
-  <section id="about" class="panel-section" aria-labelledby="aboutHeading">
+  <!-- SKILLS -->
+  <section id="skills" class="panel-section" aria-labelledby="skillsHeading">
     <div class="wrap">
       <div class="section-heading" data-reveal>
-        <h2 id="aboutHeading">Tools & technologies</h2>
-        <p>Select a tile for the notes behind each one.</p>
+        <p class="eyebrow">Hard skills</p>
+        <h2 id="skillsHeading">Skills Across Art, Hardware, and Software</h2>
+        <p>Each card shows samples of my work first, then the skills I used.</p>
       </div>
 
-      <div class="spec-grid" id="toolGrid" role="list"></div>
-      <div class="tool-readout" id="toolReadout" aria-live="polite">
-        <span class="tool-readout__notch" aria-hidden="true"></span>
-        <div class="tool-readout__inner">
-          <div class="tool-readout__content">
-            <div class="tool-readout__head">
-              <p class="tool-readout__title" id="toolReadoutTitle"></p>
-              <span class="tool-readout__level" id="toolReadoutLevel" aria-hidden="true">000%</span>
-            </div>
-            <span class="tool-readout__gauge" aria-hidden="true"><span></span></span>
-            <p class="tool-readout__body" id="toolReadoutBody"></p>
-          </div>
-        </div>
-      </div>
+      <div class="skill-deck" id="skillDeck"></div>
 
-      <h3 class="subheading">Soft skills</h3>
+      <h3 class="subheading" data-reveal>Soft skills</h3>
       <div class="spec-grid spec-grid--soft" id="softSkillGrid" role="list"></div>
     </div>
   </section>
 
   <div class="dimension-divider" aria-hidden="true">
     <span class="dimension-divider__line"></span>
-    <span class="dimension-divider__label">Sheet 02</span>
+    <span class="dimension-divider__label">GALLERY</span>
+    <span class="dimension-divider__line"></span>
+  </div>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="panel-section gallery-section" aria-labelledby="galleryHeading">
+    <div class="wrap">
+      <div class="gallery-head">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Sketchbook &amp; studio</p>
+          <h2 id="galleryHeading">Art gallery</h2>
+          <p>Drawings, illustrations, and design work. Hover to see the colour. Click to view full size.</p>
+        </div>
+        <div class="gallery-filters" id="galleryFilters" role="group" aria-label="Filter artwork" data-reveal></div>
+      </div>
+      <div class="gallery-board" id="galleryBoard"></div>
+    </div>
+  </section>
+
+  <div class="dimension-divider" aria-hidden="true">
+    <span class="dimension-divider__line"></span>
+    <span class="dimension-divider__label">PROJECTS</span>
     <span class="dimension-divider__line"></span>
   </div>
 
@@ -138,8 +174,9 @@
   <section id="projects" class="panel-section" aria-labelledby="projectsHeading">
     <div class="wrap">
       <div class="section-heading" data-reveal>
+        <p class="eyebrow">Built end to end</p>
         <h2 id="projectsHeading">Projects</h2>
-        <p>A handful of things I've built end to end — mapping, hardware, review tools, and a small game.</p>
+        <p>Mapping, hardware, review tools, and a small game.</p>
       </div>
       <div class="project-grid" id="projectGrid"></div>
     </div>
@@ -147,7 +184,7 @@
 
   <div class="dimension-divider" aria-hidden="true">
     <span class="dimension-divider__line"></span>
-    <span class="dimension-divider__label">Sheet 03</span>
+    <span class="dimension-divider__label">CONTACT</span>
     <span class="dimension-divider__line"></span>
   </div>
 
@@ -155,8 +192,9 @@
   <section id="contact" class="panel-section" aria-labelledby="contactHeading">
     <div class="wrap contact-grid">
       <div class="contact-info" data-reveal>
+        <p class="eyebrow">Say hello</p>
         <h2 id="contactHeading">Contact</h2>
-        <p>Reach out by email, or send a message directly with the form.</p>
+        <p>Open to commissions, collaborations, and questions. Email me or use the form.</p>
         <a class="contact-email" href="mailto:ponchopnanbimbo@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.6 7.2"/></svg>
           ponchopnanbimbo@gmail.com
@@ -192,7 +230,7 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>Built without Wordpress, Canva, or any site builder — HTML, CSS &amp; JS.</p>
+    <p>Built by hand with HTML, CSS &amp; JS. No WordPress, Canva, or site builder.</p>
     <a href="https://github.com/Mr-Marian0/Web-Portfolio" target="_blank" rel="noopener">Source on GitHub</a>
   </div>
 </footer>
@@ -217,6 +255,28 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Image viewer (gallery + carousels) -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <div class="lightbox__backdrop"></div>
+  <figure class="lightbox__stage">
+    <img class="lightbox__img" alt="">
+    <figcaption class="lightbox__caption">
+      <span class="lightbox__count"></span>
+      <span class="lightbox__title"></span>
+      <span class="lightbox__meta"></span>
+    </figcaption>
+  </figure>
+  <button class="lightbox__btn lightbox__close" type="button" aria-label="Close viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <button class="lightbox__btn lightbox__prev" type="button" aria-label="Previous image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button class="lightbox__btn lightbox__next" type="button" aria-label="Next image">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
 </div>
 
 </body>

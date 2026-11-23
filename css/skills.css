@@ -1,0 +1,566 @@
+/* ==========================================================================
+   Section shell
+   ========================================================================== */
+.panel-section {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-8) 0;
+}
+
+/* ==========================================================================
+   Skill deck — the three hard-skill cards
+   Art + Hardware sit side by side; Programming spans the full width below.
+   ========================================================================== */
+.skill-deck {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.skill-card {
+  --mx: 50%;
+  --my: 0%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bp-panel);
+  border: 1px solid var(--bp-border);
+  isolation: isolate;
+}
+
+.skill-card--wide {
+  grid-column: 1 / -1;
+}
+
+/* pointer-following glow, MASKED so it only lights the 1px border */
+.skill-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  background: radial-gradient(420px circle at var(--mx) var(--my), var(--bp-accent), transparent 45%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+.skill-card__head {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  align-items: flex-start;
+}
+
+.skill-card__code {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--bp-accent);
+  border: 1px solid var(--bp-accent);
+  background: var(--bp-accent-dim);
+  transition: transform 0.5s var(--ease-back);
+}
+
+.skill-card:hover .skill-card__code {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+/* animated icon replaces the letter once it has loaded; no tilt needed then */
+.skill-card__code.has-lottie {
+  padding: 6px;
+}
+
+.skill-card:hover .skill-card__code.has-lottie {
+  transform: none;
+}
+
+/* ---- Lottie icons: colour follows CSS (currentColor), not the file ---- */
+.lottie-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lottie-icon svg {
+  display: block;
+}
+
+.lottie-icon [stroke]:not([stroke="none"]) {
+  stroke: currentColor;
+}
+
+.lottie-icon [fill]:not([fill="none"]) {
+  fill: currentColor;
+}
+
+.skill-card__head h3 {
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  margin-bottom: var(--space-2);
+}
+
+.skill-card__blurb {
+  color: var(--bp-muted);
+  font-size: 0.92rem;
+  max-width: 60ch;
+}
+
+.skill-card__body {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-5);
+}
+
+.skill-card--wide .skill-card__body {
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.skill-card__label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bp-muted);
+  margin-bottom: var(--space-3);
+}
+
+.skill-card__label span {
+  color: var(--bp-muted-soft);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+/* numbered skill list — two columns, staggered reveal */
+.skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-4);
+}
+
+.skill-card--wide .skill-list {
+  grid-template-columns: 1fr;
+}
+
+.skill-list li {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--bp-border);
+  font-size: 0.92rem;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease), color var(--dur-1) var(--ease);
+  transition-delay: calc(var(--i, 0) * 35ms + 0.1s), calc(var(--i, 0) * 35ms + 0.1s), 0s;
+}
+
+.skill-list li.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* accent rule sweeps in under the hovered skill */
+.skill-list li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--bp-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.skill-list li:hover {
+  color: var(--bp-accent-text);
+}
+
+.skill-list li:hover::after {
+  transform: scaleX(1);
+}
+
+.skill-list__num {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--bp-muted-soft);
+  transition: color var(--dur-1) var(--ease), transform 0.4s var(--ease);
+}
+
+.skill-list li:hover .skill-list__num {
+  color: var(--bp-accent);
+  transform: translateX(3px);
+}
+
+/* tools grid inside the programming card */
+.spec-grid--tools {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.spec-grid--tools .spec-tile {
+  min-height: 112px;
+}
+
+/* ==========================================================================
+   Spec grid — tools & soft skills
+   ========================================================================== */
+.subheading {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bp-muted);
+  margin: var(--space-7) 0 var(--space-4);
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--bp-border);
+  border: 1px solid var(--bp-border);
+}
+
+.spec-grid--soft {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.spec-tile {
+  position: relative;
+  background: var(--bp-panel);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 128px;
+  cursor: pointer;
+  transition: background var(--dur-1) var(--ease);
+}
+
+.spec-tile:hover,
+.spec-tile:focus-visible {
+  background: var(--bp-panel-hover);
+}
+
+.spec-tile .spec-tile__glyph {
+  transition: color var(--dur-1) var(--ease), transform 0.45s var(--ease-back);
+}
+
+.spec-tile:hover .spec-tile__glyph {
+  transform: translateY(-3px) scale(1.08);
+}
+
+.spec-tile__glyph {
+  width: 26px;
+  height: 26px;
+  color: var(--bp-muted);
+  transition: color var(--dur-1) var(--ease);
+}
+
+/* the animated icons have more padding inside their canvas */
+.spec-tile__glyph.has-lottie {
+  width: 34px;
+  height: 34px;
+  margin: -4px;
+}
+
+.spec-tile:hover .spec-tile__glyph,
+.spec-tile:focus-visible .spec-tile__glyph {
+  color: var(--bp-accent);
+}
+
+.spec-tile__label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.spec-tile__bar {
+  margin-top: auto;
+  height: 2px;
+  background: rgba(122, 162, 204, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.spec-tile__bar span {
+  position: absolute;
+  inset: 0;
+  width: var(--level, 0%);
+  background: var(--bp-trace);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform var(--dur-2) var(--ease);
+}
+
+.spec-tile.is-visible .spec-tile__bar span {
+  transform: scaleX(1);
+}
+
+.spec-tile__corner {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid var(--bp-accent);
+  border-right: 1px solid var(--bp-accent);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity var(--dur-1) var(--ease), transform var(--dur-1) var(--ease);
+}
+
+.spec-tile:hover .spec-tile__corner,
+.spec-tile:focus-visible .spec-tile__corner {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* soft-skill tiles read the description straight away, no flip needed */
+.spec-tile--soft {
+  cursor: default;
+}
+
+.spec-tile--soft p {
+  font-size: 0.85rem;
+  color: var(--bp-muted);
+  line-height: 1.5;
+}
+
+/* Tool detail readout. JS moves it into the grid right after the row holding
+   the clicked tile; it spans the full width so the tiles below shift down.
+   It unfolds with a grid-rows height animation, and a notch + accent rule
+   point back at the active tile. */
+.tool-readout {
+  --notch-x: 50%;
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  background: var(--bp-bg-alt);
+  background-image: linear-gradient(var(--bp-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  transition: grid-template-rows var(--dur-2) var(--ease);
+}
+
+.tool-readout.is-active {
+  grid-template-rows: 1fr;
+}
+
+/* used when the readout jumps to a different row: collapse instantly */
+.tool-readout.no-anim {
+  transition: none;
+}
+
+/* accent rule drawn outward from the notch */
+.tool-readout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--bp-accent);
+  transform-origin: var(--notch-x) 50%;
+  transform: scaleX(0);
+  transition: transform var(--dur-2) var(--ease);
+  z-index: 1;
+}
+
+.tool-readout.is-active::before {
+  transform: scaleX(1);
+  transition: transform 0.6s var(--ease) 0.08s, transform-origin 0s;
+}
+
+.tool-readout__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tool-readout__content {
+  position: relative;
+  min-height: 128px;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.tool-readout__notch {
+  position: absolute;
+  left: var(--notch-x);
+  top: -7px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--bp-bg-alt);
+  border-top: 1px solid var(--bp-accent);
+  border-left: 1px solid var(--bp-accent);
+  transform: rotate(45deg) scale(0);
+  opacity: 0;
+  z-index: 1;
+}
+
+.tool-readout.is-active .tool-readout__notch {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+  transition: left var(--dur-2) var(--ease), transform var(--dur-1) var(--ease) 0.12s,
+    opacity var(--dur-1) var(--ease) 0.12s;
+}
+
+.tool-readout__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.tool-readout__title {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--bp-accent-text);
+  letter-spacing: 0.04em;
+}
+
+.tool-readout__level {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--bp-muted-soft);
+}
+
+/* tick-marked gauge, measured out to the tool's level */
+.tool-readout__gauge {
+  position: relative;
+  height: 8px;
+  background: repeating-linear-gradient(
+      90deg,
+      var(--bp-border) 0 1px,
+      transparent 1px 10%
+    ),
+    linear-gradient(transparent 7px, var(--bp-border) 7px);
+}
+
+.tool-readout__gauge span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: var(--level, 0%);
+  background: var(--bp-accent);
+  transform-origin: left;
+}
+
+.tool-readout__gauge span::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  width: 1px;
+  height: 8px;
+  background: var(--bp-accent);
+}
+
+.tool-readout__body {
+  color: var(--bp-muted);
+  max-width: 62ch;
+}
+
+/* "Plot" pass — replayed every time a tile is picked. A pen-head line sweeps
+   across while the text behind it is revealed. */
+.tool-readout.is-plotting .tool-readout__title {
+  animation: plot-wipe 0.42s var(--ease) both;
+}
+
+.tool-readout.is-plotting .tool-readout__body {
+  animation: plot-wipe 0.6s var(--ease) 0.1s both;
+}
+
+.tool-readout.is-plotting .tool-readout__gauge span {
+  animation: gauge-measure 0.7s var(--ease) 0.05s both;
+}
+
+.tool-readout.is-plotting .tool-readout__content::after {
+  content: "";
+  position: absolute;
+  top: var(--space-4);
+  bottom: var(--space-4);
+  left: 0;
+  width: 2px;
+  background: var(--bp-accent);
+  box-shadow: 0 0 12px 1px rgba(255, 106, 61, 0.45);
+  pointer-events: none;
+  animation: pen-sweep 0.7s var(--ease) both;
+}
+
+@keyframes plot-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.4;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes gauge-measure {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pen-sweep {
+  0% {
+    left: var(--space-5);
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - var(--space-5));
+    opacity: 0;
+  }
+}
+
+/* the active tile gets a drafted outline so the link to the readout is obvious */
+.spec-tile.is-active {
+  background: var(--bp-panel-hover);
+  box-shadow: inset 0 0 0 1px var(--bp-accent);
+}
+
+.spec-tile.is-active .spec-tile__glyph {
+  color: var(--bp-accent);
+}
+
+.spec-tile.is-active .spec-tile__corner {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600">
+<rect width="900" height="600" fill="#121a26"/>
+<g fill="none" stroke="#9fb4cc" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="2"><rect x="135" y="72" width="630" height="330" rx="10"/>
+<rect x="360" y="180" width="180" height="120" stroke-width="3"/>
+<path d="M180 84.00000000000001v20M180 390v-20"/><path d="M234 84.00000000000001v20M234 390v-20"/><path d="M288 84.00000000000001v20M288 390v-20"/><path d="M342 84.00000000000001v20M342 390v-20"/><path d="M396 84.00000000000001v20M396 390v-20"/><path d="M450 84.00000000000001v20M450 390v-20"/><path d="M504 84.00000000000001v20M504 390v-20"/><path d="M558 84.00000000000001v20M558 390v-20"/><path d="M612 84.00000000000001v20M612 390v-20"/><path d="M666 84.00000000000001v20M666 390v-20"/>
+<path d="M270 240H360M540 240H648V150" stroke="#ff6a3d"/><circle cx="648" cy="150" r="6" fill="#ff6a3d" stroke="none"/></g></g>
+<g font-family="monospace" fill="#9fb4cc">
+<text x="28" y="548" font-size="22" font-weight="600" opacity=".9">Microcontroller wiring</text>
+<text x="28" y="576" font-size="14" opacity=".55">placeholder · replace with image/hardware/hw-01.jpg</text>
+</g></svg>
