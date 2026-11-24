@@ -23,12 +23,9 @@
 <link rel="stylesheet" href="css/motion.css">
 <link rel="stylesheet" href="css/responsive.css">
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script type="text/javascript">
-  (function () {
-    emailjs.init({ publicKey: "qMmFA-PMpPds00e_P" });
-  })();
-</script>
+<!-- EmailJS for the contact form. async so a slow CDN never holds up the page -->
+<script async src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+        onload="emailjs.init({ publicKey: 'qMmFA-PMpPds00e_P' })"></script>
 
 <!-- Visitor tracking, Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-7J5306WD1F"></script>
@@ -39,8 +36,6 @@
   gtag('config', 'G-7J5306WD1F');
 </script>
 
-<!-- Lottie player (light build, SVG only) for the animated skill icons -->
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
 <script type="module" src="js/main.js"></script>
 </head>
 <body>

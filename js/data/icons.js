@@ -1,9 +1,8 @@
 /*
   Icon system — Schematic set
   Every glyph shares one grammar: 24x24 grid, currentColor stroke,
-  1.6px weight, round joins. No brand marks are reproduced; each icon is an
-  original line-drawing built for this set so the whole grid reads as one
-  family instead of a pile of mismatched third-party logos.
+  1.6px weight, round joins. Tool tiles now prefer the real logos in
+  logos.js (flat, currentColor) and fall back to these line-drawings.
 */
 
 const wrap = (key, inner) =>
@@ -35,7 +34,7 @@ export const tools = {
 // key must match Object.keys(tools) above, lowercase.
 export const toolsMeta = [
   { key: "java", label: "Java", level: 80, description: "The language that got me hooked on programming. Readable syntax made it an easy first step, and I worked through 150 practice problems on w3resource.com to build fluency." },
-  { key: "css", label: "CSS", level: 90, description: "Layout, animation, and responsive design are where I spend most of my styling time. A sample of that work is on icodethis.com/Bimo_Bimbo." },
+  { key: "css", label: "CSS", level: 90, description: "Layout, animation, and responsive design are the areas where I spend most of my time styling. You can check out some examples of my work on icodethis.com/Bimo_Bimbo." },
   { key: "python", label: "Python", level: 60, description: "Picked up in a week of seminars for my first programming competition. My Java background made the syntax and logic click fast." },
   { key: "html", label: "HTML", level: 90, description: "The base of every site I build. I write clean, semantic markup and pair it with CSS for layout and styling." },
   { key: "javascript", label: "JavaScript", level: 90, description: "My most-used language. I used it in my thesis, this portfolio, and school projects, for both frontend features and Node.js backends." },
@@ -54,6 +53,18 @@ export const toolsMeta = [
   { key: "vscode", label: "VS Code", level: 90, description: "My main code editor for every project. I use its extensions and debugging tools every day." },
   { key: "krita", label: "Krita", level: 90, description: "My main art tool. I use it to edit images and to draw the characters and textures for my game." },
   { key: "canva", label: "Canva", level: 60, description: "Used for reports and presentations, including client-facing work as a real-estate virtual assistant." },
+  { key: "autocad", label: "AutoCAD", level: 90, description: "Learned the fundamentals in school. I drew mechanical hardware parts, computers, floor plans, and symmetrical and asymmetrical shapes, following measurement and unit guidelines." },
+  { key: "sketchup", label: "SketchUp", level: 80, description: "Used in school to build a house structure, a chair, and a pavilion. It taught me how to build 3D models." },
+  { key: "kotlin", label: "Kotlin", level: 70, description: "Used with Android Studio. The syntax was easy to pick up because it is object-oriented and close to Java." },
+  { key: "tailwind", label: "Tailwind CSS", level: 50, description: "Applied in some of my projects. I know a few of its utility classes and shortcuts and can style without writing plain CSS." },
+  { key: "bootstrap", label: "Bootstrap", level: 80, description: "Covered in a free two-hour seminar, where we built a simple portfolio website with it. It speeds up frontend work." },
+  { key: "vite", label: "Vite", level: 80, description: "Used in one of my projects to build and serve the frontend for testing." },
+  { key: "express", label: "Express.js", level: 90, description: "Used in most of my website projects to connect the frontend, backend, and database through routing." },
+  { key: "supabase", label: "Supabase", level: 80, description: "PostgreSQL backend for my e-commerce website. It stores product images, the item queue, orders, accounts, comments, and more." },
+  { key: "docker", label: "Docker", level: 80, description: "We compiled and ran an entire project in the PESD office with Docker. I learned how to set up and configure a project using Docker commands." },
+  { key: "npm", label: "npm", level: 80, description: "Used many times to install packages and to switch between different Node versions." },
+  { key: "cisco", label: "Packet Tracer", level: 90, description: "Cisco's network simulator. Drag and drop routers, switches, PCs, servers, and wireless devices, then connect them with virtual cables. I practiced the simulated CLI to set up IP addressing, VLANs, routing protocols, and basic security." },
+  { key: "vercel", label: "Vercel", level: 80, description: "Free hosting for some of my personal projects." },
 ];
 
 export const softSkills = [

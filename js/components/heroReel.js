@@ -47,7 +47,10 @@ function buildColumn(pieces, reverse) {
       } else {
         item.setAttribute("aria-label", `View ${piece.title}`);
       }
-      item.innerHTML = `<img src="${piece.src}" alt="" loading="lazy" decoding="async">`;
+      // not lazy: the reel clips its images (overflow hidden), and browsers
+      // won't start a lazy image they think is out of view, so pieces would
+      // scroll in blank. The copy set reuses the same cached files.
+      item.innerHTML = `<img src="${piece.src}" alt="" decoding="async">`;
       item.addEventListener("click", () => {
         const img = item.querySelector("img");
         openLightbox(pieces, i, (n) => (n === i ? img : null));

@@ -46,8 +46,12 @@ export function setupContactForm() {
       message: fields.message.input.value.trim(),
     };
 
-    emailjs
-      .send("service_zcz47oc", "template_bf4vakb", params)
+    // EmailJS loads async from a CDN; if it never arrived, fail politely
+    const sender = window.emailjs
+      ? window.emailjs.send.bind(window.emailjs)
+      : () => Promise.reject(new Error("EmailJS not loaded"));
+
+    sender("service_zcz47oc", "template_bf4vakb", params)
       .then(() => {
         status.textContent = "Message sent. Thanks for reaching out!";
         status.dataset.state = "success";

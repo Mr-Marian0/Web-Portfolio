@@ -126,7 +126,21 @@
 
 .skill-card--wide .skill-card__body {
   grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
-  align-items: start;
+  align-items: stretch;
+}
+
+/* tools column: the wrap takes all the height under the label, down to the
+   bottom of the card; the grid fills it and scrolls when it overflows */
+.skill-card__block--tools {
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-grid-wrap {
+  --tool-rows: 4;
+  position: relative;
+  flex: 1;
+  min-height: calc(var(--tool-rows) * 112px + (var(--tool-rows) - 1) * 1px + 2px);
 }
 
 .skill-card__label {
@@ -216,11 +230,50 @@
 /* tools grid inside the programming card */
 .spec-grid--tools {
   grid-template-columns: repeat(5, 1fr);
+  /* fills .tool-grid-wrap (at least 4 rows tall); the rest scrolls */
+  position: absolute;
+  inset: 0;
+  align-content: start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bp-accent) transparent;
+}
+
+.spec-grid--tools::-webkit-scrollbar {
+  width: 6px;
+}
+
+.spec-grid--tools::-webkit-scrollbar-thumb {
+  background: var(--bp-accent);
+}
+
+.spec-grid--tools::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* tile rows stay 112px: the label is clamped below, so content never outgrows
+   them. Rows stay auto so the opened readout can still size to its text. */
+.spec-grid--tools {
+  grid-auto-rows: minmax(112px, auto);
 }
 
 .spec-grid--tools .spec-tile {
-  min-height: 112px;
+  min-width: 0;
+  overflow: hidden;
 }
+
+/* long names clamp to two lines with an ellipsis instead of growing the tile */
+.spec-grid--tools .spec-tile__label {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+}
+
 
 /* ==========================================================================
    Spec grid — tools & soft skills
@@ -276,6 +329,22 @@
   height: 26px;
   color: var(--bp-muted);
   transition: color var(--dur-1) var(--ease);
+}
+
+/* Real brand logos: one flat colour (currentColor), so they follow the tile's
+   muted-to-accent hover like every other glyph. No brand colours are used. */
+.tool-glyph--logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+  transition: opacity var(--dur-1) var(--ease);
+}
+
+.spec-tile:hover .tool-glyph--logo,
+.spec-tile:focus-visible .tool-glyph--logo,
+.spec-tile.is-active .tool-glyph--logo {
+  opacity: 1;
 }
 
 /* the animated icons have more padding inside their canvas */

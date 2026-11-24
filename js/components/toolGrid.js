@@ -1,4 +1,5 @@
 import { tools, toolsMeta } from "../data/icons.js";
+import { logos } from "../data/logos.js";
 import { prefersReducedMotion } from "../effects/motion.js";
 
 /*
@@ -46,7 +47,7 @@ export function createToolGrid() {
     tile.setAttribute("aria-label", `Show details for ${meta.label}`);
     tile.style.setProperty("--level", `${meta.level}%`);
     tile.innerHTML = `
-      <span class="spec-tile__glyph">${tools[meta.key] || ""}</span>
+      <span class="spec-tile__glyph">${logos[meta.key] || tools[meta.key] || ""}</span>
       <span class="spec-tile__label">${meta.label}</span>
       <span class="spec-tile__bar"><span></span></span>
       <span class="spec-tile__corner" aria-hidden="true"></span>
@@ -95,6 +96,13 @@ export function createToolGrid() {
       readout.classList.add("is-plotting");
 
       countUp(readoutLevel, meta.level);
+
+      // the grid scrolls, so bring the opened readout into view inside it
+      setTimeout(() => {
+        const g = grid.getBoundingClientRect();
+        const r = readout.getBoundingClientRect();
+        if (r.bottom > g.bottom) grid.scrollBy({ top: r.bottom - g.bottom, behavior: prefersReducedMotion ? "auto" : "smooth" });
+      }, prefersReducedMotion ? 0 : 450);
     });
 
     grid.appendChild(tile);
