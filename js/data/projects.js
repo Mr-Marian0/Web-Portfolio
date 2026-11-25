@@ -4,6 +4,14 @@
 */
 export const projects = [
   {
+    jobType: "Motion Maktaba",
+    image: "image/projects/MotionMaktaba1.png",
+    additionalImage: ["image/projects/MotionMaktaba2.png", "image/projects/MotionMaktaba3.png", "image/projects/MotionMaktaba4.png", "image/projects/MotionMaktaba5.png"],
+    description: "A live library of UI motion specimens. Filter animated buttons, toggles, and other components by element, interaction, and effect. Play with each one on the page, then open it on the workbench to tweak it.",
+    toolsUsed: ["html", "css", "javascript", "vscode", "git", "github"],
+    link: "https://mr-marian0.github.io/MOTION-MAKTABA/",
+  },
+  {
     jobType: "Mapping, Field Work & Web Development",
     image: "image/projects/mamuric2.png",
     additionalImage: ["image/projects/mamuric1.png", "image/projects/mamuric3.png"],

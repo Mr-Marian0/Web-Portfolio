@@ -26,7 +26,10 @@ export function renderProjects() {
         <h3>${project.jobType}</h3>
         <p>${project.description.length > 110 ? project.description.slice(0, 110) + "…" : project.description}</p>
         <div class="project-card__tools" aria-hidden="true">${toolIcons}</div>
-        <button class="project-card__cta" data-index="${index}" type="button">Read more <span aria-hidden="true">→</span></button>
+        <div class="project-card__actions">
+          <button class="project-card__cta" data-index="${index}" type="button">Read more <span aria-hidden="true">→</span></button>
+          ${project.link ? `<a class="project-card__cta project-card__link" href="${project.link}" target="_blank" rel="noopener noreferrer">Visit site <span aria-hidden="true">↗</span></a>` : ""}
+        </div>
       </div>
     `;
     grid.appendChild(card);
@@ -84,6 +87,15 @@ function openModal(projectIndex) {
   document.getElementById("modalToolsList").innerHTML = project.toolsUsed
     .map((key, i) => `<span class="tool-chip" style="--i:${i}">${tools[key] || ""}${key}</span>`)
     .join("");
+
+  const modalLink = document.getElementById("modalLink");
+  if (project.link) {
+    modalLink.href = project.link;
+    modalLink.hidden = false;
+  } else {
+    modalLink.removeAttribute("href");
+    modalLink.hidden = true;
+  }
 
   modalThumbnails.innerHTML = "";
   [project.image, ...project.additionalImage].forEach((src, idx) => {

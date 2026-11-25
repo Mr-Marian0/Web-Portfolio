@@ -87,9 +87,16 @@
   color: var(--bp-muted-soft);
 }
 
+.project-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
 .project-card__cta {
   align-self: flex-start;
-  margin-top: var(--space-2);
+  text-decoration: none;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   color: var(--bp-accent-text);

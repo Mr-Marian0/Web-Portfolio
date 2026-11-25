@@ -336,6 +336,31 @@
   border-radius: var(--radius-pill);
 }
 
+.modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--bp-accent-text);
+  border: 1px solid var(--bp-accent);
+  background: var(--bp-accent-dim);
+  padding: 0.5em 1em;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.modal-link[hidden] {
+  display: none;
+}
+
+.modal-link:hover,
+.modal-link:focus-visible {
+  background: rgba(255, 106, 61, 0.28);
+}
+
 .modal-tools-list .tool-glyph {
   width: 16px;
   height: 16px;
